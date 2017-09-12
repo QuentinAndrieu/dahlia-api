@@ -2,6 +2,8 @@ var express = require('express');
 var app = express();
 var fs = require("fs");
 
+var id = 2;
+
 var patient = {
     "patient4": {
         "id": 4,
@@ -40,6 +42,28 @@ app.post('/addPatient', function (req, res) {
     });
 })
 
+app.get('/:id', function (req, res) {
+    // First read existing patients.
+    fs.readFile(__dirname + "/" + "mock/patient.json", 'utf8', function (err, data) {
+        var patients = JSON.parse(data);
+        var patient = patients["patient" + req.params.id]
+        console.log(patient);
+        res.end(JSON.stringify(patient));
+    });
+})
+
+app.delete('/deletePatient', function (req, res) {
+
+    // First read existing patients.
+    fs.readFile(__dirname + "/" + "mock/patient.json", 'utf8', function (err, data) {
+        data = JSON.parse(data);
+        console.log("delete patient");
+        delete data["patient" + 2];
+
+        console.log(data);
+        res.end(JSON.stringify(data));
+    });
+})
 
 var server = app.listen(8081, function () {
 
