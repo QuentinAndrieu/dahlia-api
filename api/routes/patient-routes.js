@@ -1,6 +1,6 @@
 'use strict';
 module.exports = function(app) {
-  var patient = require('../controllers/patientController');
+  var patient = require('../controllers/patient-controller');
 
   // patient Routes
   app.route('/patients')
