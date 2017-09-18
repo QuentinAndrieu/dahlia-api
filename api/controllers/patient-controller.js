@@ -43,6 +43,6 @@ exports.delete_a_patient = function (req, res) {
     }, function (err, patient) {
         if (err)
             res.send(err);
-        res.json({ message: 'Task successfully deleted' });
+        res.json({ message: 'Patient successfully deleted' });
     });
 };

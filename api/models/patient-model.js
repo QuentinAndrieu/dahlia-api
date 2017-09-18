@@ -5,36 +5,40 @@ var Schema = mongoose.Schema;
 var PatientSchema = new Schema({
     lastname: {
         type: String,
-        required: 'Required '
+        required: 'Required lastname'
     },
     firstname: {
         type: String,
-        required: 'Required'
+        required: 'Required firstname'
     },
     birthday: {
         type: Date,
-        required: 'Required'
+        required: 'Required birthday'
     },
     description: {
         type: String,
-        required: 'Required'
+        required: 'Required description'
     },
-    appointements: [{
+    appointments: [{
+        id: {
+            type: String,
+            required: 'Required id'
+        },
         date: {
             type: Date,
-            required: 'Required'
+            required: 'Required date'
         },
         description: {
             type: String,
-            required: 'Required'
+            required: 'Required description'
         },
         rate: {
             type: Number,
-            required: 'Required'
+            required: 'Required rate'
         },
         duration: {
             type: Number,
-            required: 'Required'
+            required: 'Required duration'
         }
     }]
 });

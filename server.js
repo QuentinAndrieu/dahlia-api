@@ -3,6 +3,7 @@ var express = require('express'),
     port = process.env.PORT || 3000,
     mongoose = require('mongoose'),
     Patient = require('./api/models/patient-model'), //created model loading here
+    Appointement = require('./api/models/appointement-model'),
     bodyParser = require('body-parser');
 
 // mongoose instance connection url connection
@@ -14,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
-var routes = require('./api/routes/patient-routes'); //importing route
+var routes = require('./api/routes/routes'); //importing route
 routes(app); //register the route
 
 
