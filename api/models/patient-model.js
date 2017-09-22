@@ -19,30 +19,9 @@ var PatientSchema = new Schema({
         type: String,
         required: 'Required description'
     },
-    appointments: [{
-        id: {
-            type: String,
-            required: 'Required id'
-        },
-        date: {
-            type: Date,
-            required: 'Required date'
-        },
-        description: {
-            type: String,
-            required: 'Required description'
-        },
-        rate: {
-            type: Number,
-            required: 'Required rate'
-        },
-        duration: {
-            type: Number,
-            required: 'Required duration'
-        }
-    }]
+    appointments: [{ type: Schema.Types.ObjectId, ref: 'Appointment' }]
 });
 
-module.exports = mongoose.model('Patients', PatientSchema);
+module.exports = mongoose.model('Patient', PatientSchema);
 
 

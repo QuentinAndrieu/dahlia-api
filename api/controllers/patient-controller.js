@@ -2,14 +2,14 @@
 
 
 var mongoose = require('mongoose'),
-    Patient = mongoose.model('Patients');
+    Patient = mongoose.model('Patient');
 
 exports.list_all_patients = function (req, res) {
     Patient.find({}, function (err, patient) {
         if (err)
             res.send(err);
         res.json(patient);
-    });
+    }).populate('appointments');
 };
 
 exports.create_a_patient = function (req, res) {
@@ -26,7 +26,7 @@ exports.read_a_patient = function (req, res) {
         if (err)
             res.send(err);
         res.json(patient);
-    });
+    }).populate('appointments');
 };
 
 exports.update_a_patient = function (req, res) {

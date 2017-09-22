@@ -1,8 +1,8 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    Appointment = mongoose.model('Appointments'),
-    Patient = mongoose.model('Patients');
+    Appointment = mongoose.model('Appointment'),
+    Patient = mongoose.model('Patient');
 
 exports.list_all_appointments = function (req, res) {
     Appointment.find({}, function (err, appointment) {
@@ -16,7 +16,7 @@ exports.create_a_appointment = function (req, res) {
     var new_appointment = new Appointment(req.body);
     Patient.findByIdAndUpdate(
         new_appointment.id_patient,
-        { $push: { "appointments": new_appointment } },
+        { $push: { "appointments": new_appointment._id } },
         { safe: true, upsert: true },
         function (err, model) {
             if (err)
@@ -40,7 +40,6 @@ exports.read_a_appointment = function (req, res) {
 };
 
 exports.update_a_appointment = function (req, res) {
-    // Todo add patient update appointment
     Appointment.findOneAndUpdate({ _id: req.params.appointmentId }, req.body, { new: true }, function (err, appointment) {
         if (err)
             res.send(err);
@@ -57,7 +56,7 @@ exports.delete_a_appointment = function (req, res) {
             if (err)
                 res.send(err);
 
-            Appointement.remove({
+            Appointment.remove({
                 _id: req.params.appointmentId
             }, function (err, appointment) {
                 if (err)
