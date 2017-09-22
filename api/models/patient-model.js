@@ -3,6 +3,10 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var PatientSchema = new Schema({
+    id_user: {
+        type: String,
+        required: 'Required id_user'
+    },
     lastname: {
         type: String,
         required: 'Required lastname'

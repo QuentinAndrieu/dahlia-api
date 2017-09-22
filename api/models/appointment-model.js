@@ -5,23 +5,27 @@ var Schema = mongoose.Schema;
 var AppointmentSchema = new Schema({
     id_patient: {
         type: String,
-        required: 'Required Date'
+        required: 'Required id_patient'
+    },
+    id_user: {
+        type: String,
+        required: 'Required id_user'
     },
     date: {
         type: Date,
-        required: 'Required Date'
+        required: 'Required date'
     },
     description: {
         type: String,
-        required: 'Required String'
+        required: 'Required description'
     },
     rate: {
         type: Number,
-        required: 'Required Number'
+        required: 'Required rate'
     },
     duration: {
         type: Number,
-        required: 'Required Number'
+        required: 'Required duration'
     }
 });
 

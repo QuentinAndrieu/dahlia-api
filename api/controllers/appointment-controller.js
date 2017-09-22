@@ -14,21 +14,21 @@ exports.list_all_appointments = function (req, res) {
 
 exports.create_a_appointment = function (req, res) {
     var new_appointment = new Appointment(req.body);
+
+    // Create appointment in patient
     Patient.findByIdAndUpdate(
         new_appointment.id_patient,
         { $push: { "appointments": new_appointment._id } },
-        { safe: true, upsert: true },
-        function (err, model) {
+        { safe: true, upsert: true }, function (err, patient) {
             if (err)
                 res.send(err);
+        });
 
-            new_appointment.save(function (err, appointment) {
-                if (err)
-                    res.send(err);
-                res.json(appointment);
-            });
-        }
-    );
+    new_appointment.save(function (err, appointment) {
+        if (err)
+            res.send(err);
+        res.json(appointment);
+    });
 };
 
 exports.read_a_appointment = function (req, res) {
@@ -48,21 +48,20 @@ exports.update_a_appointment = function (req, res) {
 };
 
 exports.delete_a_appointment = function (req, res) {
+    // Delete appointment in patient
     Patient.findByIdAndUpdate(
         req.body.id_patient,
         { $pull: { "appointments.id": req.params.appointmentId } },
-        { safe: true, upsert: true },
-        function (err, model) {
+        { safe: true, upsert: true }, function (err, patient) {
             if (err)
                 res.send(err);
+        });
 
-            Appointment.remove({
-                _id: req.params.appointmentId
-            }, function (err, appointment) {
-                if (err)
-                    res.send(err);
-                res.json({ message: 'Appointment successfully deleted' });
-            });
-        }
-    )
+    Appointment.remove({
+        _id: req.params.appointmentId
+    }, function (err, appointment) {
+        if (err)
+            res.send(err);
+        res.json({ message: 'Appointment successfully deleted' });
+    });
 };
