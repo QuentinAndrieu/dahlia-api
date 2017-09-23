@@ -3,7 +3,8 @@
 var mongoose = require('mongoose'),
     User = mongoose.model('User'),
     Patient = mongoose.model('Patient'),
-    Appointment = mongoose.model('Appointment');
+    Appointment = mongoose.model('Appointment'),
+    Setting = mongoose.model('Setting');
 
 exports.list_all_users = function (req, res) {
     User.find({}, function (err, user) {
@@ -46,6 +47,14 @@ exports.delete_a_user = function (req, res) {
             res.send(err);
         res.json({ message: 'User successfully deleted' });
     }).then(() => {
+        Setting.remove({
+            id_user: req.params.userId
+        }, function (err, setting) {
+            if (err)
+                res.send(err);
+            res.json({ message: 'Setting successfully deleted' });
+        });
+
         Patient.remove({
             id_user: req.params.userId
         }, function (err, patient) {
