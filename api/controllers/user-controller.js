@@ -1,15 +1,16 @@
 'use strict';
 
-
 var mongoose = require('mongoose'),
-    User = mongoose.model('User');
+    User = mongoose.model('User'),
+    Patient = mongoose.model('Patient'),
+    Appointment = mongoose.model('Appointment');
 
 exports.list_all_users = function (req, res) {
     User.find({}, function (err, user) {
         if (err)
             res.send(err);
         res.json(user);
-    }).populate('patients');
+    });
 };
 
 exports.create_a_user = function (req, res) {
@@ -44,5 +45,21 @@ exports.delete_a_user = function (req, res) {
         if (err)
             res.send(err);
         res.json({ message: 'User successfully deleted' });
+    }).then(() => {
+        Patient.remove({
+            id_user: req.params.userId
+        }, function (err, patient) {
+            if (err)
+                res.send(err);
+            res.json({ message: 'Patients successfully deleted' });
+        });
+    }).then(() => {
+        Appointment.remove({
+            id_user: req.params.userId
+        }, function (err, appointment) {
+            if (err)
+                res.send(err);
+            res.json({ message: 'Appointments successfully deleted' });
+        });
     });
 };

@@ -4,7 +4,7 @@ module.exports = function (app) {
   var appointment = require('../controllers/appointment-controller');
   var user = require('../controllers/user-controller');
 
-  // patient Routes
+  // patient routes
   app.route('/patients')
     .get(patient.list_all_patients)
     .post(patient.create_a_patient);
@@ -16,7 +16,7 @@ module.exports = function (app) {
     .delete(patient.delete_a_patient);
 
 
-  // appointment Routes
+  // appointment routes
   app.route('/appointments')
     .get(appointment.list_all_appointments)
     .post(appointment.create_a_appointment);
@@ -28,7 +28,7 @@ module.exports = function (app) {
     .delete(appointment.delete_a_appointment);
 
 
-  // users Routes
+  // users routes
   app.route('/users')
     .get(user.list_all_users)
     .post(user.create_a_user);

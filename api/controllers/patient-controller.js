@@ -10,7 +10,7 @@ exports.list_all_patients = function (req, res) {
         if (err)
             res.send(err);
         res.json(patient);
-    }).populate('appointments');
+    });
 };
 
 exports.create_a_patient = function (req, res) {
@@ -65,5 +65,13 @@ exports.delete_a_patient = function (req, res) {
         if (err)
             res.send(err);
         res.json({ message: 'Patient successfully deleted' });
+    }).then(() => {
+        Appointment.remove({
+            id_user: req.params.patientId
+        }, function (err, appointment) {
+            if (err)
+                res.send(err);
+            res.json({ message: 'Appointments successfully deleted' });
+        });
     });
 };
