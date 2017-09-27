@@ -49,7 +49,7 @@ exports.delete = function (req, res) {
 exports.add_duration = function (req, res) {
     Setting.findByIdAndUpdate(
         req.params.settingId,
-        { $push: { "durations": req.body } },
+        { $push: { "durations": req.body.duration } },
         { safe: true, upsert: true }, function (err, setting) {
             if (err)
                 res.send(err);
@@ -60,7 +60,7 @@ exports.add_duration = function (req, res) {
 exports.delete_duration = function (req, res) {
     Setting.findByIdAndUpdate(
         req.params.settingId,
-        { $pull: { "durations": req.body } },
+        { $pull: { "durations": req.body.duration } },
         { safe: true, upsert: true }, function (err, setting) {
             if (err)
                 res.send(err);
@@ -69,9 +69,10 @@ exports.delete_duration = function (req, res) {
 };
 
 exports.add_rate = function (req, res) {
+    console.log('res', req.body);
     Setting.findByIdAndUpdate(
         req.params.settingId,
-        { $push: { "rates": req.body } },
+        { $push: { "rates": req.body.rate } },
         { safe: true, upsert: true }, function (err, setting) {
             if (err)
                 res.send(err);
@@ -82,7 +83,7 @@ exports.add_rate = function (req, res) {
 exports.delete_rate = function (req, res) {
     Setting.findByIdAndUpdate(
         req.params.settingId,
-        { $pull: { "rates": req.body } },
+        { $pull: { "rates": req.body.rate } },
         { safe: true, upsert: true }, function (err, setting) {
             if (err)
                 res.send(err);

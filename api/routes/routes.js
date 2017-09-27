@@ -50,10 +50,10 @@ module.exports = function (app) {
     .delete(setting.delete);
 
   app.route('/settings/:settingId/rates')
-    .put(setting.add_rate)
+    .post(setting.add_rate)
     .delete(setting.delete_rate)
 
   app.route('/settings/:settingId/durations')
-    .put(setting.add_duration)
+    .post(setting.add_duration)
     .delete(setting.delete_duration)
 };

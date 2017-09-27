@@ -9,11 +9,11 @@ var SettingSchema = new Schema({
         required: 'Required id_user'
     },
     durations: [{
-        type: String,
+        type: Number,
         required: 'Required duration'
     }],
     rates: [{
-        type: String,
+        type: Number,
         required: 'Required rate'
     }]
 });
