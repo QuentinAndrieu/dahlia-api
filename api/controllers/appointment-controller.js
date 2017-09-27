@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
     Appointment = mongoose.model('Appointment'),
     Patient = mongoose.model('Patient');
 
-exports.list_all_appointments = function (req, res) {
+exports.list = function (req, res) {
     Appointment.find({}, function (err, appointment) {
         if (err)
             res.send(err);
@@ -12,7 +12,7 @@ exports.list_all_appointments = function (req, res) {
     });
 };
 
-exports.create_a_appointment = function (req, res) {
+exports.create = function (req, res) {
     var new_appointment = new Appointment(req.body);
 
     // Create appointment in patient
@@ -31,7 +31,7 @@ exports.create_a_appointment = function (req, res) {
     });
 };
 
-exports.read_a_appointment = function (req, res) {
+exports.read = function (req, res) {
     Appointment.findById(req.params.appointmentId, function (err, appointment) {
         if (err)
             res.send(err);
@@ -39,7 +39,7 @@ exports.read_a_appointment = function (req, res) {
     });
 };
 
-exports.update_a_appointment = function (req, res) {
+exports.update = function (req, res) {
     Appointment.findOneAndUpdate({ _id: req.params.appointmentId }, req.body, { new: true }, function (err, appointment) {
         if (err)
             res.send(err);
@@ -47,7 +47,7 @@ exports.update_a_appointment = function (req, res) {
     });
 };
 
-exports.delete_a_appointment = function (req, res) {
+exports.delete = function (req, res) {
     // Delete appointment in patient
     Patient.findByIdAndUpdate(
         req.body.id_patient,

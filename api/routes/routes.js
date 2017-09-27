@@ -8,44 +8,52 @@ module.exports = function (app) {
 
   // patients routes
   app.route('/patients')
-    .get(patient.list_all_patients)
-    .post(patient.create_a_patient);
+    .get(patient.list)
+    .post(patient.create);
 
   app.route('/patients/:patientId')
-    .get(patient.read_a_patient)
-    .put(patient.update_a_patient)
-    .delete(patient.delete_a_patient);
+    .get(patient.read)
+    .put(patient.update)
+    .delete(patient.delete);
 
 
   // appointments routes
   app.route('/appointments')
-    .get(appointment.list_all_appointments)
-    .post(appointment.create_a_appointment);
+    .get(appointment.list)
+    .post(appointment.create);
 
   app.route('/appointments/:appointmentId')
-    .get(appointment.read_a_appointment)
-    .put(appointment.update_a_appointment)
-    .delete(appointment.delete_a_appointment);
+    .get(appointment.read)
+    .put(appointment.update)
+    .delete(appointment.delete);
 
 
   // users routes
   app.route('/users')
-    .get(user.list_all_users)
-    .post(user.create_a_user);
+    .get(user.list)
+    .post(user.create);
 
   app.route('/users/:userId')
-    .get(user.read_a_user)
-    .put(user.update_a_user)
-    .delete(user.delete_a_user);
+    .get(user.read)
+    .put(user.update)
+    .delete(user.delete);
 
 
   // settings routes
   app.route('/settings')
-    .get(setting.list_all_settings)
-    .post(setting.create_a_setting);
+    .get(setting.list)
+    .post(setting.create);
 
   app.route('/settings/:settingId')
-    .get(setting.read_a_setting)
-    .put(setting.update_a_setting)
-    .delete(setting.delete_a_setting);
+    .get(setting.read)
+    .put(setting.update)
+    .delete(setting.delete);
+
+  app.route('/settings/:settingId/rates')
+    .put(setting.add_rate)
+    .delete(setting.delete_rate)
+
+  app.route('/settings/:settingId/durations')
+    .put(setting.add_duration)
+    .delete(setting.delete_duration)
 };

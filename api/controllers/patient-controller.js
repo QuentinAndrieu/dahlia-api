@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
     Patient = mongoose.model('Patient'),
     User = mongoose.model('User');
 
-exports.list_all_patients = function (req, res) {
+exports.list = function (req, res) {
     Patient.find({}, function (err, patient) {
         if (err)
             res.send(err);
@@ -12,7 +12,7 @@ exports.list_all_patients = function (req, res) {
     });
 };
 
-exports.create_a_patient = function (req, res) {
+exports.create = function (req, res) {
     var new_patient = new Patient(req.body);
 
     // Create appointment in user
@@ -32,7 +32,7 @@ exports.create_a_patient = function (req, res) {
     });
 };
 
-exports.read_a_patient = function (req, res) {
+exports.read = function (req, res) {
     Patient.findById(req.params.patientId, function (err, patient) {
         if (err)
             res.send(err);
@@ -40,7 +40,7 @@ exports.read_a_patient = function (req, res) {
     }).populate('appointments');
 };
 
-exports.update_a_patient = function (req, res) {
+exports.update = function (req, res) {
     Patient.findOneAndUpdate({ _id: req.params.patientId }, req.body, { new: true }, function (err, patient) {
         if (err)
             res.send(err);
@@ -48,7 +48,7 @@ exports.update_a_patient = function (req, res) {
     });
 };
 
-exports.delete_a_patient = function (req, res) {
+exports.delete = function (req, res) {
     // Delete patient in user
     User.findByIdAndUpdate(
         req.body.id_user,
@@ -65,12 +65,6 @@ exports.delete_a_patient = function (req, res) {
             res.send(err);
         res.json({ message: 'Patient successfully deleted' });
     }).then(() => {
-        Appointment.remove({
-            id_user: req.params.patientId
-        }, function (err, appointment) {
-            if (err)
-                res.send(err);
-            res.json({ message: 'Appointments successfully deleted' });
-        });
+        Appointment.remove({ id_user: req.params.patientId });
     });
 };
