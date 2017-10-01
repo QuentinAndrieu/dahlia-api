@@ -47,8 +47,8 @@ exports.delete = function (req, res) {
             res.send(err);
         res.json({ message: 'User successfully deleted' });
     }).then(() => {
-        Setting.remove({ id_user: req.params.userId });
         Patient.remove({ id_user: req.params.userId });
         Appointment.remove({ id_user: req.params.userId });
+        Setting.remove({ id_user: req.params.userId });
     });
 };

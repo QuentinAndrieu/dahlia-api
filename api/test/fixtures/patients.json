@@ -1,0 +1,20 @@
+{
+    "patient1": {
+        "lastname": "David",
+        "firstname": "Dupont",
+        "birthday": "01/01/1970",
+        "description": "Great guy"
+    },
+    "patient2": {
+        "lastname": "Richard",
+        "firstname": "Ulrich",
+        "birthday": "01/01/1970",
+        "description": "Great guy"
+    },
+    "patient3": {
+        "lastname": "Regis",
+        "firstname": "Paquet",
+        "birthday": "01/01/1970",
+        "description": "Great guy"
+    }
+}
