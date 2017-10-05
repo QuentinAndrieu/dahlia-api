@@ -39,14 +39,18 @@ exports.update = function (req, res) {
 };
 
 exports.delete = function (req, res) {
-    User.remove({
-        _id: req.params.userId
-    }, function (err, user) {
+    User.remove({ _id: req.params.userId }, function (err, user) {
         if (err)
             res.send(err);
         res.json({ message: 'User successfully deleted' });
     }).then(() => {
-        Patient.remove({ id_user: req.params.userId });
-        Appointment.remove({ id_user: req.params.userId });
+        Patient.remove({ id_user: req.params.userId }, function () {
+            if (err)
+                res.send(err);
+        });
+        Appointment.remove({ id_user: req.params.userId }, function () {
+            if (err)
+                res.send(err);
+        });
     });
 };

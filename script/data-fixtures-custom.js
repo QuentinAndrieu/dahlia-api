@@ -1,7 +1,6 @@
 var User = require('../api/models/user-model'),
     Patient = require('../api/models/patient-model'),
     Appointment = require('../api/models/appointment-model'),
-    port = process.env.PORT || 3000,
     mongoose = require('mongoose');
 
 // mongoose instance connection url connection

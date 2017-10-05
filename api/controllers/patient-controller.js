@@ -58,13 +58,14 @@ exports.delete = function (req, res) {
                 res.send(err);
         });
 
-    Patient.remove({
-        _id: req.params.patientId
-    }, function (err, patient) {
+    Patient.remove({ _id: req.params.patientId }, function (err, patient) {
         if (err)
             res.send(err);
         res.json({ message: 'Patient successfully deleted' });
     }).then(() => {
-        Appointment.remove({ id_user: req.params.patientId });
+        Appointment.remove({ id_user: req.params.patientId }, function (err) {
+            if (err)
+                res.send(err);
+        });
     });
 };

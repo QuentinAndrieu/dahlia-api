@@ -57,9 +57,7 @@ exports.delete = function (req, res) {
                 res.send(err);
         });
 
-    Appointment.remove({
-        _id: req.params.appointmentId
-    }, function (err, appointment) {
+    Appointment.remove({ _id: req.params.appointmentId }, function (err, appointment) {
         if (err)
             res.send(err);
         res.json({ message: 'Appointment successfully deleted' });
