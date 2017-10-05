@@ -20,7 +20,7 @@ var UserSchema = new Schema({
         type: String,
         required: 'Required password'
     },
-    settings: {
+    setting: {
         durations: [{
             type: Number,
             required: 'Required duration'

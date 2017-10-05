@@ -26,7 +26,7 @@ let user_1 = new User({
     firstname: 'Dupont',
     mail: 'daviddupont@gmail.com',
     password: 'pass',
-    settings: {
+    setting: {
         durations: [
             40,
             50,
@@ -46,7 +46,7 @@ let user_2 = new User({
     firstname: 'Ulrich',
     mail: 'richardulrich@gmail.com',
     password: 'pass',
-    settings: {
+    setting: {
         durations: [
             40,
             50,

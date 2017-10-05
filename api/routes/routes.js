@@ -36,4 +36,12 @@ module.exports = function (app) {
     .get(user.read)
     .put(user.update)
     .delete(user.delete);
+
+  app.route('/users/:userId/rate')
+    .post(user.add_rate)
+    .delete(user.delete_rate);
+
+  app.route('/users/:userId/duration')
+    .post(user.add_duration)
+    .delete(user.delete_duration);
 };

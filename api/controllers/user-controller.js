@@ -44,13 +44,62 @@ exports.delete = function (req, res) {
             res.send(err);
         res.json({ message: 'User successfully deleted' });
     }).then(() => {
-        Patient.remove({ id_user: req.params.userId }, function () {
+        Patient.remove({ id_user: req.params.userId }, function (err) {
             if (err)
                 res.send(err);
         });
-        Appointment.remove({ id_user: req.params.userId }, function () {
+        Appointment.remove({ id_user: req.params.userId }, function (err) {
             if (err)
                 res.send(err);
         });
     });
+};
+
+exports.add_rate = function (req, res) {
+    // Create appointment in user
+    User.findByIdAndUpdate(
+        req.params.userId,
+        { $push: { "setting.rates": req.body.value } },
+        { safe: true, upsert: true }, function (err, user) {
+            if (err)
+                res.send(err);
+            console.log('user ', user);
+        });
+};
+
+exports.delete_rate = function (req, res) {
+    // Create appointment in user
+    User.findByIdAndUpdate(
+        req.params.userId,
+        { $pull: { "setting.rates": req.body.value } },
+        { safe: true, upsert: true }, function (err, user) {
+            if (err)
+                res.send(err);
+            console.log('user ', user);
+        });
+};
+
+
+exports.add_duration = function (req, res) {
+    // Create appointment in user
+    User.findByIdAndUpdate(
+        req.params.userId,
+        { $push: { "setting.durations": req.body.value } },
+        { safe: true, upsert: true }, function (err, user) {
+            if (err)
+                res.send(err);
+            console.log('user ', user);
+        });
+};
+
+exports.delete_duration = function (req, res) {
+    // Create appointment in user
+    User.findByIdAndUpdate(
+        req.params.userId,
+        { $pull: { "setting.durations": req.body.value } },
+        { safe: true, upsert: true }, function (err, user) {
+            if (err)
+                res.send(err);
+            console.log('user ', user);
+        });
 };
