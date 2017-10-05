@@ -20,6 +20,16 @@ var UserSchema = new Schema({
         type: String,
         required: 'Required password'
     },
+    settings: {
+        durations: [{
+            type: Number,
+            required: 'Required duration'
+        }],
+        rates: [{
+            type: Number,
+            required: 'Required rate'
+        }]
+    },
     patients: [{ type: Schema.Types.ObjectId, ref: 'Patient' }]
 });
 

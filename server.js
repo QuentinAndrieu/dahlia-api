@@ -5,7 +5,6 @@ var express = require('express'),
     Patient = require('./api/models/patient-model'), 
     Appointment = require('./api/models/appointment-model'),
     User = require('./api/models/user-model'),
-    Setting = require('./api/models/setting-model'),
     bodyParser = require('body-parser');
 
 // mongoose instance connection url connection
