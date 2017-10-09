@@ -1,7 +1,8 @@
 var User = require('../api/models/user-model'),
     Patient = require('../api/models/patient-model'),
     Appointment = require('../api/models/appointment-model'),
-    mongoose = require('mongoose');
+    mongoose = require('mongoose'),
+    fs = require('fs');
 
 // mongoose instance connection url connection
 mongoose.Promise = global.Promise;
@@ -21,79 +22,27 @@ Appointment.remove({}, function (err) {
 });
 
 
-let user_1 = new User({
-    lastname: 'David',
-    firstname: 'Dupont',
-    mail: 'daviddupont@gmail.com',
-    password: 'pass',
-    setting: {
-        durations: [
-            40,
-            50,
-            60
-        ],
-        rates: [
-            40,
-            45,
-            50,
-            55
-        ]
-    }
-});
+let users = JSON.parse(fs.readFileSync('./data-fixtures/users.json', 'utf8'));
+let patients = JSON.parse(fs.readFileSync('./data-fixtures/patients.json', 'utf8'));
+let appointments = JSON.parse(fs.readFileSync('./data-fixtures/appointments.json', 'utf8'));
 
-let user_2 = new User({
-    lastname: 'Richard',
-    firstname: 'Ulrich',
-    mail: 'richardulrich@gmail.com',
-    password: 'pass',
-    setting: {
-        durations: [
-            40,
-            50,
-            60
-        ],
-        rates: [
-            40,
-            45,
-            50,
-            55
-        ]
-    }
-});
+let user_1 = new User(users.user_1);
+let user_2 = new User(users.user_2);
 
-var patient_1 = new Patient({
-    lastname: "David",
-    firstname: "Dupont",
-    birthday: "01/01/1970",
-    description: "Great guy",
-    id_user: user_1._id
-});
+let patient_1 = new Patient(patients.patient_1);
+let patient_2 = new Patient(patients.patient_2);
 
-var patient_2 = new Patient({
-    lastname: "David",
-    firstname: "Dupont",
-    birthday: "01/01/1970",
-    description: "Great guy",
-    id_user: user_2._id
-});
+patient_1.id_user = user_1._id;
+patient_2.id_user = user_2._id;
 
-var appointment_1 = new Appointment({
-    date: "01/01/1970",
-    description: "Great appointment",
-    rate: 50,
-    duration: 40,
-    id_user: user_1._id,
-    id_patient: patient_1._id
-});
+let appointment_1 = new Appointment(appointments.appointment_1);
+let appointment_2 = new Appointment(appointments.appointment_2);
 
-var appointment_2 = new Appointment({
-    date: "01/01/1970",
-    description: "Great appointment",
-    rate: 50,
-    duration: 40,
-    id_user: user_2._id,
-    id_patient: patient_2._id
-});
+appointment_1.id_user = user_1._id;
+appointment_1.id_patient = patient_1._id;
+
+appointment_2.id_user = user_2._id;
+appointment_2.id_patient = patient_2._id;
 
 //Update array patient in user
 user_1.patients = [patient_1._id];

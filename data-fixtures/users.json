@@ -1,0 +1,40 @@
+{
+    "user_1": {
+        "lastname": "David",
+        "firstname": "Dupont",
+        "mail": "daviddupont@gmail.com",
+        "password": "pass",
+        "setting": {
+            "durations": [
+                40,
+                50,
+                60
+            ],
+            "rates": [
+                40,
+                45,
+                50,
+                55
+            ]
+        }
+    },
+    "user_2": {
+        "lastname": "Richard",
+        "firstname": "Ulrich",
+        "mail": "richardulrich@gmail.com",
+        "password": "pass",
+        "setting": {
+            "durations": [
+                40,
+                50,
+                60
+            ],
+            "rates": [
+                40,
+                45,
+                50,
+                55
+            ]
+        }
+    }
+}
