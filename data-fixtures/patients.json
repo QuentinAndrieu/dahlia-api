@@ -1,12 +1,4 @@
 {
-    "user_1": [
-        {
-            "lastname": "David",
-            "firstname": "Dupont",
-            "birthday": "01/01/1970",
-            "description": "Great guy"
-        }
-    ],
     "patient_1": {
         "lastname": "David",
         "firstname": "Dupont",
