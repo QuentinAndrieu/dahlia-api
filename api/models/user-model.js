@@ -1,9 +1,14 @@
 'use strict';
 
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+var mongoose = require('mongoose'),
+    Schema = mongoose.Schema,
+    bcrypt = require('bcrypt');
 
 var UserSchema = new Schema({
+    username: {
+        type: String,
+        required: 'Required username'
+    },
     lastname: {
         type: String,
         required: 'Required lastname'
@@ -32,6 +37,7 @@ var UserSchema = new Schema({
     },
     patients: [{ type: Schema.Types.ObjectId, ref: 'Patient' }]
 });
+
 
 module.exports = mongoose.model('User', UserSchema);
 

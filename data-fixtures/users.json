@@ -1,9 +1,10 @@
 {
     "user_1": {
+        "username": "David Dupont",
         "lastname": "David",
         "firstname": "Dupont",
         "mail": "daviddupont@gmail.com",
-        "password": "pass",
+        "password": "pass1",
         "setting": {
             "durations": [
                 40,
@@ -19,10 +20,11 @@
         }
     },
     "user_2": {
+        "username": "Richard Ulrich",
         "lastname": "Richard",
         "firstname": "Ulrich",
         "mail": "richardulrich@gmail.com",
-        "password": "pass",
+        "password": "pass2",
         "setting": {
             "durations": [
                 40,
