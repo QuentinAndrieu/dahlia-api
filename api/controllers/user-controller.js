@@ -1,6 +1,6 @@
 'use strict';
 
-var mongoose = require('mongoose'),
+let mongoose = require('mongoose'),
     User = mongoose.model('User'),
     Patient = mongoose.model('Patient'),
     Appointment = mongoose.model('Appointment');
@@ -14,7 +14,7 @@ exports.list = function (req, res) {
 };
 
 exports.create = function (req, res) {
-    var new_user = new User(req.body);
+    let new_user = new User(req.body);
     new_user.save(function (err, user) {
         if (err)
             res.send(err);

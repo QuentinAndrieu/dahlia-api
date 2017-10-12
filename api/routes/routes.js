@@ -1,9 +1,9 @@
 'use strict';
 
 module.exports = function (app) {
-  var patient = require('../controllers/patient-controller');
-  var appointment = require('../controllers/appointment-controller');
-  var user = require('../controllers/user-controller');
+  let patient = require('../controllers/patient-controller');
+  let appointment = require('../controllers/appointment-controller');
+  let user = require('../controllers/user-controller');
 
   // patients routes
   app.route('/patients')

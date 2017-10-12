@@ -1,9 +1,9 @@
 'use strict';
 
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+let mongoose = require('mongoose');
+let Schema = mongoose.Schema;
 
-var PatientSchema = new Schema({
+let PatientSchema = new Schema({
     id_user: {
         type: String,
         required: 'Required id_user'

@@ -1,10 +1,10 @@
 'use strict';
 
-var mongoose = require('mongoose'),
+let mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     bcrypt = require('bcrypt');
 
-var UserSchema = new Schema({
+let UserSchema = new Schema({
     username: {
         type: String,
         required: 'Required username'

@@ -1,4 +1,4 @@
-var express = require('express'),
+let express = require('express'),
     app = express(),
     port = process.env.PORT || 3000,
     mongoose = require('mongoose'),
@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
-var routes = require('./api/routes/routes'); //importing route
+let routes = require('./api/routes/routes'); //importing route
 routes(app); //register the route
 
 

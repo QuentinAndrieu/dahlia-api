@@ -1,6 +1,6 @@
 'use strict';
 
-var mongoose = require('mongoose'),
+let mongoose = require('mongoose'),
     Appointment = mongoose.model('Appointment'),
     Patient = mongoose.model('Patient');
 
@@ -13,7 +13,7 @@ exports.list = function (req, res) {
 };
 
 exports.create = function (req, res) {
-    var new_appointment = new Appointment(req.body);
+    let new_appointment = new Appointment(req.body);
 
     // Create appointment in patient
     Patient.findByIdAndUpdate(
