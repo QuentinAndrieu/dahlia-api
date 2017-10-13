@@ -51,8 +51,15 @@ user_2.patients = [patient_2._id];
 patient_1.appointments = [appointment_1._id];
 patient_2.appointments = [appointment_2._id];
 
-user_1.save();
-user_2.save();
+user_1.save(function (err, user) {
+    if (err)
+        console.log(err);
+});
+
+user_2.save(function (err, user) {
+    if (err)
+        console.log(err);
+});
 
 patient_1.save();
 patient_2.save();
