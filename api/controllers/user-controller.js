@@ -6,46 +6,47 @@ let mongoose = require('mongoose'),
     Appointment = mongoose.model('Appointment');
 
 
-//Admin user controller    
-exports.list = function (req, res) {
+// admin controller
+exports.list_admin = function (req, res) {
     getAllUsers(req, res);
 };
 
-exports.create = function (req, res) {
+exports.create_admin = function (req, res) {
     createUser(req, res);
 };
 
-exports.read_by_id = function (req, res) {
-    getUserById(req, res, req.params.userId);
+exports.read_admin = function (req, res) {
+    getOneUserById(req, res, req.params.userId);
 };
 
-exports.update_by_id = function (req, res) {
+exports.update_admin = function (req, res) {
     updateUserById(req, res, req.params.userId);
 };
 
-exports.delete_by_id = function (req, res) {
+exports.delete_admin = function (req, res) {
     removeUserById(req, res, req.params.userId);
 };
 
-exports.add_rate_by_id = function (req, res) {
-    addRateByUserId(req, res, req.params.userId);
+exports.add_rate_admin = function (req, res) {
+    createRateByUserId(req, res, req.params.userId);
 };
 
-exports.delete_rate_by_id = function (req, res) {
+exports.delete_rate_admin = function (req, res) {
     removeRateByUserId(req, res, req.params.userId);
 };
 
-exports.add_duration_by_id = function (req, res) {
+exports.add_duration_admin = function (req, res) {
     createDurationByUserId(req, res, req.params.userId);
 };
 
-exports.delete_duration_by_id = function (req, res) {
+exports.delete_duration_admin = function (req, res) {
     removeDurationByUserId(req, res, req.params.userId);
 };
 
-//Client user controller 
+
+// client controller
 exports.read = function (req, res) {
-    getUserById(req, res, req.user._id);
+    getOneUserById(req, res, req.user._id);
 };
 
 exports.update = function (req, res) {
@@ -57,7 +58,7 @@ exports.delete = function (req, res) {
 };
 
 exports.add_rate = function (req, res) {
-    addRateByUserId(req, res, req.user._id);
+    createRateByUserId(req, res, req.user._id);
 };
 
 exports.delete_rate = function (req, res) {
@@ -72,6 +73,8 @@ exports.delete_duration = function (req, res) {
     removeDurationByUserId(req, res, req.user._id);
 };
 
+
+// private function
 function createUser(req, res) {
     let new_user = new User(req.body);
     new_user.save(function (err, user) {
@@ -89,7 +92,7 @@ function getAllUsers(req, res) {
     });
 }
 
-function getUserById(req, res, userId) {
+function getOneUserById(req, res, userId) {
     User.findById(userId, function (err, user) {
         if (err)
             res.send(err);
@@ -122,7 +125,7 @@ function removeUserById(req, res, userId) {
     });
 }
 
-function addRateByUserId(req, res, userId) {
+function createRateByUserId(req, res, userId) {
     // Create appointment in user
     User.findByIdAndUpdate(
         userId,
