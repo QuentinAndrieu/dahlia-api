@@ -61,8 +61,3 @@ exports.authenticate = function (req, res) {
         }
     });
 };
-
-
-exports.dashboard = function (req, res) {
-    res.send('It worked! User id is: ' + req.user._id + '.');
-}

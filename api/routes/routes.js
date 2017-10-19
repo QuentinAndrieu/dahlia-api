@@ -25,9 +25,6 @@ module.exports = function (app) {
   app.route('/authenticate')
     .post(authentification.authenticate);
 
-  app.route('/dashboard')
-    .get(requireAuth, authentification.dashboard);
-
   // users routes
   app.route('/users')
     .get(user.list)
