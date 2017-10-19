@@ -49,7 +49,7 @@ exports.authenticate = function (req, res) {
                         });
                     res.json({
                         success: true,
-                        token: 'JWT ' + token
+                        token: 'Bearer ' + token
                     });
                 } else {
                     res.send({

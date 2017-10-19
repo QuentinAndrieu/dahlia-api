@@ -5,19 +5,21 @@ let JwtStrategy = require('passport-jwt').Strategy,
 
 // Setup work and export for the JWT passport strategy
 module.exports = function (passport) {
-    let opts = {};
-    opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-    opts.secretOrKey = config.secret;
+    const opts = {
+        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+        secretOrKey: config.secret
+    };
     passport.use(new JwtStrategy(opts, function (jwt_payload, done) {
-        User.findOne({ id: jwt_payload.id }, function (err, user) {
-            if (err)
+        const jwt_user_id = jwt_payload.sub;
+        User.findOne({ id: jwt_payload.sub }, function (err, user) {
+            if (err) {
                 return done(err, false);
-
-            if (user)
+            }
+            if (user) {
                 done(null, user);
-            else
+            } else {
                 done(null, false);
-
+            }
         });
     }));
 };

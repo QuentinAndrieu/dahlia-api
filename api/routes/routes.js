@@ -1,13 +1,16 @@
 'use strict';
 
+let patient = require('../controllers/patient-controller'),
+  appointment = require('../controllers/appointment-controller'),
+  user = require('../controllers/user-controller'),
+  home = require('../controllers/home-controller'),
+  authentification = require('../controllers/authentification-controller'),
+  passport = require('passport'),
+  config = require('../../config/main');
+
 module.exports = function (app) {
-  let patient = require('../controllers/patient-controller'),
-    appointment = require('../controllers/appointment-controller'),
-    user = require('../controllers/user-controller'),
-    home = require('../controllers/home-controller'),
-    authentification = require('../controllers/authentification-controller'),
-    passport = require('passport'),
-    config = require('../../config/main');
+
+  const requireAuth = passport.authenticate('jwt', { session: false });
 
   require('../../config/passport')(passport);
 
@@ -23,7 +26,7 @@ module.exports = function (app) {
     .post(authentification.authenticate);
 
   app.route('/dashboard')
-    .get(passport.authenticate('jwt', { session: false }), authentification.dashboard);
+    .get(requireAuth, authentification.dashboard);
 
   // users routes
   app.route('/users')
