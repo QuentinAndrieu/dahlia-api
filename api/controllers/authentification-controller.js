@@ -17,7 +17,10 @@ exports.register = function (req, res) {
         // Attempt to save the user
         new_user.save(function (err) {
             if (err) {
-                return res.json({ success: false, message: 'That mail address already exists.' });
+                return res.json({
+                    success: false,
+                    message: 'That mail address already exists.'
+                });
             }
             res.json({
                 success: true,
@@ -42,6 +45,7 @@ exports.authenticate = function (req, res) {
                 if (isMatch && !err) {
                     // Create token if the password matched and no error was thrown
                     let token = jwt.sign({
+                        id: user._id,
                         mail: user.mail,
                         password: user.password
                     }, config.secret, {
