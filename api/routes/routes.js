@@ -33,8 +33,11 @@ module.exports = function (app) {
     .get(user.list)
     .post(user.create);
 
+  app.route('/user')
+    .get(requireAuth, user.read);
+
   app.route('/users/:userId')
-    .get(user.read)
+    .get(user.read_by_id)
     .put(user.update)
     .delete(user.delete);
 
