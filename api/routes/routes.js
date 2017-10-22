@@ -12,6 +12,18 @@ module.exports = function (app) {
 
   const requireAuth = passport.authenticate('jwt', { session: false });
 
+  let isAdmin = function () {
+    return function (req, res, next) {
+      console.log(req.user.role);
+      if (req.user && req.user.role === 'Admin') {
+        next();
+      }
+      else {
+        res.send(401, 'Unauthorized');
+      }
+    };
+  };
+
   require('../../config/passport')(passport);
 
   // home routes
@@ -22,26 +34,29 @@ module.exports = function (app) {
   app.route('/register')
     .post(authentification.register);
 
+  app.route('/register/admin')
+    .post(authentification.register_admin);
+
   app.route('/authenticate')
     .post(authentification.authenticate);
 
   // admin users routes
   app.route('/admin/users')
-    .get(user.list_admin)
-    .post(user.create_admin);
+    .get(requireAuth, isAdmin(), user.list_admin)
+    .post(requireAuth, isAdmin(), user.create_admin);
 
   app.route('/admin/users/:userId')
-    .get(user.read_admin)
-    .put(user.update_admin)
-    .delete(user.delete_admin);
+    .get(requireAuth, isAdmin(), user.read_admin)
+    .put(requireAuth, isAdmin(), user.update_admin)
+    .delete(requireAuth, isAdmin(), user.delete_admin);
 
   app.route('/admin/users/:userId/rate')
-    .post(user.add_rate_admin)
-    .delete(user.delete_rate_admin);
+    .post(requireAuth, isAdmin(), user.add_rate_admin)
+    .delete(requireAuth, isAdmin(), user.delete_rate_admin);
 
   app.route('/admin/users/:userId/duration')
-    .post(user.add_duration_admin)
-    .delete(user.delete_duration_admin);
+    .post(requireAuth, isAdmin(), user.add_duration_admin)
+    .delete(requireAuth, isAdmin(), user.delete_duration_admin);
 
   // client users routes
   app.route('/user')
@@ -60,13 +75,13 @@ module.exports = function (app) {
 
   // admin patients routes
   app.route('/admin/patients')
-    .get(patient.list_admin)
-    .post(patient.create_admin);
+    .get(requireAuth, isAdmin(), patient.list_admin)
+    .post(requireAuth, isAdmin(), patient.create_admin);
 
   app.route('/admin/patients/:patientId')
-    .get(patient.read_admin)
-    .put(patient.update_admin)
-    .delete(patient.delete_admin);
+    .get(requireAuth, isAdmin(), patient.read_admin)
+    .put(requireAuth, isAdmin(), patient.update_admin)
+    .delete(requireAuth, isAdmin(), patient.delete_admin);
 
   // client patients routes
   app.route('/patients')
@@ -81,13 +96,13 @@ module.exports = function (app) {
 
   // admin appointments routes
   app.route('/admin/appointments')
-    .get(appointment.list_admin)
-    .post(appointment.create_admin);
+    .get(requireAuth, isAdmin(), appointment.list_admin)
+    .post(requireAuth, isAdmin(), appointment.create_admin);
 
   app.route('/admin/appointments/:appointmentId')
-    .get(appointment.read_admin)
-    .put(appointment.update_admin)
-    .delete(appointment.delete_admin);
+    .get(requireAuth, isAdmin(), appointment.read_admin)
+    .put(requireAuth, isAdmin(), appointment.update_admin)
+    .delete(requireAuth, isAdmin(), appointment.delete_admin);
 
   // client appointments routes
   app.route('/appointments')

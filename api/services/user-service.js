@@ -6,7 +6,6 @@ let mongoose = require('mongoose'),
     Appointment = mongoose.model('Appointment');
 
 
-// private function
 exports.addUser = function addUser(req, res) {
     let new_user = new User(req.body);
     new_user.save(function (err, user) {

@@ -6,8 +6,7 @@ let mongoose = require('mongoose'),
 
 let UserSchema = new Schema({
     username: {
-        type: String,
-        unique: true
+        type: String
     },
     lastname: {
         type: String
