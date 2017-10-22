@@ -28,5 +28,4 @@ routes(app); //register the route
 
 app.listen(port);
 
-
 console.log('Dahlia RESTful API server started on: ' + port);

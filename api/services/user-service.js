@@ -39,6 +39,25 @@ exports.updateUserById = function (req, res, userId) {
     });
 }
 
+exports.updatePasswordUserById = function (req, res, userId) {
+    User.findById(userId, function (err, user) {
+        user.set({ password: req.body.password });
+        user.save(function (err) {
+            if (err) {
+                return res.json({
+                    success: false,
+                    message: err
+                });
+            }
+            res.json({
+                success: true,
+                message: 'Password successfully updated'
+            });
+        });
+
+    });
+}
+
 exports.removeUserById = function (req, res, userId) {
     User.findByIdAndRemove(userId, function (err, user) {
         if (err)

@@ -14,9 +14,7 @@ exports.register = function (req, res, role) {
     } else {
         let new_user = new User(req.body);
         new_user.role = role;
-
-        console.log('user', new_user);
-
+        
         // Attempt to save the user
         new_user.save(function (err) {
             if (err) {
@@ -32,7 +30,6 @@ exports.register = function (req, res, role) {
         });
     }
 }
-
 
 exports.authenticate = function(req, res){
     User.findOne({

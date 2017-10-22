@@ -40,7 +40,7 @@ let UserSchema = new Schema({
     patients: [{ type: Schema.Types.ObjectId, ref: 'Patient' }]
 });
 
-// Saves the user's password hashed (plain text password storage is not good)
+// Saves the user's password hashed
 UserSchema.pre('save', function (next) {
     if (this.isModified('password') || this.isNew) {
         let salt = bcrypt.genSaltSync(10);

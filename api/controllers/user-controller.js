@@ -50,6 +50,10 @@ exports.update = function (req, res) {
     UserService.updateUserById(req, res, req.user._id);
 };
 
+exports.update_password = function (req, res) {
+    UserService.updatePasswordUserById(req, res, req.user._id);
+};
+
 exports.delete = function (req, res) {
     UserService.removeUserById(req, res, req.user._id);
 };

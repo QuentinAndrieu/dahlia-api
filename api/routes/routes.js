@@ -5,8 +5,7 @@ let patient = require('../controllers/patient-controller'),
   user = require('../controllers/user-controller'),
   home = require('../controllers/home-controller'),
   authentification = require('../controllers/authentification-controller'),
-  passport = require('passport'),
-  config = require('../../config/main');
+  passport = require('passport');
 
 module.exports = function (app) {
 
@@ -14,13 +13,10 @@ module.exports = function (app) {
 
   let isAdmin = function () {
     return function (req, res, next) {
-      console.log(req.user.role);
-      if (req.user && req.user.role === 'Admin') {
+      if (req.user && req.user.role === 'Admin')
         next();
-      }
-      else {
+      else
         res.send(401, 'Unauthorized');
-      }
     };
   };
 
@@ -63,6 +59,9 @@ module.exports = function (app) {
     .get(requireAuth, user.read)
     .put(requireAuth, user.update)
     .delete(requireAuth, user.delete);
+
+  app.route('/user/password')
+    .put(requireAuth, user.update_password);
 
   app.route('/user/rate')
     .post(requireAuth, user.add_rate)
