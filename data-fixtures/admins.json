@@ -1,0 +1,10 @@
+{
+    "default_admin": {
+        "username": "Admin",
+        "lastname": "lastname admin",
+        "firstname": "firstname admin",
+        "mail": "admin@admin.com",
+        "password": "passwordadmin",
+        "role": "Admin"
+    }
+}

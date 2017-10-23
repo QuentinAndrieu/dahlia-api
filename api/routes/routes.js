@@ -31,7 +31,7 @@ module.exports = function (app) {
     .post(authentification.register);
 
   app.route('/register/admin')
-    .post(authentification.register_admin);
+    .post(requireAuth, isAdmin(), authentification.register_admin);
 
   app.route('/authenticate')
     .post(authentification.authenticate);
