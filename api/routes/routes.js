@@ -11,6 +11,8 @@ module.exports = function (app) {
 
   const requireAuth = passport.authenticate('jwt', { session: false });
 
+  require('../../config/passport')(passport);
+
   let isAdmin = function () {
     return function (req, res, next) {
       if (req.user && req.user.role === 'Admin')
@@ -19,8 +21,6 @@ module.exports = function (app) {
         res.send(401, 'Unauthorized');
     };
   };
-
-  require('../../config/passport')(passport);
 
   // home routes
   app.route('/')

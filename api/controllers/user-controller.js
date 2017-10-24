@@ -1,6 +1,5 @@
 'use strict';
 
-
 let UserService = require('../services/user-service');
 
 // admin controller
