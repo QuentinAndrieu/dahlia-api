@@ -4,11 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js",
     "data-fixtures": "node script/data-fixtures-custom.js",
     "clean-db": "node script/clean-db.js",
-    "default-admin": "node script/default-admin.js"
+    "default-admin": "node script/default-admin.js",
+    "preinstall": "node script/clean-db.js | node script/default-admin.js",
+    "deploy": "git push origin master && git push heroku master"
   },
   "repository": {
     "type": "git",
