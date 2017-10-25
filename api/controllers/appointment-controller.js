@@ -1,46 +1,46 @@
 'use strict';
 
-let AppointmentService = require('../services/appointment-service');
+let appointment = require('../services/appointment-service');
 
 // admin controller
 exports.list_admin = function (req, res) {
-    AppointmentService.getAllAppointments(req, res);
+    appointment.get_all_appointments(req, res);
 };
 
-exports.create_admin = function (req, res) {
-    AppointmentService.createAppointment(req, res, req.params.userId)
+exports.save_admin = function (req, res) {
+    appointment.save_appointment(req, res, req.params.userId)
 };
 
 exports.read_admin = function (req, res) {
-    AppointmentService.getOneAppointmentById(req, res);
+    appointment.get_appointment_by_id(req, res);
 };
 
 exports.update_admin = function (req, res) {
-    AppointmentService.updateAppointmentById(req, res);
+    appointment.update_appointment_by_id(req, res);
 };
 
 exports.delete_admin = function (req, res) {
-    AppointmentService.removeAppointmentById(req, res);
+    appointment.remove_appointment_by_id(req, res);
 };
 
 
 // client controller
 exports.list = function (req, res) {
-    AppointmentService.getAllAppointmentsFromUser(res, req, req.user._id);
+    appointment.get_all_appointments_from_user(res, req, req.user._id);
 };
 
-exports.create = function (req, res) {
-    AppointmentService.createAppointment(req, res, req.user._id);
+exports.save = function (req, res) {
+    appointment.save_appointment(req, res, req.user._id);
 };
 
 exports.read = function (req, res) {
-    AppointmentService.getOneAppointmentByIdFromUser(req, res, req.user._id);
+    appointment.get_appointment_by_id_from_user(req, res, req.user._id);
 };
 
 exports.update = function (req, res) {
-    AppointmentService.updateAppointmentByIdFromUser(req, res, req.user._id);
+    appointment.update_appointment_by_id_from_user(req, res, req.user._id);
 };
 
 exports.delete = function (req, res) {
-    AppointmentService.removeAppointmentByIdFromUser(req, res, req.user._id);
+    appointment.remove_appointment_by_id_from_user(req, res, req.user._id);
 };

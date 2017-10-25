@@ -1,50 +1,50 @@
 'use strict';
 
-let PatientService = require('../services/patient-service');
+let patient = require('../services/patient-service');
 
 // admin controller
 exports.list_admin = function (req, res) {
-    PatientService.getAllPatients(req, res);
+    patient.get_all_patients(req, res);
 };
 
 exports.list_user_admin = function (req, res) {
-    PatientService.getAllPatientsFromUser(req, res, req.params.userId);
+    patient.get_all_patients_from_user(req, res, req.params.userId);
 };
 
-exports.create_admin = function (req, res) {
-    PatientService.createPatient(req, res, req.params.userId);
+exports.save_admin = function (req, res) {
+    patient.save_patient(req, res, req.params.userId);
 };
 
 exports.read_admin = function (req, res) {
-    PatientService.getOnePatientById(req, res);
+    patient.get_patient_by_id(req, res);
 };
 
 exports.update_admin = function (req, res) {
-    PatientService.updatePatientById(req, res);
+    patient.update_patient_by_id(req, res);
 };
 
 exports.delete_admin = function (req, res) {
-    PatientService.removePatientById(req, res);
+    patient.remove_patient_by_id(req, res);
 };
 
 
 // client controller
 exports.list = function (req, res) {
-    PatientService.getAllPatientsFromUser(req, res, req.user._id);
+    patient.get_all_patients_from_user(req, res, req.user._id);
 };
 
-exports.create = function (req, res) {
-    PatientService.createPatient(req, res, req.user._id);
+exports.save = function (req, res) {
+    patient.save_patient(req, res, req.user._id);
 };
 
 exports.read = function (req, res) {
-    PatientService.getOnePatientByIdFromUser(req, res, req.user._id);
+    patient.get_patient_by_id_from_user(req, res, req.user._id);
 };
 
 exports.update = function (req, res) {
-    PatientService.updatePatientByIdFromUser(req, res, req.user._id);
+    patient.update_patient_by_id_from_user(req, res, req.user._id);
 };
 
 exports.delete = function (req, res) {
-    PatientService.removePatientByIdFromUser(req, res, req.user._id);
+    patient.remove_patient_by_id_from_user(req, res, req.user._id);
 };

@@ -5,8 +5,7 @@ let mongoose = require('mongoose'),
     Patient = mongoose.model('Patient'),
     Appointment = mongoose.model('Appointment');
 
-
-exports.addUser = function addUser(req, res) {
+exports.save_user = function save_user(req, res) {
     let new_user = new User(req.body);
     new_user.save(function (err, user) {
         if (err)
@@ -15,7 +14,7 @@ exports.addUser = function addUser(req, res) {
     });
 }
 
-exports.getAllUsers = function (req, res) {
+exports.get_all_users = function (req, res) {
     User.find({}, function (err, user) {
         if (err)
             res.send(err);
@@ -23,7 +22,7 @@ exports.getAllUsers = function (req, res) {
     });
 }
 
-exports.getOneUserById = function (req, res, userId) {
+exports.get_user_by_id = function (req, res, userId) {
     User.findById(userId, function (err, user) {
         if (err)
             res.send(err);
@@ -31,7 +30,7 @@ exports.getOneUserById = function (req, res, userId) {
     }).populate('patients');
 }
 
-exports.updateUserById = function (req, res, userId) {
+exports.update_user_by_id = function (req, res, userId) {
     User.findByIdAndUpdate(userId, req.body, { new: true }, function (err, user) {
         if (err)
             res.send(err);
@@ -39,7 +38,7 @@ exports.updateUserById = function (req, res, userId) {
     });
 }
 
-exports.updatePasswordUserById = function (req, res, userId) {
+exports.update_user_password_by_id = function (req, res, userId) {
     User.findById(userId, function (err, user) {
         user.set({ password: req.body.password });
         user.save(function (err) {
@@ -58,7 +57,7 @@ exports.updatePasswordUserById = function (req, res, userId) {
     });
 }
 
-exports.removeUserById = function (req, res, userId) {
+exports.remove_user_by_id = function (req, res, userId) {
     User.findByIdAndRemove(userId, function (err, user) {
         if (err)
             res.send(err);
@@ -75,8 +74,8 @@ exports.removeUserById = function (req, res, userId) {
     });
 }
 
-exports.addRateByUserId = function (req, res, userId) {
-    // Create appointment in user
+exports.add_rate_by_user_id = function (req, res, userId) {
+    // Add appointment in user
     User.findByIdAndUpdate(
         userId,
         { $push: { "setting.rates": req.body.value } },
@@ -88,7 +87,7 @@ exports.addRateByUserId = function (req, res, userId) {
 }
 
 
-exports.removeRateByUserId = function (req, res, userId) {
+exports.remove_rate_by_user_id = function (req, res, userId) {
     // Remove appointment in user
     User.findByIdAndUpdate(
         userId,
@@ -100,8 +99,8 @@ exports.removeRateByUserId = function (req, res, userId) {
         });
 }
 
-exports.addDurationByUserId = function (req, res, userId) {
-    // Create duration in user
+exports.add_duration_by_user_id = function (req, res, userId) {
+    // Add duration in user
     User.findByIdAndUpdate(
         userId,
         { $push: { "setting.durations": req.body.value } },
@@ -112,7 +111,7 @@ exports.addDurationByUserId = function (req, res, userId) {
         });
 }
 
-exports.removeDurationByUserId = function (req, res, userId) {
+exports.remove_duration_by_user_id = function (req, res, userId) {
     // Remove duration in user
     User.findByIdAndUpdate(
         userId,

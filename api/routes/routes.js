@@ -13,7 +13,7 @@ module.exports = function (app) {
 
   require('../../config/passport')(passport);
 
-  let isAdmin = function () {
+  const isAdmin = function () {
     return function (req, res, next) {
       if (req.user && req.user.role === 'Admin')
         next();
@@ -39,7 +39,7 @@ module.exports = function (app) {
   // admin users routes
   app.route('/admin/users')
     .get(requireAuth, isAdmin(), user.list_admin)
-    .post(requireAuth, isAdmin(), user.create_admin);
+    .post(requireAuth, isAdmin(), user.save_admin);
 
   app.route('/admin/users/:userId')
     .get(requireAuth, isAdmin(), user.read_admin)
@@ -75,7 +75,7 @@ module.exports = function (app) {
   // admin patients routes
   app.route('/admin/patients')
     .get(requireAuth, isAdmin(), patient.list_admin)
-    .post(requireAuth, isAdmin(), patient.create_admin);
+    .post(requireAuth, isAdmin(), patient.save_admin);
 
   app.route('/admin/patients/:patientId')
     .get(requireAuth, isAdmin(), patient.read_admin)
@@ -85,7 +85,7 @@ module.exports = function (app) {
   // client patients routes
   app.route('/patients')
     .get(patient.list)
-    .post(patient.create);
+    .post(patient.save);
 
   app.route('/patients/:patientId')
     .get(patient.read)
@@ -96,7 +96,7 @@ module.exports = function (app) {
   // admin appointments routes
   app.route('/admin/appointments')
     .get(requireAuth, isAdmin(), appointment.list_admin)
-    .post(requireAuth, isAdmin(), appointment.create_admin);
+    .post(requireAuth, isAdmin(), appointment.save_admin);
 
   app.route('/admin/appointments/:appointmentId')
     .get(requireAuth, isAdmin(), appointment.read_admin)
@@ -106,7 +106,7 @@ module.exports = function (app) {
   // client appointments routes
   app.route('/appointments')
     .get(appointment.list)
-    .post(appointment.create);
+    .post(appointment.save);
 
   app.route('/appointments/:appointmentId')
     .get(appointment.read)

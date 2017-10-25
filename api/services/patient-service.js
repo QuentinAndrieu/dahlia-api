@@ -4,9 +4,7 @@ let mongoose = require('mongoose'),
     Patient = mongoose.model('Patient'),
     User = mongoose.model('User');
 
-
-// private functions
-exports.getAllPatients = function (req, res) {
+exports.get_all_patients = function (req, res) {
     Patient.find({}, function (err, patient) {
         if (err)
             res.send(err);
@@ -14,7 +12,7 @@ exports.getAllPatients = function (req, res) {
     });
 }
 
-exports.getAllPatientsFromUser = function (req, res, userId) {
+exports.get_all_patients_from_user = function (req, res, userId) {
     Patient.findOne({ id_user: userId }, function (err, patient) {
         if (err)
             res.send(err);
@@ -22,7 +20,7 @@ exports.getAllPatientsFromUser = function (req, res, userId) {
     });
 }
 
-exports.getOnePatientById = function (req, res) {
+exports.get_patient_by_id = function (req, res) {
     Patient.findById(req.params.patientId, function (err, patient) {
         if (err)
             res.send(err);
@@ -30,7 +28,7 @@ exports.getOnePatientById = function (req, res) {
     }).populate('appointments');
 }
 
-exports.getOnePatientByIdFromUser = function (req, res, userId) {
+exports.get_patient_by_id_from_user = function (req, res, userId) {
     Patient.findOne({
         _id: req.params.patientId,
         id_user: userId
@@ -41,10 +39,10 @@ exports.getOnePatientByIdFromUser = function (req, res, userId) {
     }).populate('appointments');
 }
 
-exports.createPatient = function (req, res, userId) {
+exports.save_patient = function (req, res, userId) {
     let new_patient = new Patient(req.body);
 
-    // Create appointment in user
+    // Add appointment in user
     User.findByIdAndUpdate(
         userId,
         { $push: { "patients": new_patient._id } },
@@ -61,7 +59,7 @@ exports.createPatient = function (req, res, userId) {
     });
 }
 
-exports.updatePatientById = function (req, res) {
+exports.update_patient_by_id = function (req, res) {
     Patient.findOneAndUpdate({ _id: req.params.patientId }, req.body, { new: true }, function (err, patient) {
         if (err)
             res.send(err);
@@ -69,7 +67,7 @@ exports.updatePatientById = function (req, res) {
     });
 }
 
-exports.updatePatientByIdFromUser = function (req, res, userId) {
+exports.update_patient_by_id_from_user = function (req, res, userId) {
     Patient.findOneAndUpdate({
         _id: req.params.patientId,
         id_user: userId
@@ -80,7 +78,7 @@ exports.updatePatientByIdFromUser = function (req, res, userId) {
     });
 }
 
-exports.removePatientById = function (req, res) {
+exports.remove_patient_by_id = function (req, res) {
     // Delete patient in user
     User.findByIdAndUpdate(
         req.body.id_user,
@@ -102,7 +100,7 @@ exports.removePatientById = function (req, res) {
     });
 }
 
-exports.removePatientByIdFromUser = function (req, res, userId) {
+exports.remove_patient_by_id_from_user = function (req, res, userId) {
     // Delete patient in user
     User.findByIdAndUpdate(
         userId,
