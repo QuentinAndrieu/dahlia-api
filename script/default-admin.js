@@ -1,10 +1,11 @@
 let User = require('../api/models/user-model'),
     mongoose = require('mongoose'),
+    config = require('../config/main'),
     fs = require('fs');
 
 // mongoose instance connection url connection
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/Dahliadb');
+mongoose.connect(config.database);
 
 let admins = JSON.parse(fs.readFileSync('./data-fixtures/admins.json', 'utf8'));
 

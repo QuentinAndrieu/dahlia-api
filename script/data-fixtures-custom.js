@@ -1,12 +1,13 @@
 let User = require('../api/models/user-model'),
     Patient = require('../api/models/patient-model'),
     Appointment = require('../api/models/appointment-model'),
+    config = require('../config/main'),
     mongoose = require('mongoose'),
     fs = require('fs');
 
 // mongoose instance connection url connection
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/Dahliadb');
+mongoose.connect(config.database);
 
 User.remove({}, function (err) {
     console.log('patient collection removed');
