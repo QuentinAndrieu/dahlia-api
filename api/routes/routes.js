@@ -84,13 +84,13 @@ module.exports = function (app) {
 
   // client patients routes
   app.route('/patients')
-    .get(patient.list)
-    .post(patient.save);
+    .get(requireAuth, patient.list)
+    .post(requireAuth, patient.save);
 
   app.route('/patients/:patientId')
-    .get(patient.read)
-    .put(patient.update)
-    .delete(patient.delete);
+    .get(requireAuth, patient.read)
+    .put(requireAuth, patient.update)
+    .delete(requireAuth, patient.delete);
 
 
   // admin appointments routes
@@ -105,11 +105,11 @@ module.exports = function (app) {
 
   // client appointments routes
   app.route('/appointments')
-    .get(appointment.list)
-    .post(appointment.save);
+    .get(requireAuth, appointment.list)
+    .post(requireAuth, appointment.save);
 
   app.route('/appointments/:appointmentId')
-    .get(appointment.read)
-    .put(appointment.update)
-    .delete(appointment.delete);
+    .get(requireAuth, appointment.read)
+    .put(requireAuth, appointment.update)
+    .delete(requireAuth, appointment.delete);
 };
