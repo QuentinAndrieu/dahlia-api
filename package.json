@@ -8,7 +8,7 @@
     "data-fixtures": "node script/data-fixtures-custom.js",
     "clean-db": "node script/clean-db.js",
     "default-admin": "node script/default-admin.js",
-    "preinstall": "node script/default-admin.js",
+    "postinstall": "node script/clean-db.js | node script/default-admin.js",
     "deploy": "git push origin master && git push heroku master"
   },
   "repository": {
