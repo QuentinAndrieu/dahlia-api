@@ -30,21 +30,21 @@ exports.delete_admin = function (req, res) {
 
 // client controller
 exports.list = function (req, res) {
-    patient.get_all_patients_from_user(req, res, req.user._id);
+    patient.get_all_patients_from_user(req, res, req.id_user);
 };
 
 exports.save = function (req, res) {
-    patient.save_patient(req, res, req.user._id);
+    patient.save_patient(req, res, req.id_user);
 };
 
 exports.read = function (req, res) {
-    patient.get_patient_by_id_from_user(req, res, req.user._id);
+    patient.get_patient_by_id_from_user(req, res, req.id_user);
 };
 
 exports.update = function (req, res) {
-    patient.update_patient_by_id_from_user(req, res, req.user._id);
+    patient.update_patient_by_id_from_user(req, res, req.id_user);
 };
 
 exports.delete = function (req, res) {
-    patient.remove_patient_by_id_from_user(req, res, req.user._id);
+    patient.remove_patient_by_id_from_user(req, res, req.id_user);
 };

@@ -26,21 +26,21 @@ exports.delete_admin = function (req, res) {
 
 // client controller
 exports.list = function (req, res) {
-    appointment.get_all_appointments_from_user(res, req, req.user._id);
+    appointment.get_all_appointments_from_user(res, req, req.id_user);
 };
 
 exports.save = function (req, res) {
-    appointment.save_appointment(req, res, req.user._id);
+    appointment.save_appointment(req, res, req.id_user);
 };
 
 exports.read = function (req, res) {
-    appointment.get_appointment_by_id_from_user(req, res, req.user._id);
+    appointment.get_appointment_by_id_from_user(req, res, req.id_user);
 };
 
 exports.update = function (req, res) {
-    appointment.update_appointment_by_id_from_user(req, res, req.user._id);
+    appointment.update_appointment_by_id_from_user(req, res, req.id_user);
 };
 
 exports.delete = function (req, res) {
-    appointment.remove_appointment_by_id_from_user(req, res, req.user._id);
+    appointment.remove_appointment_by_id_from_user(req, res, req.id_user);
 };
