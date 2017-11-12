@@ -41,6 +41,7 @@ exports.get_patient_by_id_from_user = function (req, res, userId) {
 
 exports.save_patient = function (req, res, userId) {
     let new_patient = new Patient(req.body);
+    new_patient.id_user = userId;
 
     // Add appointment in user
     User.findByIdAndUpdate(
