@@ -121,7 +121,7 @@ exports.remove_appointment_by_id_from_user = function (req, res, userId) {
     // Delete appointment in patient
     Patient.findByIdAndUpdate(
         req.body.id_patient,
-        { $pull: { "appointments.id": req.params.appointmentId } },
+        { $pull: { "appointments": req.params.appointmentId } },
         { safe: true, upsert: true }, function (err, patient) {
             if (err)
                 res.send(err);
