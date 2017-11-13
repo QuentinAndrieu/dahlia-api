@@ -2,7 +2,8 @@
 
 let mongoose = require('mongoose'),
     Appointment = mongoose.model('Appointment'),
-    Patient = mongoose.model('Patient');
+    Patient = mongoose.model('Patient'),
+    User = mongoose.model('User');
 
 exports.get_all_appointments = function (req, res) {
     Appointment.find({}, function (err, appointment) {
@@ -23,6 +24,16 @@ exports.save_appointment = function (req, res, userId) {
         { safe: true, upsert: true }, function (err, patient) {
             if (err)
                 res.send(err);
+        });
+
+    // Add patient in user
+    User.findByIdAndUpdate(
+        userId,
+        { $push: { "appointments": new_appointment._id } },
+        { safe: true, upsert: true }, function (err, user) {
+            if (err)
+                res.send(err);
+            console.log('user ', user);
         });
 
     new_appointment.save(function (err, appointment) {
@@ -98,6 +109,15 @@ exports.remove_appointment_by_id = function (req, res) {
 }
 
 exports.remove_appointment_by_id_from_user = function (req, res, userId) {
+    // Delete appointment in user
+    User.findByIdAndUpdate(
+        userId,
+        { $pull: { "appointments": req.params.appointmentId } },
+        { safe: true, upsert: true }, function (err, user) {
+            if (err)
+                res.send(err);
+        });
+
     // Delete appointment in patient
     Patient.findByIdAndUpdate(
         req.body.id_patient,

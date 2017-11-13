@@ -27,7 +27,10 @@ exports.get_user_by_id = function (req, res, userId) {
         if (err)
             res.send(err);
         res.json(user);
-    }).populate('patients');
+    }).populate({
+        path: 'patients',
+        populate: { path: 'appointments' }
+    }).populate('appointments');
 }
 
 exports.update_user_by_id = function (req, res, userId) {

@@ -43,7 +43,7 @@ exports.save_patient = function (req, res, userId) {
     let new_patient = new Patient(req.body);
     new_patient.id_user = userId;
 
-    // Add appointment in user
+    // Add patient in user
     User.findByIdAndUpdate(
         userId,
         { $push: { "patients": new_patient._id } },

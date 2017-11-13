@@ -37,7 +37,8 @@ let UserSchema = new Schema({
         enum: ['Client', 'Admin'],
         default: 'Client'
     },
-    patients: [{ type: Schema.Types.ObjectId, ref: 'Patient' }]
+    patients: [{ type: Schema.Types.ObjectId, ref: 'Patient' }],
+    appointments: [{ type: Schema.Types.ObjectId, ref: 'Appointment' }]
 });
 
 // Saves the user's password hashed
