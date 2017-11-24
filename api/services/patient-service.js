@@ -46,7 +46,7 @@ exports.save_patient = function (req, res, userId) {
     // Add patient in user
     User.findByIdAndUpdate(
         userId,
-        { $push: { "patients": new_patient._id } },
+        { $push: { patients: new_patient._id } },
         { safe: true, upsert: true }, function (err, user) {
             if (err)
                 res.send(err);
@@ -83,7 +83,14 @@ exports.remove_patient_by_id = function (req, res) {
     // Delete patient in user
     User.findByIdAndUpdate(
         req.body.id_user,
-        { $pull: { "patients": req.params.patientId } },
+        {
+            $pull: {
+                patients: req.params.patientId,
+                appointments: {
+                    id_patient: req.params.patientId
+                }
+            }
+        },
         { safe: true, upsert: true }, function (err, user) {
             if (err)
                 res.send(err);
@@ -105,7 +112,16 @@ exports.remove_patient_by_id_from_user = function (req, res, userId) {
     // Delete patient in user
     User.findByIdAndUpdate(
         userId,
-        { $pull: { "patients": req.params.patientId } },
+        {
+            $pull:
+                {
+                    patients: req.params.patientId,
+                    appointments: {
+                        id_patient: req.params.patientId
+                    }
+
+                }
+        },
         { safe: true, upsert: true }, function (err, user) {
             if (err)
                 res.send(err);
