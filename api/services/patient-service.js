@@ -76,7 +76,7 @@ exports.update_patient_by_id_from_user = function (req, res, userId) {
         if (err)
             res.send(err);
         res.json(patient);
-    });
+    }).populate('appointments');
 }
 
 exports.remove_patient_by_id = function (req, res) {

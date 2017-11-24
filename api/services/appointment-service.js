@@ -70,8 +70,6 @@ exports.get_appointment_by_id_from_user = function (req, res, userId) {
     });
 }
 
-
-
 exports.update_appointment_by_id = function (req, res) {
     Appointment.findOneAndUpdate({ _id: req.params.appointmentId }, req.body, { new: true }, function (err, appointment) {
         if (err)
