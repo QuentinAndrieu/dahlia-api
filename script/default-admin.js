@@ -5,7 +5,10 @@ let User = require('../api/models/user-model'),
 
 // mongoose instance connection url connection
 mongoose.Promise = global.Promise;
-mongoose.connect(config.database);
+mongoose.connect(config.database, {
+    useMongoClient: true,
+    /* other options */
+  });
 
 let admins = JSON.parse(fs.readFileSync('./data-fixtures/admins.json', 'utf8'));
 

@@ -7,7 +7,10 @@ let User = require('../api/models/user-model'),
 
 // mongoose instance connection url connection
 mongoose.Promise = global.Promise;
-mongoose.connect(config.database);
+mongoose.connect(config.database, {
+    useMongoClient: true,
+    /* other options */
+});
 
 User.remove({}, (err) => {
     console.log('patient collection removed');
@@ -52,12 +55,12 @@ user_2.patients = [patient_2._id];
 patient_1.appointments = [appointment_1._id];
 patient_2.appointments = [appointment_2._id];
 
-user_1.save (err, => user) {
+user_1.save((err, user) => {
     if (err)
         console.log(err);
 });
 
-user_2.save (err, => user) {
+user_2.save((err, user) => {
     if (err)
         console.log(err);
 });
