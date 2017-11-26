@@ -2,14 +2,14 @@
 
 let authentification = require('../services/authentification-service');
 
-exports.register = function (req, res) {
+exports.register = (req, res) => {
     authentification.register(req, res, 'Client');
 }
 
-exports.register_admin = function (req, res) {
+exports.register_admin = (req, res) => {
     authentification.register(req, res, 'Admin');
 }
 
-exports.authenticate = function (req, res) {
+exports.authenticate = (req, res) => {
     authentification.authenticate(req, res);
 };

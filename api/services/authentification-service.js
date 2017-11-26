@@ -5,7 +5,7 @@ let mongoose = require('mongoose'),
     jwt = require('jsonwebtoken'),
     config = require('../../config/main');
 
-exports.register = function (req, res, role) {
+exports.register = (req, res, role) => {
     if (!req.body.mail || !req.body.password) {
         res.json({
             success: false,
@@ -14,9 +14,9 @@ exports.register = function (req, res, role) {
     } else {
         let new_user = new User(req.body);
         new_user.role = role;
-        
+
         // Attempt to save the user
-        new_user.save(function (err) {
+        new_user.save((err) => {
             if (err) {
                 return res.json({
                     success: false,
@@ -31,17 +31,17 @@ exports.register = function (req, res, role) {
     }
 }
 
-exports.authenticate = function(req, res){
+exports.authenticate = (req, res) => {
     User.findOne({
         mail: req.body.mail
-    }, function (err, user) {
+    }, (err, user) => {
         if (err) throw err;
 
         if (!user) {
             res.send({ success: false, message: 'Authentication failed. User not found.' });
         } else {
             // Check if password matches
-            user.comparePassword(req.body.password, function (err, isMatch) {
+            user.comparePassword(req.body.password, (err, isMatch) => {
                 if (isMatch && !err) {
                     // Create token if the password matched and no error was thrown
                     let token = jwt.sign({

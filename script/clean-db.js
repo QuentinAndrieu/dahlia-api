@@ -14,15 +14,15 @@ Patient.collection.dropAllIndexes();
 
 Appointment.collection.dropAllIndexes();
 
-User.remove({}, function (err) {
+User.remove({}, (err) => {
     console.log('user collection removed');
 });
 
-Patient.remove({}, function (err) {
+Patient.remove({}, (err) => {
     console.log('patient collection removed');
 });
 
-Appointment.remove({}, function (err) {
+Appointment.remove({}, (err) => {
     console.log('appointment collection removed');
 });
 

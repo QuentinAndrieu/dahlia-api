@@ -7,14 +7,14 @@ let patient = require('../controllers/patient-controller'),
   authentification = require('../controllers/authentification-controller'),
   passport = require('passport');
 
-module.exports = function (app) {
+module.exports = (app) => {
 
   const requireAuth = passport.authenticate('jwt', { session: false });
 
   require('../../config/passport')(passport);
 
-  const isAdmin = function () {
-    return function (req, res, next) {
+  const isAdmin = () => {
+    return (req, res, next) => {
       if (req.user && req.user.role === 'Admin')
         next();
       else

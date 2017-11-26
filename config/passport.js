@@ -4,13 +4,13 @@ let JwtStrategy = require('passport-jwt').Strategy,
     config = require('../config/main');
 
 // Setup work and export for the JWT passport strategy
-module.exports = function (passport) {
+module.exports = (passport) => {
     const opts = {
         jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
         secretOrKey: config.secret
     };
-    passport.use(new JwtStrategy(opts, function (jwt_payload, done) {
-        User.findById(jwt_payload.id, function (err, user) {
+    passport.use(new JwtStrategy(opts, (jwt_payload, done) => {
+        User.findById(jwt_payload.id, (err, user) => {
             if (err) {
                 return done(err, false);
             }

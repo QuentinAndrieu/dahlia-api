@@ -12,7 +12,7 @@ let admins = JSON.parse(fs.readFileSync('./data-fixtures/admins.json', 'utf8'));
 let admin = new User(admins.default_admin);
 
 
-admin.save(function (err, admin) {
+admin.save((err, admin) => {
     if (err)
         console.log(err);
 });

@@ -42,7 +42,7 @@ let UserSchema = new Schema({
 });
 
 // Saves the user's password hashed
-UserSchema.pre('save', function (next) {
+UserSchema.pre('save',  (next) => {
     if (this.isModified('password') || this.isNew) {
         let salt = bcrypt.genSaltSync(10);
         let hash = bcrypt.hashSync(this.password, salt);
@@ -55,8 +55,8 @@ UserSchema.pre('save', function (next) {
 });
 
 // Create method to compare password input to password saved in database
-UserSchema.methods.comparePassword = function (pw, cb) {
-    bcrypt.compare(pw, this.password, function (err, isMatch) {
+UserSchema.methods.comparePassword =  (pw, cb) => {
+    bcrypt.compare(pw, this.password,  (err, isMatch) => {
         if (err) {
             return cb(err);
         }
