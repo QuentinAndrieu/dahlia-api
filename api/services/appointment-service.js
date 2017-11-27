@@ -5,7 +5,7 @@ let mongoose = require('mongoose'),
     Patient = mongoose.model('Patient'),
     User = mongoose.model('User');
 
-exports.get_all_appointments = (req, res) => {
+exports.getAll = (req, res) => {
     Appointment.find({}, (err, appointment) => {
         if (err)
             res.send(err);
@@ -13,7 +13,7 @@ exports.get_all_appointments = (req, res) => {
     });
 }
 
-exports.save_appointment = (req, res, userId) => {
+exports.save = (req, res, userId) => {
     let new_appointment = new Appointment(req.body);
     new_appointment.id_user = userId;
 
@@ -42,7 +42,7 @@ exports.save_appointment = (req, res, userId) => {
     });
 }
 
-exports.get_all_appointments_from_user = (req, res, userId) => {
+exports.getAllByUserId = (req, res, userId) => {
     Appointment.findOne({ id_user: userId }, (err, appointment) => {
         if (err)
             res.send(err);
@@ -50,7 +50,7 @@ exports.get_all_appointments_from_user = (req, res, userId) => {
     });
 }
 
-exports.get_appointment_by_id = (req, res) => {
+exports.getById = (req, res) => {
     Appointment.findById(req.params.appointmentId, (err, appointment) => {
         if (err)
             res.send(err);
@@ -58,7 +58,7 @@ exports.get_appointment_by_id = (req, res) => {
     });
 }
 
-exports.get_appointment_by_id_from_user = (req, res, userId) => {
+exports.getByIdAndUserId = (req, res, userId) => {
     Appointment.findOne({
         _id: req.params.appointmentId,
         id_user: userId
@@ -69,7 +69,7 @@ exports.get_appointment_by_id_from_user = (req, res, userId) => {
     });
 }
 
-exports.update_appointment_by_id = (req, res) => {
+exports.updateById = (req, res) => {
     Appointment.findOneAndUpdate({ _id: req.params.appointmentId }, req.body, { new: true }, (err, appointment) => {
         if (err)
             res.send(err);
@@ -77,7 +77,7 @@ exports.update_appointment_by_id = (req, res) => {
     });
 }
 
-exports.update_appointment_by_id_from_user = (req, res, userId) => {
+exports.updateByIdAndUserId = (req, res, userId) => {
     Appointment.findOneAndUpdate({
         _id: req.params.appointmentId,
         id_user: userId
@@ -88,7 +88,7 @@ exports.update_appointment_by_id_from_user = (req, res, userId) => {
     });
 }
 
-exports.remove_appointment_by_id = (req, res) => {
+exports.removeById = (req, res) => {
     // Delete appointment in patient
     Patient.findByIdAndUpdate(
         req.body.id_patient,
@@ -105,7 +105,7 @@ exports.remove_appointment_by_id = (req, res) => {
     });
 }
 
-exports.remove_appointment_by_id_from_user = (req, res, userId) => {
+exports.removeByIdAndUserId = (req, res, userId) => {
     // Delete appointment in user
     User.findByIdAndUpdate(
         userId,

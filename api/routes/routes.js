@@ -1,10 +1,10 @@
 'use strict';
 
-let patient = require('../controllers/patient-controller'),
-  appointment = require('../controllers/appointment-controller'),
-  user = require('../controllers/user-controller'),
-  home = require('../controllers/home-controller'),
-  authentification = require('../controllers/authentification-controller'),
+let PatientController = require('../controllers/patient-controller'),
+  AppointmentController = require('../controllers/appointment-controller'),
+  UserController = require('../controllers/user-controller'),
+  HomeController = require('../controllers/home-controller'),
+  AuthentificationController = require('../controllers/authentification-controller'),
   passport = require('passport');
 
 module.exports = (app) => {
@@ -24,92 +24,75 @@ module.exports = (app) => {
 
   // home routes
   app.route('/')
-    .get(home.message_home);
+    .get(HomeController.message);
 
   // authentification routes
   app.route('/register')
-    .post(authentification.register);
+    .post(AuthentificationController.register);
 
   app.route('/register/admin')
-    .post(requireAuth, isAdmin(), authentification.register_admin);
+    .post(requireAuth, isAdmin(), AuthentificationController.register_admin);
 
   app.route('/authenticate')
-    .post(authentification.authenticate);
+    .post(AuthentificationController.authenticate);
 
   // admin users routes
   app.route('/admin/users')
-    .get(requireAuth, isAdmin(), user.list_admin)
-    .post(requireAuth, isAdmin(), user.save_admin);
+    .get(requireAuth, isAdmin(), UserController.listAdmin)
+    .post(requireAuth, isAdmin(), UserController.saveAdmin);
 
   app.route('/admin/users/:userId')
-    .get(requireAuth, isAdmin(), user.read_admin)
-    .put(requireAuth, isAdmin(), user.update_admin)
-    .delete(requireAuth, isAdmin(), user.delete_admin);
-
-  app.route('/admin/users/:userId/rate')
-    .post(requireAuth, isAdmin(), user.add_rate_admin)
-    .delete(requireAuth, isAdmin(), user.delete_rate_admin);
-
-  app.route('/admin/users/:userId/duration')
-    .post(requireAuth, isAdmin(), user.add_duration_admin)
-    .delete(requireAuth, isAdmin(), user.delete_duration_admin);
+    .get(requireAuth, isAdmin(), UserController.readAdmin)
+    .put(requireAuth, isAdmin(), UserController.updateAdmin)
+    .delete(requireAuth, isAdmin(), UserController.removeAdmin);
 
   // client users routes
   app.route('/user')
-    .get(requireAuth, user.read)
-    .put(requireAuth, user.update)
-    .delete(requireAuth, user.delete);
+    .get(requireAuth, UserController.read)
+    .put(requireAuth, UserController.update)
+    .delete(requireAuth, UserController.delete);
 
   app.route('/user/password')
-    .put(requireAuth, user.update_password);
-
-  app.route('/user/rate')
-    .post(requireAuth, user.add_rate)
-    .delete(requireAuth, user.delete_rate);
-
-  app.route('/user/duration')
-    .post(requireAuth, user.add_duration)
-    .delete(requireAuth, user.delete_duration);
-
+    .put(requireAuth, UserController.update_password);
 
   // admin patients routes
   app.route('/admin/patients')
-    .get(requireAuth, isAdmin(), patient.list_admin)
-    .post(requireAuth, isAdmin(), patient.save_admin);
+    .get(requireAuth, isAdmin(), PatientController.listAdmin)
+    .post(requireAuth, isAdmin(), PatientController.saveAdmin);
 
   app.route('/admin/patients/:patientId')
-    .get(requireAuth, isAdmin(), patient.read_admin)
-    .put(requireAuth, isAdmin(), patient.update_admin)
-    .delete(requireAuth, isAdmin(), patient.delete_admin);
+    .get(requireAuth, isAdmin(), PatientController.readAdmin)
+    .put(requireAuth, isAdmin(), PatientController.updateAdmin)
+    .delete(requireAuth, isAdmin(), PatientController.removeAdmin);
 
   // client patients routes
   app.route('/patients')
-    .get(requireAuth, patient.list)
-    .post(requireAuth, patient.save);
+    .get(requireAuth, PatientController.list)
+    .post(requireAuth, PatientController.save);
 
   app.route('/patients/:patientId')
-    .get(requireAuth, patient.read)
-    .put(requireAuth, patient.update)
-    .delete(requireAuth, patient.delete);
+    .get(requireAuth, PatientController.read)
+    .put(requireAuth, PatientController.update)
+    .delete(requireAuth, PatientController.delete);
 
 
   // admin appointments routes
   app.route('/admin/appointments')
-    .get(requireAuth, isAdmin(), appointment.list_admin)
-    .post(requireAuth, isAdmin(), appointment.save_admin);
+    .get(requireAuth, isAdmin(), AppointmentController.listAdmin)
+    .post(requireAuth, isAdmin(), AppointmentController.saveAdmin);
 
   app.route('/admin/appointments/:appointmentId')
-    .get(requireAuth, isAdmin(), appointment.read_admin)
-    .put(requireAuth, isAdmin(), appointment.update_admin)
-    .delete(requireAuth, isAdmin(), appointment.delete_admin);
+    .get(requireAuth, isAdmin(), AppointmentController.readAdmin)
+    .put(requireAuth, isAdmin(), AppointmentController.updateAdmin)
+    .delete(requireAuth, isAdmin(), AppointmentController.removeAdmin);
 
   // client appointments routes
   app.route('/appointments')
-    .get(requireAuth, appointment.list)
-    .post(requireAuth, appointment.save);
+    .get(requireAuth, AppointmentController.list)
+    .post(requireAuth, AppointmentController.save);
 
   app.route('/appointments/:appointmentId')
-    .get(requireAuth, appointment.read)
-    .put(requireAuth, appointment.update)
-    .delete(requireAuth, appointment.delete);
+    .get(requireAuth, AppointmentController.read)
+    .put(requireAuth, AppointmentController.update)
+    .delete(requireAuth, AppointmentController.delete);
 };

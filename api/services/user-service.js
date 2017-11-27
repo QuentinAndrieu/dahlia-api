@@ -5,7 +5,7 @@ let mongoose = require('mongoose'),
     Patient = mongoose.model('Patient'),
     Appointment = mongoose.model('Appointment');
 
-exports.save_user = (req, res) => {
+exports.save = (req, res) => {
     let new_user = new User(req.body);
     new_user.save((err, user) => {
         if (err)
@@ -14,7 +14,7 @@ exports.save_user = (req, res) => {
     });
 }
 
-exports.get_all_users = (req, res) => {
+exports.getAll = (req, res) => {
     User.find({}, (err, user) => {
         if (err)
             res.send(err);
@@ -22,7 +22,7 @@ exports.get_all_users = (req, res) => {
     });
 }
 
-exports.get_user_by_id = (req, res, userId) => {
+exports.getById = (req, res, userId) => {
     User.findById(userId, (err, user) => {
         if (err)
             res.send(err);
@@ -33,7 +33,7 @@ exports.get_user_by_id = (req, res, userId) => {
     }).populate('appointments');
 }
 
-exports.update_user_by_id = (req, res, userId) => {
+exports.updateById = (req, res, userId) => {
     User.findByIdAndUpdate(userId, req.body, { new: true }, (err, user) => {
         if (err)
             res.send(err);
@@ -41,7 +41,7 @@ exports.update_user_by_id = (req, res, userId) => {
     });
 }
 
-exports.update_user_password_by_id = (req, res, userId) => {
+exports.updatePasswordById = (req, res, userId) => {
     User.findById(userId, (err, user) => {
         user.set({ password: req.body.password });
         user.save((err) => {
@@ -60,7 +60,7 @@ exports.update_user_password_by_id = (req, res, userId) => {
     });
 }
 
-exports.remove_user_by_id = (req, res, userId) => {
+exports.removeById = (req, res, userId) => {
     User.findByIdAndRemove(userId, (err, user) => {
         if (err)
             res.send(err);
@@ -75,49 +75,4 @@ exports.remove_user_by_id = (req, res, userId) => {
                 res.send(err);
         });
     });
-}
-
-exports.add_rate_by_user_id = (req, res, userId) => {
-    // Add appointment in user
-    User.findByIdAndUpdate(
-        userId,
-        { $push: { "setting.rates": req.body.value } },
-        { safe: true, upsert: true }, (err, user) => {
-            if (err)
-                res.send(err);
-        });
-}
-
-
-exports.remove_rate_by_user_id = (req, res, userId) => {
-    // Remove appointment in user
-    User.findByIdAndUpdate(
-        userId,
-        { $pull: { "setting.rates": req.body.value } },
-        { safe: true, upsert: true }, (err, user) => {
-            if (err)
-                res.send(err);
-        });
-}
-
-exports.add_duration_by_user_id = (req, res, userId) => {
-    // Add duration in user
-    User.findByIdAndUpdate(
-        userId,
-        { $push: { "setting.durations": req.body.value } },
-        { safe: true, upsert: true }, (err, user) => {
-            if (err)
-                res.send(err);
-        });
-}
-
-exports.remove_duration_by_user_id = (req, res, userId) => {
-    // Remove duration in user
-    User.findByIdAndUpdate(
-        userId,
-        { $pull: { "setting.durations": req.body.value } },
-        { safe: true, upsert: true }, (err, user) => {
-            if (err)
-                res.send(err);
-        });
 }
