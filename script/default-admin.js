@@ -1,4 +1,4 @@
-let User = require('../api/models/user-model'),
+let User = require('../api/models/user.model'),
     mongoose = require('mongoose'),
     config = require('../config/main'),
     fs = require('fs'),
@@ -23,6 +23,7 @@ admin.save((err, admin) => {
         winston.error(err);
     else
         winston.info('Default admin save');
+        winston.info(admin);
 });
 
 setTimeout(() => {

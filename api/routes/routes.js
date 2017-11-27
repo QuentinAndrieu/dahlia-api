@@ -1,10 +1,10 @@
 'use strict';
 
-let PatientController = require('../controllers/patient-controller'),
-  AppointmentController = require('../controllers/appointment-controller'),
-  UserController = require('../controllers/user-controller'),
-  HomeController = require('../controllers/home-controller'),
-  AuthentificationController = require('../controllers/authentification-controller'),
+let PatientController = require('../controllers/patient.controller'),
+  AppointmentController = require('../controllers/appointment.controller'),
+  UserController = require('../controllers/user.controller'),
+  HomeController = require('../controllers/home.controller'),
+  AuthentificationController = require('../controllers/authentification.controller'),
   passport = require('passport');
 
 module.exports = (app) => {
@@ -31,7 +31,7 @@ module.exports = (app) => {
     .post(AuthentificationController.register);
 
   app.route('/register/admin')
-    .post(requireAuth, isAdmin(), AuthentificationController.register_admin);
+    .post(requireAuth, isAdmin(), AuthentificationController.registerAdmin);
 
   app.route('/authenticate')
     .post(AuthentificationController.authenticate);
@@ -50,10 +50,10 @@ module.exports = (app) => {
   app.route('/user')
     .get(requireAuth, UserController.read)
     .put(requireAuth, UserController.update)
-    .delete(requireAuth, UserController.delete);
+    .delete(requireAuth, UserController.remove);
 
   app.route('/user/password')
-    .put(requireAuth, UserController.update_password);
+    .put(requireAuth, UserController.updatePassword);
 
   // admin patients routes
   app.route('/admin/patients')
@@ -73,7 +73,7 @@ module.exports = (app) => {
   app.route('/patients/:patientId')
     .get(requireAuth, PatientController.read)
     .put(requireAuth, PatientController.update)
-    .delete(requireAuth, PatientController.delete);
+    .delete(requireAuth, PatientController.remove);
 
 
   // admin appointments routes
@@ -94,5 +94,5 @@ module.exports = (app) => {
   app.route('/appointments/:appointmentId')
     .get(requireAuth, AppointmentController.read)
     .put(requireAuth, AppointmentController.update)
-    .delete(requireAuth, AppointmentController.delete);
+    .delete(requireAuth, AppointmentController.remove);
 };
