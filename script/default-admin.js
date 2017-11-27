@@ -20,8 +20,9 @@ let admin = new User(admins.default_admin);
 
 admin.save((err, admin) => {
     if (err)
-        return winston.error(err);
-    winston.info('Default admin save');
+        winston.error(err);
+    else
+        winston.info('Default admin save');
 });
 
 setTimeout(() => {

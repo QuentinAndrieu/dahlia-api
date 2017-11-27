@@ -21,37 +21,43 @@ mongoose.connect(config.database, {
 User.collection.dropAllIndexes((err) => {
     if (err)
         return winston.error(err);
-    winston.info('User collection drop all indexes');
+    else
+        winston.info('User collection drop all indexes');
 });
 
 Patient.collection.dropAllIndexes((err) => {
     if (err)
-        return winston.error(err);
-    winston.info('User collection drop all indexes');
+        winston.error(err);
+    else
+        winston.info('User collection drop all indexes');
 });
 
 Appointment.collection.dropAllIndexes((err) => {
     if (err)
-        return winston.error(err);
-    winston.info('User collection drop all indexes');
+        winston.error(err);
+    else
+        winston.info('User collection drop all indexes');
 });
 
 User.remove({}, (err) => {
     if (err)
-        return winston.error(err);
-    winston.info('User collection removed');
+        winston.error(err);
+    else
+        winston.info('User collection removed');
 });
 
 Patient.remove({}, (err) => {
     if (err)
-        return winston.error(err);
-    winston.info('Patient collection removed');
+        winston.error(err);
+    else
+        winston.info('Patient collection removed');
 });
 
 Appointment.remove({}, (err) => {
     if (err)
-        return winston.error(err);
-    winston.info('Appointment collection removed');
+        winston.error(err);
+    else
+        winston.info('Appointment collection removed');
 });
 
 setTimeout(() => {
