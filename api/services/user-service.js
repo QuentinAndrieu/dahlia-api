@@ -85,7 +85,6 @@ exports.add_rate_by_user_id = (req, res, userId) => {
         { safe: true, upsert: true }, (err, user) => {
             if (err)
                 res.send(err);
-            console.log('user ', user);
         });
 }
 
@@ -98,7 +97,6 @@ exports.remove_rate_by_user_id = (req, res, userId) => {
         { safe: true, upsert: true }, (err, user) => {
             if (err)
                 res.send(err);
-            console.log('user ', user);
         });
 }
 
@@ -110,7 +108,6 @@ exports.add_duration_by_user_id = (req, res, userId) => {
         { safe: true, upsert: true }, (err, user) => {
             if (err)
                 res.send(err);
-            console.log('user ', user);
         });
 }
 
@@ -122,6 +119,5 @@ exports.remove_duration_by_user_id = (req, res, userId) => {
         { safe: true, upsert: true }, (err, user) => {
             if (err)
                 res.send(err);
-            console.log('user ', user);
         });
 }

@@ -50,7 +50,6 @@ exports.save_patient = (req, res, userId) => {
         { safe: true, upsert: true }, (err, user) => {
             if (err)
                 res.send(err);
-            console.log('user ', user);
         });
 
     new_patient.save((err, patient) => {
