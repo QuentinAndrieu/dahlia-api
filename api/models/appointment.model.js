@@ -16,6 +16,10 @@ let AppointmentSchema = new Schema({
         type: Date,
         required: 'Required date'
     },
+    title: {
+        type: String,
+        required: 'Required title'
+    },
     description: {
         type: String,
         required: 'Required description'
