@@ -97,7 +97,7 @@ exports.updateById = (patient, patientId, callback) => {
         });
 }
 
-exports.updateByIdAndUserId = (patient, userId, patientId) => {
+exports.updateByIdAndUserId = (patient, userId, patientId, callback) => {
     winston.info('UPDATE_BY_ID_AND_USER_ID', userId, patientId);
     Patient.findOneAndUpdate({
         _id: patientId,
