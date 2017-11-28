@@ -162,11 +162,11 @@ exports.addAppointment = (patientId, appointmentId, callback) => {
 }
 
 exports.removeAppointment = (patientId, appointmentId, callback) => {
-    winston.info('REMOVE_APPOINTMENT_FROM_PATIENT_REJECTED', patientId);
+    winston.info('REMOVE_APPOINTMENT_FROM_PATIENT', patientId);
 
     Patient.findByIdAndUpdate(
         patientId,
-        { $pull: { 'appointments.id': appointmentId } },
+        { $pull: { appointments: appointmentId } },
         { safe: true, upsert: true }, (err, patient) => {
             if (err)
                 winston.error('REMOVE_APPOINTMENT_FROM_PATIENT_REJECTED', err);

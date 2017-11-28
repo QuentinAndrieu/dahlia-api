@@ -52,15 +52,15 @@ exports.updateAdmin = (req, res) => {
 };
 
 exports.removeAdmin = (req, res) => {
-    AppointmentService.removeById(req.params.appointmentId, (appointment) => {
+    AppointmentService.removeById(req.params.appointmentId, (err, appointment) => {
         if (err)
             res.send(err);
         else
-            UserService.removeAppointment(appointment.id_user, appointment._id, (err, appointment) => {
+            UserService.removeAppointment(appointment.id_user, appointment._id, (err, user) => {
                 if (err)
                     res.send(err);
                 else
-                    PatientService.removeAppointment(appointment.id_patient, appointment._id, () => {
+                    PatientService.removeAppointment(appointment.id_patient, appointment._id, (err, patient) => {
                         if (err)
                             res.send(err);
 
@@ -118,15 +118,16 @@ exports.update = (req, res) => {
 };
 
 exports.remove = (req, res) => {
-    AppointmentService.removeByIdAndUserId(req.user._id, req.params.appointmentId, (appointment) => {
+    AppointmentService.removeByIdAndUserId(req.user._id, req.params.appointmentId, (err, appointment) => {
+
         if (err)
             res.send(err);
         else
-            UserService.removeAppointment(appointment.id_user, appointment._id, (err, appointment) => {
+            UserService.removeAppointment(appointment.id_user, appointment._id, (err, user) => {
                 if (err)
                     res.send(err);
                 else
-                    PatientService.removeAppointment(appointment.id_patient, appointment._id, () => {
+                    PatientService.removeAppointment(appointment.id_patient, appointment._id, (err, patient) => {
                         if (err)
                             res.send(err);
 

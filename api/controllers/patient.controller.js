@@ -105,13 +105,14 @@ exports.remove = (req, res) => {
         if (err)
             res.send(err);
         else
-            UserService.removePatientByPatientId(patient._id, (err, user) => {
+            UserService.removePatientByPatientId(patient.id_user, patient._id, (err, user) => {
                 if (err)
                     res.send(err);
                 else
-                    AppointmentService.removeByPatientId(patient._id, (err, appointment) => {
+                    AppointmentService.removeByPatientId(patient._id, (err, appointments) => {
                         if (err)
                             res.send(err);
+                            
                         res.send(patient);
                     });
             });

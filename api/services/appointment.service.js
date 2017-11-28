@@ -117,6 +117,7 @@ exports.removeById = (appointmentId, callback) => {
     winston.info('REMOVE_APPOINTMENT_BY_ID', appointmentId);
 
     Appointment.findOneAndRemove(appointmentId, (err, appointment) => {
+        winston.info('APPOINTMENT', appointment);
         if (err)
             winston.error('REMOVE_APPOINTMENT_BY_ID_REJECTED', err);
         else
@@ -159,7 +160,7 @@ exports.removeByUserId = (userId, callback) => {
 }
 
 exports.removeByPatientId = (patientId, callback) => {
-    winston.info('REMOVE_APPOINTMENT_BY_PATIENT_ID', userId);
+    winston.info('REMOVE_APPOINTMENT_BY_PATIENT_ID', patientId);
 
     Appointment.remove({ id_patient: patientId }, (err, appointments) => {
         if (err)
@@ -168,6 +169,6 @@ exports.removeByPatientId = (patientId, callback) => {
             winston.info('REMOVE_APPOINTMENT_BY_PATIENT_ID_FULLFILED');
 
         if (callback)
-            callback(err, appointment);
+            callback(err, appointments);
     });
 }

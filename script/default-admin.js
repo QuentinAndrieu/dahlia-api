@@ -23,7 +23,6 @@ admin.save((err, admin) => {
         winston.error(err);
     else
         winston.info('Default admin save');
-        winston.info(admin);
 });
 
 setTimeout(() => {
