@@ -32,7 +32,6 @@ exports.save = (appointment, userId, callback) => {
 
         if (callback)
             callback(err, appointment);
-
     });
 }
 
