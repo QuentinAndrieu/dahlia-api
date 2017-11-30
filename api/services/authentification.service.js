@@ -9,7 +9,7 @@ let mongoose = require('mongoose'),
 exports.register = (user, role, callback) => {
     winston.info('REGISTER');
 
-    if (!user.mail || !user.mail) {
+    if (!user.mail || !user.password) {
         winston.error('REGISTER_REJECTED', 'Missing mail or password');
         if (callback)
             callback({
