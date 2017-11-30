@@ -5,7 +5,7 @@ let AuthentificationService = require('../services/authentification.service');
 exports.register = (req, res) => {
     AuthentificationService.register(req.body, 'Client', (err, user) => {
         if (err)
-            res.send(user);
+            res.send(err);
 
         res.send(user);
     });
@@ -14,7 +14,7 @@ exports.register = (req, res) => {
 exports.registerAdmin = (req, res) => {
     AuthentificationService.register(req.body, 'Admin', (err, user) => {
         if (err)
-            res.send(user);
+            res.send(err);
 
         res.send(user);
     });

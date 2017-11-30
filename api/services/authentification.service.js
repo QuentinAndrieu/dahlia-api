@@ -12,21 +12,17 @@ exports.register = (user, role, callback) => {
     if (!user.mail || !user.password) {
         winston.error('REGISTER_REJECTED', 'Missing mail or password');
         if (callback)
-            callback({
-                success: false,
-                message: 'Please enter mail and password.'
-            });
+            callback('Please enter mail and password.');
     } else {
         let new_user = new User(user);
         new_user.role = role;
 
         // Attempt to save the user
         new_user.save((err, user) => {
-
             if (err)
-                winston.error('REGISTER_REJECTED_REJECTED', err);
+                winston.error('REGISTER_REJECTED', err);
             else
-                winston.info('REGISTER_REJECTED_FULLFILED');
+                winston.info('REGISTER_FULLFILED');
 
             if (callback)
                 callback(err, user);
