@@ -10,7 +10,7 @@ exports.listAdmin = (req, res) => {
         if (err)
             res.send({
                 success: false,
-                content: err
+                error: err
             });
         res.send({
             success: true,
@@ -24,7 +24,7 @@ exports.saveAdmin = (req, res) => {
         if (err)
             res.send({
                 success: false,
-                content: err
+                error: err
             });
         else
             UserService.addPatient(patient.id_user, patient._id, (err, user) => {
@@ -47,7 +47,7 @@ exports.readAdmin = (req, res) => {
         if (err)
             res.send({
                 success: false,
-                content: err
+                error: err
             });
 
         res.send({
@@ -62,7 +62,7 @@ exports.updateAdmin = (req, res) => {
         if (err)
             res.send({
                 success: false,
-                content: err
+                error: err
             });
 
         res.send({
@@ -77,7 +77,7 @@ exports.removeAdmin = (req, res) => {
         if (err)
             res.send({
                 success: false,
-                content: err
+                error: err
             });
         else
             UserService.removePatientByPatientId(patient._id, (err, user) => {
@@ -110,7 +110,7 @@ exports.list = (req, res) => {
         if (err)
             res.send({
                 success: false,
-                content: err
+                error: err
             });
 
         res.send({
@@ -125,7 +125,7 @@ exports.save = (req, res) => {
         if (err)
             res.send({
                 success: false,
-                content: err
+                error: err
             });
         else
             UserService.addPatient(patient.id_user, patient._id, (err, user) => {
@@ -148,7 +148,7 @@ exports.read = (req, res) => {
         if (err)
             res.send({
                 success: false,
-                content: err
+                error: err
             });
 
         res.send({
@@ -163,7 +163,7 @@ exports.update = (req, res) => {
         if (err)
             res.send({
                 success: false,
-                content: err
+                error: err
             });
 
         res.send({
@@ -178,7 +178,7 @@ exports.remove = (req, res) => {
         if (err)
             res.send({
                 success: false,
-                content: err
+                error: err
             });
         else
             UserService.removePatientByPatientId(patient.id_user, patient._id, (err, user) => {

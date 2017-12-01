@@ -7,7 +7,7 @@ exports.register = (req, res) => {
         if (err)
             res.send({
                 success: false,
-                content: err
+                error: err
             });
 
         res.send({
@@ -22,7 +22,7 @@ exports.registerAdmin = (req, res) => {
         if (err)
             res.send({
                 success: false,
-                content: err
+                error: err
             });
 
         res.send({
@@ -37,7 +37,7 @@ exports.authenticate = (req, res) => {
         if (err)
             res.send({
                 success: false,
-                content: err
+                error: err
             });
 
         res.send({
