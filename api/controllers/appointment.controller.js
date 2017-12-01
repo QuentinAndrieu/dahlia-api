@@ -10,7 +10,7 @@ exports.listAdmin = (req, res) => {
         if (err)
             res.send({
                 success: false,
-                error: err
+                errors: err
             });
 
         res.send({
@@ -25,7 +25,7 @@ exports.saveAdmin = (req, res) => {
         if (err)
             res.send({
                 success: false,
-                error: err
+                errors: err
             });
         else
             UserService.addAppointment(appointment.id_user, appointment._id, (err, appointment) => {
@@ -56,7 +56,7 @@ exports.readAdmin = (req, res) => {
         if (err)
             res.send({
                 success: false,
-                error: err
+                errors: err
             });
 
         res.send({
@@ -71,7 +71,7 @@ exports.updateAdmin = (req, res) => {
         if (err)
             res.send({
                 success: false,
-                error: err
+                errors: err
             });
 
         res.send({
@@ -86,7 +86,7 @@ exports.removeAdmin = (req, res) => {
         if (err)
             res.send({
                 success: false,
-                error: err
+                errors: err
             });
         else
             UserService.removeAppointment(appointment.id_user, appointment._id, (err, user) => {
@@ -118,7 +118,7 @@ exports.list = (req, res) => {
         if (err)
             res.send({
                 success: false,
-                error: err
+                errors: err
             });
 
         res.send({
@@ -133,7 +133,7 @@ exports.save = (req, res) => {
         if (err)
             res.send({
                 success: false,
-                error: err
+                errors: err
             });
         else
             UserService.addAppointment(appointment.id_user, appointment._id, (err, user) => {
@@ -164,7 +164,7 @@ exports.read = (req, res) => {
         if (err)
             res.send({
                 success: false,
-                error: err
+                errors: err
             });
 
         res.send({
@@ -179,7 +179,7 @@ exports.update = (req, res) => {
         if (err)
             res.send({
                 success: false,
-                error: err
+                errors: err
             });
 
         res.send({
@@ -195,7 +195,7 @@ exports.remove = (req, res) => {
         if (err)
             res.send({
                 success: false,
-                error: err
+                errors: err
             });
         else
             UserService.removeAppointment(appointment.id_user, appointment._id, (err, user) => {
