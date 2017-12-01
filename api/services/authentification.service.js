@@ -45,10 +45,7 @@ exports.authenticate = (mail, password, callback) => {
         if (!user) {
             winston.error('AUTHENTICATE_REJECTED', 'User not found.');
             if (callback)
-                callback({
-                    success: false,
-                    message: 'Authentification failed. User not fund'
-                });
+                callback('Authentification failed. User not fund');
         } else {
             // Check if password matches
             user.comparePassword(password, (err, isMatch) => {
@@ -66,17 +63,13 @@ exports.authenticate = (mail, password, callback) => {
                     winston.info('AUTHENTICATE_FULLFILED');
 
                     if (callback)
-                        callback({
-                            success: true,
+                        callback(null, {
                             token: 'Bearer ' + token
                         });
                 } else {
-                    winston.error('AUTHENTICATE_REJECTED', 'Password did not match.');
+                    winston.error('AUTHENTICATE_REJECTED', err);
                     if (callback)
-                        callback({
-                            success: true,
-                            message: 'Authentication failed. Password did not match.'
-                        });
+                        callback(err);
                 }
             });
         }
