@@ -62,7 +62,10 @@ exports.updateById = (user, userId, callback) => {
 
         if (callback)
             callback(err, user);
-    });
+    }).populate({
+        path: 'patients',
+        populate: { path: 'appointments' }
+    }).populate('appointments');
 }
 
 exports.updatePasswordById = (password, userId, callback) => {
@@ -80,7 +83,10 @@ exports.updatePasswordById = (password, userId, callback) => {
                 callback(err, user);
         });
 
-    });
+    }).populate({
+        path: 'patients',
+        populate: { path: 'appointments' }
+    }).populate('appointments');
 }
 
 exports.removeById = (userId, callback) => {
@@ -94,7 +100,10 @@ exports.removeById = (userId, callback) => {
 
         if (callback)
             callback(err, user);
-    });
+    }).populate({
+        path: 'patients',
+        populate: { path: 'appointments' }
+    }).populate('appointments');
 }
 
 exports.addPatient = (userId, patientId, callback) => {
@@ -110,7 +119,10 @@ exports.addPatient = (userId, patientId, callback) => {
 
             if (callback)
                 callback(err, user);
-        });
+        }).populate({
+            path: 'patients',
+            populate: { path: 'appointments' }
+        }).populate('appointments');
 }
 
 exports.removePatientByPatientId = (userId, patientId, callback) => {
@@ -126,7 +138,10 @@ exports.removePatientByPatientId = (userId, patientId, callback) => {
 
             if (callback)
                 callback(err, user);
-        });
+        }).populate({
+            path: 'patients',
+            populate: { path: 'appointments' }
+        }).populate('appointments');
 }
 
 exports.addAppointment = (userId, appointmentId, callback) => {
@@ -142,7 +157,10 @@ exports.addAppointment = (userId, appointmentId, callback) => {
 
             if (callback)
                 callback(err, user);
-        });
+        }).populate({
+            path: 'patients',
+            populate: { path: 'appointments' }
+        }).populate('appointments');
 }
 
 exports.removeAppointment = (userId, appointmentId, callback) => {
@@ -158,5 +176,8 @@ exports.removeAppointment = (userId, appointmentId, callback) => {
 
             if (callback)
                 callback(err, user);
-        });
+        }).populate({
+            path: 'patients',
+            populate: { path: 'appointments' }
+        }).populate('appointments');
 }

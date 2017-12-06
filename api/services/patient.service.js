@@ -94,7 +94,7 @@ exports.updateById = (patient, patientId, callback) => {
 
             if (callback)
                 callback(err, patient);
-        });
+        }).populate('appointments');
 }
 
 exports.updateByIdAndUserId = (patient, userId, patientId, callback) => {
@@ -110,7 +110,7 @@ exports.updateByIdAndUserId = (patient, userId, patientId, callback) => {
 
         if (callback)
             callback(err, patient);
-    });
+    }).populate('appointments');
 }
 
 exports.removeById = (patientId, callback) => {
@@ -124,7 +124,7 @@ exports.removeById = (patientId, callback) => {
 
         if (callback)
             callback(err, patient);
-    });
+    }).populate('appointments');
 }
 
 exports.removeByIdAndUserId = (userId, patientId, callback) => {
@@ -141,7 +141,7 @@ exports.removeByIdAndUserId = (userId, patientId, callback) => {
 
         if (callback)
             callback(err, patient);
-    });
+    }).populate('appointments');
 }
 
 exports.addAppointment = (patientId, appointmentId, callback) => {
@@ -158,7 +158,7 @@ exports.addAppointment = (patientId, appointmentId, callback) => {
 
             if (callback)
                 callback(err, patient);
-        });
+        }).populate('appointments');
 }
 
 exports.removeAppointment = (patientId, appointmentId, callback) => {
@@ -175,7 +175,7 @@ exports.removeAppointment = (patientId, appointmentId, callback) => {
 
             if (callback)
                 callback(err, patient);
-        });
+        }).populate('appointments');
 }
 
 exports.removeByUserId = (userId, callback) => {
@@ -191,6 +191,6 @@ exports.removeByUserId = (userId, callback) => {
 
         if (callback)
             callback(err, patients);
-    });
+    }).populate('appointments');
 }
 
