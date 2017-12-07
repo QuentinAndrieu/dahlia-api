@@ -31,10 +31,7 @@ exports.getAll = (callback) => {
 
         if (callback)
             callback(err, users);
-    }).populate({
-        path: 'patients',
-        populate: { path: 'appointments' }
-    }).populate('appointments');
+    });
 }
 
 exports.getById = (userId, callback) => {
