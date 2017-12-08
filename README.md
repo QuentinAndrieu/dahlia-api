@@ -1,9 +1,9 @@
 # Dahlia API
 
 
-## Demo
+## Demo (still in progress...)
 
-API: https://dahlia-api.herokuapp.com/
+https://dahlia-api.herokuapp.com/
 
 ### Init project
 
