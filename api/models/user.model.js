@@ -64,7 +64,7 @@ UserSchema.methods.comparePassword = function (pw, callback) {
             callback(null, isMatch);
         });
     } else {
-        callback(new Error('Empty password'));
+        callback('Empty password');
     }
 };
 
