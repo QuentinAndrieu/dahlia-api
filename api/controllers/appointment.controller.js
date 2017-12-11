@@ -12,11 +12,11 @@ exports.listAdmin = (req, res) => {
                 success: false,
                 errors: err
             });
-
-        res.send({
-            success: true,
-            content: appointments
-        });
+        else
+            res.send({
+                success: true,
+                content: appointments
+            });
     });
 };
 
@@ -41,11 +41,11 @@ exports.saveAdmin = (req, res) => {
                                 success: false,
                                 content: err
                             });
-
-                        res.send({
-                            success: true,
-                            content: appointment
-                        });
+                        else
+                            res.send({
+                                success: true,
+                                content: appointment
+                            });
                     });
             });
     });
@@ -58,11 +58,11 @@ exports.readAdmin = (req, res) => {
                 success: false,
                 errors: err
             });
-
-        res.send({
-            success: true,
-            content: appointment
-        });
+        else
+            res.send({
+                success: true,
+                content: appointment
+            });
     });
 };
 
@@ -73,11 +73,11 @@ exports.updateAdmin = (req, res) => {
                 success: false,
                 errors: err
             });
-
-        res.send({
-            success: true,
-            content: appointment
-        });
+        else
+            res.send({
+                success: true,
+                content: appointment
+            });
     });
 };
 
@@ -102,11 +102,11 @@ exports.removeAdmin = (req, res) => {
                                 success: false,
                                 content: err
                             });
-
-                        res.send({
-                            success: true,
-                            content: appointment
-                        });
+                        else
+                            res.send({
+                                success: true,
+                                content: appointment
+                            });
                     });
             });
     });
@@ -120,11 +120,11 @@ exports.list = (req, res) => {
                 success: false,
                 errors: err
             });
-
-        res.send({
-            success: true,
-            content: appointments
-        });
+        else
+            res.send({
+                success: true,
+                content: appointments
+            });
     });
 };
 
@@ -149,11 +149,11 @@ exports.save = (req, res) => {
                                 success: false,
                                 content: err
                             });
-
-                        res.send({
-                            success: true,
-                            content: appointment
-                        });
+                        else
+                            res.send({
+                                success: true,
+                                content: appointment
+                            });
                     });
             });
     });
@@ -166,11 +166,11 @@ exports.read = (req, res) => {
                 success: false,
                 errors: err
             });
-
-        res.send({
-            success: true,
-            content: appointment
-        });
+        else
+            res.send({
+                success: true,
+                content: appointment
+            });
     });
 };
 
@@ -181,11 +181,11 @@ exports.update = (req, res) => {
                 success: false,
                 errors: err
             });
-
-        res.send({
-            success: true,
-            content: appointment
-        });
+        else
+            res.send({
+                success: true,
+                content: appointment
+            });
     });
 };
 
@@ -211,11 +211,11 @@ exports.remove = (req, res) => {
                                 success: false,
                                 content: err
                             });
-
-                        res.send({
-                            success: true,
-                            content: appointment
-                        });
+                        else
+                            res.send({
+                                success: true,
+                                content: appointment
+                            });
                     });
             });
     });

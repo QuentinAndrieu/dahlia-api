@@ -57,6 +57,7 @@ UserSchema.pre('save', function (next) {
 
 // Create method to compare password input to password saved in database
 UserSchema.methods.comparePassword = function (password, callback) {
+    winston.error('COMPARE_PASSWORD', password);
     if (password) {
         bcrypt.compare(password, this.password, (err, isMatch) => {
             if (err) {

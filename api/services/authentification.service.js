@@ -45,9 +45,13 @@ exports.authenticate = (mail, password, callback) => {
             if (callback)
                 callback('Authentification failed. User not fund');
         } else {
-            // Check if password matches
             user.comparePassword(password, (err, isMatch) => {
-                if (isMatch && !err) {
+                if (err) {
+                    winston.error('AUTHENTICATE_REJECTED', err);
+                    if (callback)
+                        callback(err);
+                }
+                else if (isMatch) {
                     // Create token if the password matched and no error was thrown
                     let token = jwt.sign({
                         id: user._id,
@@ -68,10 +72,6 @@ exports.authenticate = (mail, password, callback) => {
                     winston.error('AUTHENTICATE_REJECTED', 'Password does not match');
                     if (callback)
                         callback('Authentification failed. Password does not match');
-                } else {
-                    winston.error('AUTHENTICATE_REJECTED', err);
-                    if (callback)
-                        callback(err);
                 }
             });
         }

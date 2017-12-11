@@ -12,11 +12,11 @@ exports.listAdmin = (req, res) => {
                 success: false,
                 errors: err
             });
-
-        res.send({
-            success: true,
-            content: users
-        });
+        else
+            res.send({
+                success: true,
+                content: users
+            });
     });
 };
 
@@ -27,11 +27,11 @@ exports.saveAdmin = (req, res) => {
                 success: false,
                 errors: err
             });
-
-        res.send({
-            success: true,
-            content: user
-        });
+        else
+            res.send({
+                success: true,
+                content: user
+            });
     });
 };
 
@@ -42,11 +42,11 @@ exports.readAdmin = (req, res) => {
                 success: false,
                 errors: err
             });
-
-        res.send({
-            success: true,
-            content: user
-        });
+        else
+            res.send({
+                success: true,
+                content: user
+            });
     });
 };
 
@@ -57,11 +57,11 @@ exports.updateAdmin = (req, res) => {
                 success: false,
                 errors: err
             });
-
-        res.send({
-            success: true,
-            content: user
-        });
+        else
+            res.send({
+                success: true,
+                content: user
+            });
     });
 };
 
@@ -86,10 +86,11 @@ exports.removeAdmin = (req, res) => {
                                 success: false,
                                 content: err
                             });
-                        res.send({
-                            success: true,
-                            content: user
-                        });
+                        else
+                            res.send({
+                                success: true,
+                                content: user
+                            });
                     });
             });
     });
@@ -104,11 +105,11 @@ exports.read = (req, res) => {
                 success: false,
                 errors: err
             });
-
-        res.send({
-            success: true,
-            content: user
-        });
+        else
+            res.send({
+                success: true,
+                content: user
+            });
     });
 };
 
@@ -119,11 +120,11 @@ exports.update = (req, res) => {
                 success: false,
                 errors: err
             });
-
-        res.send({
-            success: true,
-            content: user
-        });
+        else
+            res.send({
+                success: true,
+                content: user
+            });
     });
 };
 
@@ -134,11 +135,11 @@ exports.updatePassword = (req, res) => {
                 success: false,
                 errors: err
             });
-
-        res.send({
-            success: true,
-            content: user
-        });
+        else
+            res.send({
+                success: true,
+                content: user
+            });
     });
 };
 
@@ -163,11 +164,11 @@ exports.remove = (req, res) => {
                                 success: false,
                                 content: err
                             });
-
-                        res.send({
-                            success: true,
-                            content: user
-                        });
+                        else
+                            res.send({
+                                success: true,
+                                content: user
+                            });
                     });
             });
         }

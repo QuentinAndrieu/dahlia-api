@@ -9,11 +9,11 @@ exports.register = (req, res) => {
                 success: false,
                 errors: err
             });
-
-        res.send({
-            success: true,
-            content: user
-        });
+        else
+            res.send({
+                success: true,
+                content: user
+            });
     });
 }
 
@@ -24,25 +24,27 @@ exports.registerAdmin = (req, res) => {
                 success: false,
                 errors: err
             });
-
-        res.send({
-            success: true,
-            content: user
-        });
+        else
+            res.send({
+                success: true,
+                content: user
+            });
     });
 }
 
 exports.authenticate = (req, res) => {
     AuthentificationService.authenticate(req.body.mail, req.body.password, (err, token) => {
-        if (err)
+        console.log('err', err);
+        if (err) {
             res.send({
                 success: false,
                 errors: err
             });
-
-        res.send({
-            success: true,
-            content: token
-        });
+        }
+        else
+            res.send({
+                success: true,
+                content: token
+            });
     });
 };

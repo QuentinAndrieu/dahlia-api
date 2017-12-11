@@ -12,11 +12,11 @@ exports.listAdmin = (req, res) => {
                 success: false,
                 errors: err
             });
-            
-        res.send({
-            success: true,
-            content: patients
-        });
+        else
+            res.send({
+                success: true,
+                content: patients
+            });
     });
 };
 
@@ -34,11 +34,11 @@ exports.saveAdmin = (req, res) => {
                         success: false,
                         content: err
                     });
-
-                res.send({
-                    success: true,
-                    content: patient
-                });
+                else
+                    res.send({
+                        success: true,
+                        content: patient
+                    });
             });
     });
 };
@@ -50,11 +50,11 @@ exports.readAdmin = (req, res) => {
                 success: false,
                 errors: err
             });
-
-        res.send({
-            success: true,
-            content: patient
-        });
+        else
+            res.send({
+                success: true,
+                content: patient
+            });
     });
 };
 
@@ -65,11 +65,11 @@ exports.updateAdmin = (req, res) => {
                 success: false,
                 errors: err
             });
-
-        res.send({
-            success: true,
-            content: patient
-        });
+        else
+            res.send({
+                success: true,
+                content: patient
+            });
     });
 };
 
@@ -94,11 +94,11 @@ exports.removeAdmin = (req, res) => {
                                 success: false,
                                 content: err
                             });
-
-                        res.send({
-                            success: true,
-                            content: patient
-                        });
+                        else
+                            res.send({
+                                success: true,
+                                content: patient
+                            });
                     });
             });
     });
@@ -113,11 +113,11 @@ exports.list = (req, res) => {
                 success: false,
                 errors: err
             });
-
-        res.send({
-            success: true,
-            content: patients
-        });
+        else
+            res.send({
+                success: true,
+                content: patients
+            });
     });
 };
 
@@ -135,11 +135,11 @@ exports.save = (req, res) => {
                         success: false,
                         content: err
                     });
-
-                res.send({
-                    success: true,
-                    content: patient
-                });
+                else
+                    res.send({
+                        success: true,
+                        content: patient
+                    });
             });
     });
 };
@@ -151,11 +151,11 @@ exports.read = (req, res) => {
                 success: false,
                 errors: err
             });
-
-        res.send({
-            success: true,
-            content: patient
-        });
+        else
+            res.send({
+                success: true,
+                content: patient
+            });
     });
 };
 
@@ -166,11 +166,11 @@ exports.update = (req, res) => {
                 success: false,
                 errors: err
             });
-
-        res.send({
-            success: true,
-            content: patient
-        });
+        else
+            res.send({
+                success: true,
+                content: patient
+            });
     });
 };
 
@@ -195,11 +195,11 @@ exports.remove = (req, res) => {
                                 success: false,
                                 content: err
                             });
-
-                        res.send({
-                            success: true,
-                            content: patient
-                        });
+                        else
+                            res.send({
+                                success: true,
+                                content: patient
+                            });
                     });
             });
     });
