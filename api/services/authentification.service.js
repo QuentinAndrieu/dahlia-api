@@ -66,7 +66,14 @@ exports.authenticate = (mail, password, callback) => {
                         callback(null, {
                             token: 'Bearer ' + token
                         });
-                } else {
+                }
+                else if (!isMatch) {
+                    const error = new Error('Password does not match');
+                    winston.error('AUTHENTICATE_REJECTED', error);
+                    if (callback)
+                        callback(error);
+                }
+                else {
                     winston.error('AUTHENTICATE_REJECTED', err);
                     if (callback)
                         callback(err);
