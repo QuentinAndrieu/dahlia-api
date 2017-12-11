@@ -64,8 +64,10 @@ UserSchema.methods.comparePassword = function (password, callback) {
             } else if (isMatch) {
                 winston.error('COMPARE_PASSWORD_FULLFILED', 'Password matched');
                 callback(null, isMatch);
+            } else {
+                winston.error('COMPARE_PASSWORD_REJECTED', 'Password does not matched');
+                callback('Password does not matched');
             }
-
         });
     } else {
         winston.error('COMPARE_PASSWORD_REJECTED', 'Empty password');
