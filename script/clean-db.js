@@ -10,7 +10,6 @@ winston.info('===========CLEAN_DB===========');
 
 winston.info('DATABASE: ', config.database);
 
-// mongoose instance connection url connection
 mongoose.Promise = global.Promise;
 mongoose.connect(config.database, {
     useMongoClient: true
