@@ -2,7 +2,8 @@
 
 let mongoose = require('mongoose'),
     Schema = mongoose.Schema,
-    bcrypt = require('bcrypt');
+    bcrypt = require('bcrypt'),
+    winston = require('winston');
 
 let UserSchema = new Schema({
     username: {
