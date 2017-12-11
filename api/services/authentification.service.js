@@ -40,9 +40,7 @@ exports.authenticate = (mail, password, callback) => {
             winston.error('AUTHENTICATE_REJECTED', err);
             if (callback)
                 callback(err);
-        }
-
-        if (!user) {
+        } else if (!user) {
             winston.error('AUTHENTICATE_REJECTED', 'User not found.');
             if (callback)
                 callback('Authentification failed. User not fund');
@@ -66,13 +64,11 @@ exports.authenticate = (mail, password, callback) => {
                         callback(null, {
                             token: 'Bearer ' + token
                         });
-                }
-                else if (!isMatch) {
+                } else if (!isMatch) {
                     winston.error('AUTHENTICATE_REJECTED', 'Password does not match');
                     if (callback)
-                        callback('Password does not match');
-                }
-                else {
+                        callback('Authentification failed. Password does not match');
+                } else {
                     winston.error('AUTHENTICATE_REJECTED', err);
                     if (callback)
                         callback(err);
