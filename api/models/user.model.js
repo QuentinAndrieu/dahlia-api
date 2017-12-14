@@ -38,8 +38,14 @@ let UserSchema = new Schema({
         enum: ['Client', 'Admin'],
         default: 'Client'
     },
-    patients: [{ type: Schema.Types.ObjectId, ref: 'Patient' }],
-    appointments: [{ type: Schema.Types.ObjectId, ref: 'Appointment' }]
+    patients: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Patient'
+    }],
+    appointments: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Appointment'
+    }]
 });
 
 // Saves the user's password hashed
@@ -56,28 +62,29 @@ UserSchema.pre('save', function (next) {
 });
 
 // Create method to compare password input to password saved in database
-UserSchema.methods.comparePassword = function (password, callback) {
-    winston.error('COMPARE_PASSWORD', password);
-    if (password) {
-        bcrypt.compare(password, this.password, (err, isMatch) => {
-            if (err) {
-                winston.error('COMPARE_PASSWORD_REJECTED');
-                callback(err);
-            } else if (isMatch) {
-                winston.error('COMPARE_PASSWORD_FULLFILED', 'Password matched');
-                callback(null, isMatch);
-            } else {
-                winston.error('COMPARE_PASSWORD_REJECTED', 'Password does not matched');
-                callback('Password does not matched');
-            }
-        });
-    } else {
-        winston.error('COMPARE_PASSWORD_REJECTED', 'Empty password');
-        callback('Empty password');
-    }
+UserSchema.methods.comparePassword = function (password) {
+    return new Promise((resolve, reject) => {
+        winston.error('COMPARE_PASSWORD', password);
+        if (password) {
+            bcrypt.compare(password, this.password, (err, isMatch) => {
+                if (err) {
+                    winston.error('COMPARE_PASSWORD_REJECTED');
+                    reject(err);
+                } else if (isMatch) {
+                    winston.error('COMPARE_PASSWORD_FULLFILED', 'Password matched');
+                    resolve();
+                } else {
+                    winston.error('COMPARE_PASSWORD_REJECTED', 'Password doesn\'t matched');
+                    reject('Password doesn\'t matched');
+                }
+            });
+        } else {
+            winston.error('COMPARE_PASSWORD_REJECTED', 'Empty password');
+            reject('Empty password');
+        }
+
+    });
 };
 
 
 module.exports = mongoose.model('User', UserSchema);
-
-

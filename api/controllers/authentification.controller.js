@@ -3,48 +3,43 @@
 let AuthentificationService = require('../services/authentification.service');
 
 exports.register = (req, res) => {
-    AuthentificationService.register(req.body, 'Client', (err, user) => {
-        if (err)
-            res.send({
-                success: false,
-                errors: err
-            });
-        else
-            res.send({
-                success: true,
-                content: user
-            });
+    AuthentificationService.register(req.body, 'Client').then((user) => {
+        res.send({
+            success: true,
+            content: user
+        });
+    }).catch((err) => {
+        res.send({
+            success: false,
+            errors: err
+        });
     });
 }
 
 exports.registerAdmin = (req, res) => {
-    AuthentificationService.register(req.body, 'Admin', (err, user) => {
-        if (err)
-            res.send({
-                success: false,
-                errors: err
-            });
-        else
-            res.send({
-                success: true,
-                content: user
-            });
+    AuthentificationService.register(req.body, 'Admin').then((user) => {
+        res.send({
+            success: true,
+            content: user
+        });
+    }).catch((err) => {
+        res.send({
+            success: false,
+            errors: err
+        });
     });
 }
 
 exports.authenticate = (req, res) => {
-    AuthentificationService.authenticate(req.body.mail, req.body.password, (err, token) => {
-        console.log('err', err);
-        if (err) {
-            res.send({
-                success: false,
-                errors: err
-            });
-        }
-        else
-            res.send({
-                success: true,
-                content: token
-            });
+    AuthentificationService.authenticate(req.body.mail, req.body.password).then((token) => {
+        res.send({
+            success: true,
+            content: token
+        });
+    }).catch((err) => {
+        res.send({
+            success: false,
+            errors: err
+        });
     });
 };

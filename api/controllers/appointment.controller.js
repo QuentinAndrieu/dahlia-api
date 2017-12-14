@@ -6,217 +6,166 @@ let PatientService = require('../services/patient.service'),
 
 // admin controller
 exports.listAdmin = (req, res) => {
-    AppointmentService.getAll((err, appointments) => {
-        if (err)
-            res.send({
-                success: false,
-                errors: err
-            });
-        else
-            res.send({
-                success: true,
-                content: appointments
-            });
+    AppointmentService.getAll().then((appointments) => {
+        res.send({
+            success: true,
+            content: appointments
+        });
+    }).catch((err) => {
+        res.send({
+            success: false,
+            errors: err
+        });
     });
 };
 
 exports.saveAdmin = (req, res) => {
-    AppointmentService.save(req.body, req.body.id_user, (err, appointment) => {
-        if (err)
-            res.send({
-                success: false,
-                errors: err
-            });
-        else
-            UserService.addAppointment(appointment.id_user, appointment._id, (err, appointment) => {
-                if (err)
-                    res.send({
-                        success: false,
-                        content: err
-                    });
-                else
-                    PatientService.addAppointment(appointment.id_patient, appointment._id, () => {
-                        if (err)
-                            res.send({
-                                success: false,
-                                content: err
-                            });
-                        else
-                            res.send({
-                                success: true,
-                                content: appointment
-                            });
-                    });
-            });
+    let content = {};
+    AppointmentService.save(req.body, req.body.id_user).then((appointment) => {
+        content = appointment;
+        return UserService.addAppointment(appointment.id_user, appointment._id);
+    }).then((user) => {
+        return PatientService.addAppointment(content.id_patient, content._id);
+    }).then(() => {
+        res.send({
+            success: true,
+            content: content
+        });
+    }).catch((err) => {
+        res.send({
+            success: false,
+            errors: err
+        });
     });
 };
 
 exports.readAdmin = (req, res) => {
-    AppointmentService.getById(req.params.appointmentId, (err, appointment) => {
-        if (err)
-            res.send({
-                success: false,
-                errors: err
-            });
-        else
-            res.send({
-                success: true,
-                content: appointment
-            });
+    AppointmentService.getById(req.params.appointmentId).then((appointment) => {
+        res.send({
+            success: true,
+            content: appointment
+        });
+    }).catch((err) => {
+        res.send({
+            success: false,
+            errors: err
+        });
     });
 };
 
 exports.updateAdmin = (req, res) => {
-    AppointmentService.updateById(req.body, req.params.appointmentId, (err, appointmentId) => {
-        if (err)
-            res.send({
-                success: false,
-                errors: err
-            });
-        else
-            res.send({
-                success: true,
-                content: appointment
-            });
+    AppointmentService.updateById(req.body, req.params.appointmentId).then((appointment) => {
+        res.send({
+            success: true,
+            content: appointment
+        });
+    }).catch((err) => {
+        res.send({
+            success: false,
+            errors: err
+        });
     });
 };
 
 exports.removeAdmin = (req, res) => {
-    AppointmentService.removeById(req.params.appointmentId, (err, appointment) => {
-        if (err)
-            res.send({
-                success: false,
-                errors: err
-            });
-        else
-            UserService.removeAppointment(appointment.id_user, appointment._id, (err, user) => {
-                if (err)
-                    res.send({
-                        success: false,
-                        content: err
-                    });
-                else
-                    PatientService.removeAppointment(appointment.id_patient, appointment._id, (err, patient) => {
-                        if (err)
-                            res.send({
-                                success: false,
-                                content: err
-                            });
-                        else
-                            res.send({
-                                success: true,
-                                content: appointment
-                            });
-                    });
-            });
+    let content = {};
+    AppointmentService.removeById(req.params.appointmentId).then((appointment) => {
+        content = appointment;
+        return UserService.removeAppointment(appointment.id_user, appointment._id);
+    }).then((user) => {
+        return PatientService.removeAppointment(content.id_patient, content._id);
+    }).then(() => {
+        res.send({
+            success: true,
+            content: content
+        });
+    }).catch((err) => {
+        res.send({
+            success: false,
+            errors: err
+        });
     });
 };
 
 // client controller
 exports.list = (req, res) => {
-    AppointmentService.getAllByUserId(req.user._id, (err, appointments) => {
-        if (err)
-            res.send({
-                success: false,
-                errors: err
-            });
-        else
-            res.send({
-                success: true,
-                content: appointments
-            });
+    AppointmentService.getAllByUserId(req.user._id).then((appointments) => {
+        res.send({
+            success: true,
+            content: appointments
+        });
+    }).catch((err) => {
+        res.send({
+            success: false,
+            errors: err
+        });
     });
 };
 
 exports.save = (req, res) => {
-    AppointmentService.save(req.body, req.user._id, (err, appointment) => {
-        if (err)
-            res.send({
-                success: false,
-                errors: err
-            });
-        else
-            UserService.addAppointment(appointment.id_user, appointment._id, (err, user) => {
-                if (err)
-                    res.send({
-                        success: false,
-                        content: err
-                    });
-                else
-                    PatientService.addAppointment(appointment.id_patient, appointment._id, (err, patient) => {
-                        if (err)
-                            res.send({
-                                success: false,
-                                content: err
-                            });
-                        else
-                            res.send({
-                                success: true,
-                                content: appointment
-                            });
-                    });
-            });
+    let content = {};
+    AppointmentService.save(req.body, req.user._id).then((appointment) => {
+        content = appointment;
+        return UserService.addAppointment(appointment.id_user, appointment._id);
+    }).then((user) => {
+        return PatientService.addAppointment(content.id_patient, content._id);
+    }).then(() => {
+        res.send({
+            success: true,
+            content: content
+        });
+    }).catch((err) => {
+        res.send({
+            success: false,
+            errors: err
+        });
     });
 };
 
 exports.read = (req, res) => {
-    AppointmentService.getByIdAndUserId(req.user._id, req.params.appointmentId, (err, appointment) => {
-        if (err)
-            res.send({
-                success: false,
-                errors: err
-            });
-        else
-            res.send({
-                success: true,
-                content: appointment
-            });
+    AppointmentService.getByIdAndUserId(req.user._id, req.params.appointmentId).then((appointment) => {
+        res.send({
+            success: true,
+            content: appointment
+        });
+    }).catch((err) => {
+        res.send({
+            success: false,
+            errors: err
+        });
     });
 };
 
 exports.update = (req, res) => {
-    AppointmentService.updateByIdAndUserId(req.body, req.user._id, req.params.appointmentId, (err, appointment) => {
-        if (err)
-            res.send({
-                success: false,
-                errors: err
-            });
-        else
-            res.send({
-                success: true,
-                content: appointment
-            });
+    AppointmentService.updateByIdAndUserId(req.body, req.user._id, req.params.appointmentId).then((appointment) => {
+        res.send({
+            success: true,
+            content: appointment
+        });
+    }).catch((err) => {
+        res.send({
+            success: false,
+            errors: err
+        });
     });
 };
 
 exports.remove = (req, res) => {
-    AppointmentService.removeByIdAndUserId(req.user._id, req.params.appointmentId, (err, appointment) => {
-
-        if (err)
-            res.send({
-                success: false,
-                errors: err
-            });
-        else
-            UserService.removeAppointment(appointment.id_user, appointment._id, (err, user) => {
-                if (err)
-                    res.send({
-                        success: false,
-                        content: err
-                    });
-                else
-                    PatientService.removeAppointment(appointment.id_patient, appointment._id, (err, patient) => {
-                        if (err)
-                            res.send({
-                                success: false,
-                                content: err
-                            });
-                        else
-                            res.send({
-                                success: true,
-                                content: appointment
-                            });
-                    });
-            });
+    let content = {};
+    AppointmentService.removeByIdAndUserId(req.user._id, req.params.appointmentId).then((appointment) => {
+        content = appointment;
+        return UserService.removeAppointment(appointment.id_user, appointment._id);
+    }).then((user) => {
+        return PatientService.removeAppointment(content.id_patient, content._id);
+    }).then(() => {
+        res.send({
+            success: true,
+            content: content
+        });
+    }).catch((err) => {
+        res.send({
+            success: false,
+            errors: err
+        });
     });
 };
