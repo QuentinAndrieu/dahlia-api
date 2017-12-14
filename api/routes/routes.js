@@ -4,7 +4,7 @@ let PatientController = require('../controllers/patient.controller'),
   AppointmentController = require('../controllers/appointment.controller'),
   UserController = require('../controllers/user.controller'),
   HomeController = require('../controllers/home.controller'),
-  AuthentificationController = require('../controllers/authentification.controller'),
+  AuthenticationController = require('../controllers/authentication.controller'),
   passport = require('passport');
 
 module.exports = (app) => {
@@ -26,15 +26,15 @@ module.exports = (app) => {
   app.route('/')
     .get(HomeController.message);
 
-  // authentification routes
+  // authentication routes
   app.route('/register')
-    .post(AuthentificationController.register);
+    .post(AuthenticationController.register);
 
   app.route('/register/admin')
-    .post(requireAuth, isAdmin(), AuthentificationController.registerAdmin);
+    .post(requireAuth, isAdmin(), AuthenticationController.registerAdmin);
 
   app.route('/authenticate')
-    .post(AuthentificationController.authenticate);
+    .post(AuthenticationController.authenticate);
 
   // admin users routes
   app.route('/admin/users')

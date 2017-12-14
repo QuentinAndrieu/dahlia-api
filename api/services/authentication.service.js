@@ -43,7 +43,7 @@ exports.authenticate = (mail, password) => {
                 reject(err);
             } else if (!user) {
                 winston.error('AUTHENTICATE_REJECTED', 'User not found.');
-                reject('Authentification failed. User not fund');
+                reject('Authentication failed. User not fund');
             } else {
                 user.comparePassword(password).then(() => {
                     let token = jwt.sign({

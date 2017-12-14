@@ -1,9 +1,9 @@
 'use strict';
 
-let AuthentificationService = require('../services/authentification.service');
+let AuthenticationService = require('../services/authentication.service');
 
 exports.register = (req, res) => {
-    AuthentificationService.register(req.body, 'Client').then((user) => {
+    AuthenticationService.register(req.body, 'Client').then((user) => {
         res.send({
             success: true,
             content: user
@@ -17,7 +17,7 @@ exports.register = (req, res) => {
 }
 
 exports.registerAdmin = (req, res) => {
-    AuthentificationService.register(req.body, 'Admin').then((user) => {
+    AuthenticationService.register(req.body, 'Admin').then((user) => {
         res.send({
             success: true,
             content: user
@@ -31,7 +31,7 @@ exports.registerAdmin = (req, res) => {
 }
 
 exports.authenticate = (req, res) => {
-    AuthentificationService.authenticate(req.body.mail, req.body.password).then((token) => {
+    AuthenticationService.authenticate(req.body.mail, req.body.password).then((token) => {
         res.send({
             success: true,
             content: token
