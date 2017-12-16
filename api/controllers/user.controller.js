@@ -81,6 +81,26 @@ exports.removeAdmin = (req, res) => {
     });
 };
 
+exports.updateToTrashAdmin = (req, res) => {
+    let content = {};
+    UserService.updateToTrashById(req.params.userId).then((user) => {
+        content = user;
+        return PatientService.updateToTrashByUserId(user._id);
+    }).then((patients) => {
+        return AppointmentService.updateToTrashByUserId(content._id);
+    }).then((appointments) => {
+        res.send({
+            success: true,
+            content: content
+        });
+    }).catch((err) => {
+        res.send({
+            success: false,
+            errors: err
+        });
+    });
+};
+
 
 // client controller
 exports.read = (req, res) => {
@@ -133,6 +153,26 @@ exports.remove = (req, res) => {
     }).then((patient) => {
         return AppointmentService.removeByUserId(req.user._id);
     }).then((appointment) => {
+        res.send({
+            success: true,
+            content: content
+        });
+    }).catch((err) => {
+        res.send({
+            success: false,
+            errors: err
+        });
+    });
+};
+
+exports.updateToTrash = (req, res) => {
+    let content = {};
+    UserService.updateToTrashById(req.user._id).then((user) => {
+        content = user;
+        return PatientService.updateToTrashByUserId(user._id);
+    }).then((patients) => {
+        return AppointmentService.updateToTrashByUserId(content._id);
+    }).then((appointments) => {
         res.send({
             success: true,
             content: content

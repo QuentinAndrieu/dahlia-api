@@ -100,8 +100,8 @@ exports.updateById = (patient, patientId) => {
         winston.info('UPDATE_BY_ID', patientId);
 
         Patient.findOneAndUpdate({
-                _id: patientId
-            },
+            _id: patientId
+        },
             patient, {
                 new: true
             }, (err, patient) => {
@@ -124,16 +124,16 @@ exports.updateByIdAndUserId = (patient, userId, patientId) => {
             _id: patientId,
             id_user: userId
         }, patient, {
-            new: true
-        }, (err, patient) => {
-            if (err) {
-                winston.error('UPDATE_BY_ID_AND_USER_ID_REJECTED', err);
-                reject(err);
-            } else {
-                winston.info('UPDATE_BY_ID_AND_USER_ID_FULLFILED');
-                resolve(patient);
-            }
-        });
+                new: true
+            }, (err, patient) => {
+                if (err) {
+                    winston.error('UPDATE_BY_ID_AND_USER_ID_REJECTED', err);
+                    reject(err);
+                } else {
+                    winston.info('UPDATE_BY_ID_AND_USER_ID_FULLFILED');
+                    resolve(patient);
+                }
+            });
     });
 }
 
@@ -167,6 +167,87 @@ exports.removeByIdAndUserId = (userId, patientId) => {
             } else {
                 winston.info('REMOVE_BY_ID_AND_USER_ID_FULLFILED');
                 resolve(patient);
+            }
+        });
+    });
+}
+
+exports.removeByUserId = (userId) => {
+    return new Promise((resolve, reject) => {
+        winston.info('REMOVE_PATIENTS_BY_USER_ID', userId);
+
+        Patient.findOneAndRemove({
+            id_user: userId
+        }, (err, patients) => {
+            if (err) {
+                winston.error('REMOVE_PATIENTS_BY_USER_ID_REJECTED', err);
+                reject(err);
+            } else {
+                winston.info('REMOVE_PATIENTS_BY_USER_ID_FULLFILED');
+                resolve(patients);
+            }
+        });
+    });
+}
+
+exports.updateToTrashById = (patientId) => {
+    return new Promise((resolve, reject) => {
+        winston.info('UPDATE_TO_TRASH_PATIENT_BY_ID', patientId);
+
+        Patient.findById(patientId, (err, patient) => {
+            patient.set({
+                trash: true
+            });
+            patient.save((err) => {
+                if (err) {
+                    winston.error('UPDATE_TO_TRASH_PATIENT_BY_ID_REJECTED', err);
+                    reject(err);
+                } else {
+                    winston.info('UPDATE_TO_TRASH_PATIENT_BY_ID_FULLFILED');
+                    resolve(patient);
+                }
+            });
+        });
+    });
+}
+
+exports.updateToTrashByIdAndUserId = (userId, patientId) => {
+    return new Promise((resolve, reject) => {
+        winston.info('UPDATE_TO_TRASH_PATIENT_BY_ID_AND_USER_ID', patientId);
+
+        Patient.findOne({
+            _id: patientId,
+            id_user: userId
+        }, (err, patient) => {
+            patient.set({
+                trash: true
+            });
+            patient.save((err) => {
+                if (err) {
+                    winston.error('UPDATE_TO_TRASH_PATIENT_BY_ID_AND_USER_ID_REJECTED', err);
+                    reject(err);
+                } else {
+                    winston.info('UPDATE_TO_TRASH_PATIENT_BY_ID_AND_USER_ID_FULLFILED');
+                    resolve(patient);
+                }
+            });
+        });
+    });
+}
+
+exports.updateToTrashByUserId = (userId) => {
+    return new Promise((resolve, reject) => {
+        winston.info('UPDATE_TO_TRASH_PATIENTS_BY_USER_ID', userId);
+
+        Patient.update({
+            id_user: userId
+        }, { $set: { trash: true } }, { multi: true }, (err, patients) => {
+            if (err) {
+                winston.error('UPDATE_TO_TRASH_PATIENTS_BY_USER_ID_REJECTED', err);
+                reject(err);
+            } else {
+                winston.info('UPDATE_TO_TRASH_PATIENTS_BY_USER_ID_FULLFILED');
+                resolve(patients);
             }
         });
     });
@@ -217,23 +298,5 @@ exports.removeAppointment = (patientId, appointmentId) => {
                     resolve(patient);
                 }
             });
-    });
-}
-
-exports.removeByUserId = (userId) => {
-    return new Promise((resolve, reject) => {
-        winston.info('REMOVE_PATIENTS_BY_USER_ID', userId);
-
-        Patient.findOneAndRemove({
-            id_user: userId
-        }, (err, patients) => {
-            if (err) {
-                winston.error('REMOVE_PATIENTS_BY_USER_ID_REJECTED', err);
-                reject(err);
-            } else {
-                winston.info('REMOVE_PATIENTS_BY_USER_ID_FULLFILED');
-                resolve(patients);
-            }
-        });
     });
 }

@@ -44,13 +44,13 @@ module.exports = (app) => {
   app.route('/admin/users/:userId')
     .get(requireAuth, isAdmin(), UserController.readAdmin)
     .put(requireAuth, isAdmin(), UserController.updateAdmin)
-    .delete(requireAuth, isAdmin(), UserController.removeAdmin);
+    .delete(requireAuth, isAdmin(), UserController.updateToTrashAdmin);
 
   // client users routes
   app.route('/user')
     .get(requireAuth, UserController.read)
     .put(requireAuth, UserController.update)
-    .delete(requireAuth, UserController.remove);
+    .delete(requireAuth, UserController.updateToTrash);
 
   app.route('/user/password')
     .put(requireAuth, UserController.updatePassword);
@@ -63,7 +63,7 @@ module.exports = (app) => {
   app.route('/admin/patients/:patientId')
     .get(requireAuth, isAdmin(), PatientController.readAdmin)
     .put(requireAuth, isAdmin(), PatientController.updateAdmin)
-    .delete(requireAuth, isAdmin(), PatientController.removeAdmin);
+    .delete(requireAuth, isAdmin(), PatientController.updateToTrashAdmin);
 
   // client patients routes
   app.route('/patients')
@@ -73,7 +73,7 @@ module.exports = (app) => {
   app.route('/patients/:patientId')
     .get(requireAuth, PatientController.read)
     .put(requireAuth, PatientController.update)
-    .delete(requireAuth, PatientController.remove);
+    .delete(requireAuth, PatientController.updateToTrash);
 
 
   // admin appointments routes
@@ -84,7 +84,7 @@ module.exports = (app) => {
   app.route('/admin/appointments/:appointmentId')
     .get(requireAuth, isAdmin(), AppointmentController.readAdmin)
     .put(requireAuth, isAdmin(), AppointmentController.updateAdmin)
-    .delete(requireAuth, isAdmin(), AppointmentController.removeAdmin);
+    .delete(requireAuth, isAdmin(), AppointmentController.updateToTrashAdmin);
 
   // client appointments routes
   app.route('/appointments')
@@ -94,5 +94,5 @@ module.exports = (app) => {
   app.route('/appointments/:appointmentId')
     .get(requireAuth, AppointmentController.read)
     .put(requireAuth, AppointmentController.update)
-    .delete(requireAuth, AppointmentController.remove);
+    .delete(requireAuth, AppointmentController.updateToTrash);
 };

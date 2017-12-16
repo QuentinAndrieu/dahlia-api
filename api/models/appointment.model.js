@@ -31,7 +31,22 @@ let AppointmentSchema = new Schema({
     duration: {
         type: Number,
         required: 'Required duration'
+    },
+    createdAt: {
+        type: Date,
+        default: new Date()
+    },
+    trash: {
+        type: String,
+        default: false
     }
+});
+
+AppointmentSchema.pre('save', function (next) {
+    if (!this.createdAt) {
+        this.createdAt = new Date();
+    }
+    next();
 });
 
 module.exports = mongoose.model('Appointment', AppointmentSchema);

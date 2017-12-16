@@ -87,6 +87,20 @@ exports.removeAdmin = (req, res) => {
     });
 };
 
+exports.updateToTrashAdmin = (req, res) => {
+    AppointmentService.updateToTrashById(req.params.appointmentId).then((appointment) => {
+        res.send({
+            success: true,
+            content: appointment
+        });
+    }).catch((err) => {
+        res.send({
+            success: false,
+            errors: err
+        });
+    });
+};
+
 // client controller
 exports.list = (req, res) => {
     AppointmentService.getAllByUserId(req.user._id).then((appointments) => {
@@ -161,6 +175,20 @@ exports.remove = (req, res) => {
         res.send({
             success: true,
             content: content
+        });
+    }).catch((err) => {
+        res.send({
+            success: false,
+            errors: err
+        });
+    });
+};
+
+exports.updateToTrash = (req, res) => {
+    AppointmentService.updateToTrashByIdAndUserId(req.user._id, req.params.appointmentId).then((appointment) => {
+        res.send({
+            success: true,
+            content: appointment
         });
     }).catch((err) => {
         res.send({

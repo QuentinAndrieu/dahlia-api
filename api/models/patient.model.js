@@ -24,7 +24,22 @@ let PatientSchema = new Schema({
         type: String,
         required: 'Required description'
     },
-    appointments: [{ type: Schema.Types.ObjectId, ref: 'Appointment' }]
+    appointments: [{ type: Schema.Types.ObjectId, ref: 'Appointment' }],
+    createdAt: {
+        type: Date,
+        default: new Date()
+    },
+    trash: {
+        type: String,
+        default: false
+    }
+});
+
+PatientSchema.pre('save', function (next) {
+    if (!this.createdAt) {
+        this.createdAt = new Date();
+    }
+    next();
 });
 
 module.exports = mongoose.model('Patient', PatientSchema);

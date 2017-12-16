@@ -45,11 +45,23 @@ let UserSchema = new Schema({
     appointments: [{
         type: Schema.Types.ObjectId,
         ref: 'Appointment'
-    }]
+    }],
+    createdAt: {
+        type: Date,
+        default: new Date()
+    },
+    trash: {
+        type: String,
+        default: false
+    }
 });
 
 // Saves the user's password hashed
 UserSchema.pre('save', function (next) {
+    if (!this.createdAt) {
+        this.createdAt = new Date();
+    }
+
     if (this.isModified('password') || this.isNew) {
         let salt = bcrypt.genSaltSync(10);
         let hash = bcrypt.hashSync(this.password, salt);

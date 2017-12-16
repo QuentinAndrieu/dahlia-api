@@ -114,6 +114,27 @@ exports.removeById = (userId) => {
     });
 }
 
+exports.updateToTrashById = (userId) => {
+    return new Promise((resolve, reject) => {
+        winston.info('UPDATE_TO_TRASH_USER_BY_ID', userId);
+
+        User.findById(userId, (err, user) => {
+            user.set({
+                trash: true
+            });
+            user.save((err) => {
+                if (err) {
+                    winston.error('UPDATE_TO_TRASH_USER_BY_ID_REJECTED', err);
+                    reject(err);
+                } else {
+                    winston.info('UPDATE_TO_TRASH_USER_BY_ID_FULLFILED');
+                    resolve(user);
+                }
+            });
+        });
+    });
+}
+
 exports.addPatient = (userId, patientId) => {
     return new Promise((resolve, reject) => {
         winston.info('ADD_PATIENT_TO_USER');

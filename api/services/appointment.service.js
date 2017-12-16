@@ -118,16 +118,16 @@ exports.updateByIdAndUserId = (appointment, userId, appointmentId) => {
             _id: appointmentId,
             id_user: userId
         }, appointment, {
-            new: true
-        }, (err, appointment) => {
-            if (err) {
-                winston.error('UPDATE_APPOINTMENT_BY_ID_AND_USER_ID_REJECTED', err);
-                reject(err);
-            } else {
-                winston.info('UPDATE_APPOINTMENT_BY_ID_AND_USER_ID_FULLFILED');
-                resolve(appointment);
-            }
-        });
+                new: true
+            }, (err, appointment) => {
+                if (err) {
+                    winston.error('UPDATE_APPOINTMENT_BY_ID_AND_USER_ID_REJECTED', err);
+                    reject(err);
+                } else {
+                    winston.info('UPDATE_APPOINTMENT_BY_ID_AND_USER_ID_FULLFILED');
+                    resolve(appointment);
+                }
+            });
     });
 }
 
@@ -177,6 +177,87 @@ exports.removeByUserId = (userId) => {
                 reject(err);
             } else {
                 winston.info('REMOVE_APPOINTMENTS_BY_USER_ID_FULLFILED');
+                resolve(appointments);
+            }
+        });
+    });
+}
+
+exports.updateToTrashById = (appointmentId) => {
+    return new Promise((resolve, reject) => {
+        winston.info('UPDATE_TO_TRASH_APPOINTMENT_BY_ID', appointmentId);
+
+        Appointment.findById(appointmentId, (err, appointment) => {
+            appointment.set({
+                trash: true
+            });
+            appointment.save((err) => {
+                if (err) {
+                    winston.error('UPDATE_TO_TRASH_APPOINTMENT_BY_ID_REJECTED', err);
+                    reject(err);
+                } else {
+                    winston.info('UPDATE_TO_TRASH_APPOINTMENT_BY_ID_FULLFILED');
+                    resolve(appointment);
+                }
+            });
+        });
+    });
+}
+
+exports.updateToTrashByIdAndUserId = (userId, appointmentId) => {
+    return new Promise((resolve, reject) => {
+        winston.info('UPDATE_TO_TRASH_APPOINTMENT_BY_ID_AND_USER_ID', appointmentId);
+
+        Appointment.findOne({
+            _id: appointmentId,
+            id_user: userId
+        }, (err, appointment) => {
+            appointment.set({
+                trash: true
+            });
+            appointment.save((err) => {
+                if (err) {
+                    winston.error('UPDATE_TO_TRASH_APPOINTMENT_BY_ID_AND_USER_ID_REJECTED', err);
+                    reject(err);
+                } else {
+                    winston.info('UPDATE_TO_TRASH_APPOINTMENT_BY_ID_AND_USER_ID_FULLFILED');
+                    resolve(appointment);
+                }
+            });
+        });
+    });
+}
+
+exports.updateToTrashByUserId = (userId) => {
+    return new Promise((resolve, reject) => {
+        winston.info('UPDATE_TO_TRASH_APPOINTMENTS_BY_USER_ID', userId);
+
+        Appointment.update({
+            id_user: userId
+        }, { $set: { trash: true } }, { multi: true }, (err, appointments) => {
+            if (err) {
+                winston.error('UPDATE_TO_TRASH_APPOINTMENTS_BY_USER_ID_REJECTED', err);
+                reject(err);
+            } else {
+                winston.info('UPDATE_TO_TRASH_APPOINTMENTS_BY_USER_ID_FULLFILED');
+                resolve(appointments);
+            }
+        });
+    });
+}
+
+exports.updateToTrashByPatientId = (patientId) => {
+    return new Promise((resolve, reject) => {
+        winston.info('UPDATE_TO_TRASH_APPOINTMENTS_BY_PATIENT_ID', patientId);
+
+        Appointment.update({
+            id_patient: patientId
+        }, { $set: { trash: true } }, { multi: true }, (err, appointments) => {
+            if (err) {
+                winston.error('UPDATE_TO_TRASH_APPOINTMENTS_BY_PATIENT_ID_REJECTED', err);
+                reject(err);
+            } else {
+                winston.info('UPDATE_TO_TRASH_APPOINTMENTS_BY_PATIENT_ID_FULLFILED');
                 resolve(appointments);
             }
         });
