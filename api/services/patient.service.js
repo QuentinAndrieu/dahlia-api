@@ -104,7 +104,8 @@ exports.updateById = (patient, patientId) => {
         },
             patient, {
                 new: true
-            }, (err, patient) => {
+            }).populate('appointments')
+            .exec((err, patient) => {
                 if (err) {
                     winston.error('UPDATE_BY_ID_REJECTED', err);
                     reject(err);
@@ -125,7 +126,8 @@ exports.updateByIdAndUserId = (patient, userId, patientId) => {
             id_user: userId
         }, patient, {
                 new: true
-            }, (err, patient) => {
+            }).populate('appointments')
+            .exec((err, patient) => {
                 if (err) {
                     winston.error('UPDATE_BY_ID_AND_USER_ID_REJECTED', err);
                     reject(err);
@@ -141,15 +143,17 @@ exports.removeById = (patientId) => {
     return new Promise((resolve, reject) => {
         winston.info('REMOVE_BY_ID', patientId);
 
-        Patient.findOneAndRemove(patientId, (err, patient) => {
-            if (err) {
-                winston.error('REMOVE_BY_ID_REJECTED', err);
-                reject(err);
-            } else {
-                winston.info('REMOVE_BY_ID_FULLFILED');
-                resolve(patient);
-            }
-        });
+        Patient.findOneAndRemove(patientId)
+            .populate('appointments')
+            .exec((err, patient) => {
+                if (err) {
+                    winston.error('REMOVE_BY_ID_REJECTED', err);
+                    reject(err);
+                } else {
+                    winston.info('REMOVE_BY_ID_FULLFILED');
+                    resolve(patient);
+                }
+            });
     });
 }
 
@@ -160,15 +164,16 @@ exports.removeByIdAndUserId = (userId, patientId) => {
         Patient.findOneAndRemove({
             _id: patientId,
             id_user: userId
-        }, (err, patient) => {
-            if (err) {
-                winston.error('REMOVE_BY_ID_AND_USER_ID_REJECTED', err);
-                reject(err);
-            } else {
-                winston.info('REMOVE_BY_ID_AND_USER_ID_FULLFILED');
-                resolve(patient);
-            }
-        });
+        }).populate('appointments')
+            .exec((err, patient) => {
+                if (err) {
+                    winston.error('REMOVE_BY_ID_AND_USER_ID_REJECTED', err);
+                    reject(err);
+                } else {
+                    winston.info('REMOVE_BY_ID_AND_USER_ID_FULLFILED');
+                    resolve(patient);
+                }
+            });
     });
 }
 
@@ -178,15 +183,16 @@ exports.removeByUserId = (userId) => {
 
         Patient.findOneAndRemove({
             id_user: userId
-        }, (err, patients) => {
-            if (err) {
-                winston.error('REMOVE_PATIENTS_BY_USER_ID_REJECTED', err);
-                reject(err);
-            } else {
-                winston.info('REMOVE_PATIENTS_BY_USER_ID_FULLFILED');
-                resolve(patients);
-            }
-        });
+        }).populate('appointments')
+            .exec((err, patients) => {
+                if (err) {
+                    winston.error('REMOVE_PATIENTS_BY_USER_ID_REJECTED', err);
+                    reject(err);
+                } else {
+                    winston.info('REMOVE_PATIENTS_BY_USER_ID_FULLFILED');
+                    resolve(patients);
+                }
+            });
     });
 }
 
@@ -194,20 +200,22 @@ exports.updateToTrashById = (patientId) => {
     return new Promise((resolve, reject) => {
         winston.info('UPDATE_TO_TRASH_PATIENT_BY_ID', patientId);
 
-        Patient.findById(patientId, (err, patient) => {
-            patient.set({
-                trash: true
+        Patient.findById(patientId)
+            .populate('appointments')
+            .exec((err, patient) => {
+                patient.set({
+                    trash: true
+                });
+                patient.save((err) => {
+                    if (err) {
+                        winston.error('UPDATE_TO_TRASH_PATIENT_BY_ID_REJECTED', err);
+                        reject(err);
+                    } else {
+                        winston.info('UPDATE_TO_TRASH_PATIENT_BY_ID_FULLFILED');
+                        resolve(patient);
+                    }
+                });
             });
-            patient.save((err) => {
-                if (err) {
-                    winston.error('UPDATE_TO_TRASH_PATIENT_BY_ID_REJECTED', err);
-                    reject(err);
-                } else {
-                    winston.info('UPDATE_TO_TRASH_PATIENT_BY_ID_FULLFILED');
-                    resolve(patient);
-                }
-            });
-        });
     });
 }
 
@@ -218,20 +226,21 @@ exports.updateToTrashByIdAndUserId = (userId, patientId) => {
         Patient.findOne({
             _id: patientId,
             id_user: userId
-        }, (err, patient) => {
-            patient.set({
-                trash: true
+        }).populate('appointments')
+            .exec((err, patient) => {
+                patient.set({
+                    trash: true
+                });
+                patient.save((err) => {
+                    if (err) {
+                        winston.error('UPDATE_TO_TRASH_PATIENT_BY_ID_AND_USER_ID_REJECTED', err);
+                        reject(err);
+                    } else {
+                        winston.info('UPDATE_TO_TRASH_PATIENT_BY_ID_AND_USER_ID_FULLFILED');
+                        resolve(patient);
+                    }
+                });
             });
-            patient.save((err) => {
-                if (err) {
-                    winston.error('UPDATE_TO_TRASH_PATIENT_BY_ID_AND_USER_ID_REJECTED', err);
-                    reject(err);
-                } else {
-                    winston.info('UPDATE_TO_TRASH_PATIENT_BY_ID_AND_USER_ID_FULLFILED');
-                    resolve(patient);
-                }
-            });
-        });
     });
 }
 
@@ -241,15 +250,17 @@ exports.updateToTrashByUserId = (userId) => {
 
         Patient.update({
             id_user: userId
-        }, { $set: { trash: true } }, { multi: true }, (err, patients) => {
-            if (err) {
-                winston.error('UPDATE_TO_TRASH_PATIENTS_BY_USER_ID_REJECTED', err);
-                reject(err);
-            } else {
-                winston.info('UPDATE_TO_TRASH_PATIENTS_BY_USER_ID_FULLFILED');
-                resolve(patients);
-            }
-        });
+        }, { $set: { trash: true } }, { multi: true })
+            .populate('appointments')
+            .exec((err, patient) => {
+                if (err) {
+                    winston.error('UPDATE_TO_TRASH_PATIENTS_BY_USER_ID_REJECTED', err);
+                    reject(err);
+                } else {
+                    winston.info('UPDATE_TO_TRASH_PATIENTS_BY_USER_ID_FULLFILED');
+                    resolve(patients);
+                }
+            });
     });
 }
 
@@ -265,7 +276,8 @@ exports.addAppointment = (patientId, appointmentId) => {
             }, {
                 safe: true,
                 upsert: true
-            }, (err, patient) => {
+            }).populate('appointments')
+            .exec((err, patient) => {
                 if (err) {
                     winston.error('ADD_APPOINTMENT_FROM_PATIENT_REJECTED', err);
                     reject(err);
@@ -289,7 +301,8 @@ exports.removeAppointment = (patientId, appointmentId) => {
             }, {
                 safe: true,
                 upsert: true
-            }, (err, patient) => {
+            }).populate('appointments')
+            .exec((err, patient) => {
                 if (err) {
                     winston.error('REMOVE_APPOINTMENT_FROM_PATIENT_REJECTED', err);
                     reject(err);

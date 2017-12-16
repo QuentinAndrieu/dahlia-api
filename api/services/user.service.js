@@ -65,15 +65,21 @@ exports.updateById = (user, userId) => {
 
         User.findByIdAndUpdate(userId, user, {
             new: true
-        }, (err, user) => {
-            if (err) {
-                winston.error('UPDATE_USER_BY_ID_REJECTED', err);
-                reject(err);
-            } else {
-                winston.info('UPDATE_USER_BY_ID_FULLFILED');
-                resolve(user);
+        }).populate({
+            path: 'patients',
+            populate: {
+                path: 'appointments'
             }
-        });
+        }).populate('appointments')
+            .exec((err, user) => {
+                if (err) {
+                    winston.error('UPDATE_USER_BY_ID_REJECTED', err);
+                    reject(err);
+                } else {
+                    winston.info('UPDATE_USER_BY_ID_FULLFILED');
+                    resolve(user);
+                }
+            });
     });
 }
 
@@ -81,20 +87,26 @@ exports.updatePasswordById = (password, userId) => {
     return new Promise((resolve, reject) => {
         winston.info('UPDATE_USER_PASSWORD_BY_ID', userId);
 
-        User.findById(userId, (err, user) => {
-            user.set({
-                password: password
+        User.findById(userId).populate({
+            path: 'patients',
+            populate: {
+                path: 'appointments'
+            }
+        }).populate('appointments')
+            .exec((err, user) => {
+                user.set({
+                    password: password
+                });
+                user.save((err) => {
+                    if (err) {
+                        winston.error('UPDATE_USER_PASSWORD_BY_ID_REJECTED', err);
+                        reject(err);
+                    } else {
+                        winston.info('UPDATE_USER_PASSWORD_BY_ID_FULLFILED');
+                        resolve(user);
+                    }
+                });
             });
-            user.save((err) => {
-                if (err) {
-                    winston.error('UPDATE_USER_PASSWORD_BY_ID_REJECTED', err);
-                    reject(err);
-                } else {
-                    winston.info('UPDATE_USER_PASSWORD_BY_ID_FULLFILED');
-                    resolve(user);
-                }
-            });
-        });
     });
 }
 
@@ -102,15 +114,21 @@ exports.removeById = (userId) => {
     return new Promise((resolve, reject) => {
         winston.info('REMOVE_USER_BY_ID', userId);
 
-        User.findByIdAndRemove(userId, (err, user) => {
-            if (err) {
-                winston.error('REMOVE_USER_BY_ID_REJECTED', err);
-                reject(err);
-            } else {
-                winston.info('REMOVE_USER_BY_ID_FULLFILED');
-                resolve(user);
+        User.findByIdAndRemove(userId).populate({
+            path: 'patients',
+            populate: {
+                path: 'appointments'
             }
-        });
+        }).populate('appointments')
+            .exec((err, user) => {
+                if (err) {
+                    winston.error('REMOVE_USER_BY_ID_REJECTED', err);
+                    reject(err);
+                } else {
+                    winston.info('REMOVE_USER_BY_ID_FULLFILED');
+                    resolve(user);
+                }
+            });
     });
 }
 
@@ -118,20 +136,26 @@ exports.updateToTrashById = (userId) => {
     return new Promise((resolve, reject) => {
         winston.info('UPDATE_TO_TRASH_USER_BY_ID', userId);
 
-        User.findById(userId, (err, user) => {
-            user.set({
-                trash: true
+        User.findById(userId).populate({
+            path: 'patients',
+            populate: {
+                path: 'appointments'
+            }
+        }).populate('appointments')
+            .exec((err, user) => {
+                user.set({
+                    trash: true
+                });
+                user.save((err) => {
+                    if (err) {
+                        winston.error('UPDATE_TO_TRASH_USER_BY_ID_REJECTED', err);
+                        reject(err);
+                    } else {
+                        winston.info('UPDATE_TO_TRASH_USER_BY_ID_FULLFILED');
+                        resolve(user);
+                    }
+                });
             });
-            user.save((err) => {
-                if (err) {
-                    winston.error('UPDATE_TO_TRASH_USER_BY_ID_REJECTED', err);
-                    reject(err);
-                } else {
-                    winston.info('UPDATE_TO_TRASH_USER_BY_ID_FULLFILED');
-                    resolve(user);
-                }
-            });
-        });
     });
 }
 
@@ -147,7 +171,13 @@ exports.addPatient = (userId, patientId) => {
             }, {
                 safe: true,
                 upsert: true
-            }, (err, user) => {
+            }).populate({
+                path: 'patients',
+                populate: {
+                    path: 'appointments'
+                }
+            }).populate('appointments')
+            .exec((err, user) => {
                 if (err) {
                     winston.error('ADD_PATIENT_TO_USER_REJECTED', err);
                     reject(err);
@@ -171,7 +201,13 @@ exports.removePatientByPatientId = (userId, patientId) => {
             }, {
                 safe: true,
                 upsert: true
-            }, (err, user) => {
+            }).populate({
+                path: 'patients',
+                populate: {
+                    path: 'appointments'
+                }
+            }).populate('appointments')
+            .exec((err, user) => {
                 if (err) {
                     winston.error('REMOVE_PATIENT_TO_USER_REJECTED', err);
                     reject(err);
@@ -195,7 +231,13 @@ exports.addAppointment = (userId, appointmentId) => {
             }, {
                 safe: true,
                 upsert: true
-            }, (err, user) => {
+            }).populate({
+                path: 'patients',
+                populate: {
+                    path: 'appointments'
+                }
+            }).populate('appointments')
+            .exec((err, user) => {
                 if (err) {
                     winston.error('ADD_APPOINTMENT_TO_USER_REJECTED', err);
                     reject(err);
@@ -219,7 +261,13 @@ exports.removeAppointment = (userId, appointmentId) => {
             }, {
                 safe: true,
                 upsert: true
-            }, (err, user) => {
+            }).populate({
+                path: 'patients',
+                populate: {
+                    path: 'appointments'
+                }
+            }).populate('appointments')
+            .exec((err, user) => {
                 if (err) {
                     winston.error('REMOVE_APPOINTMENT_TO_USER_REJECTED', err);
                     reject(err);
