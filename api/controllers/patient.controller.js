@@ -9,7 +9,7 @@ exports.listAdmin = (req, res) => {
     PatientService.getAll().then((patients) => {
         res.send({
             success: true,
-            content: patients
+            patients: patients
         });
     }).catch((err) => {
         res.send({
@@ -20,14 +20,15 @@ exports.listAdmin = (req, res) => {
 };
 
 exports.saveAdmin = (req, res) => {
-    let content = {};
+    let patientRes = {};
     PatientService.save(req.body, req.body.id_user).then((patient) => {
-        content = patient;
+        patientRes = patient;
         return UserService.addPatient(patient.id_user, patient._id);
     }).then((user) => {
         res.send({
             success: true,
-            content: content
+            patient: patientRes,
+            user: user
         });
     }).catch((err) => {
         res.send({
@@ -41,7 +42,7 @@ exports.readAdmin = (req, res) => {
     PatientService.getById(req.params.patientId).then((patient) => {
         res.send({
             success: true,
-            content: patient
+            patient: patient
         });
     }).catch((err) => {
         res.send({
@@ -52,10 +53,15 @@ exports.readAdmin = (req, res) => {
 };
 
 exports.updateAdmin = (req, res) => {
+    let patientRes = {};
     PatientService.updateById(req.body, req.params.patientId).then((patient) => {
+        patientRes = patient;
+        return UserService.getById(patient.id_user);
+    }).then((user) => {
         res.send({
             success: true,
-            content: patient
+            patient: patientRes,
+            user: user
         });
     }).catch((err) => {
         res.send({
@@ -66,16 +72,19 @@ exports.updateAdmin = (req, res) => {
 };
 
 exports.removeAdmin = (req, res) => {
-    let content = {};
+    let patientRes = {};
     PatientService.removeById(req.params.patientId).then((patient) => {
-        content = patient;
+        patientRes = patient;
         return UserService.removePatientByPatientId(req.params.patientId);
     }).then((user) => {
+        userRes = user;
         return AppointmentService.removeByPatientId(req.params.patientId);
     }).then((appointments) => {
         res.send({
             success: true,
-            content: content
+            patient: patientRes,
+            user: userRes,
+            appointments: appointments
         });
     }).catch((err) => {
         res.send({
@@ -86,14 +95,20 @@ exports.removeAdmin = (req, res) => {
 };
 
 exports.updateToTrashAdmin = (req, res) => {
-    let content = {};
+    let patientRes = {};
+    let userRes = {};
     PatientService.updateToTrashById(req.params.patientId).then((patient) => {
-        content = patient;
+        patientRes = patient;
+        return UserService.getById(patient.id_user);
+    }).then((user) => {
+        userRes = user;
         return AppointmentService.updateToTrashByPatientId(patient._id);
     }).then((appointments) => {
         res.send({
             success: true,
-            content: content
+            patient: patientRes,
+            user: userRes,
+            appointments: appointments
         });
     }).catch((err) => {
         res.send({
@@ -108,7 +123,7 @@ exports.list = (req, res) => {
     PatientService.getAllByUserId(req.user._id).then((patients) => {
         res.send({
             success: true,
-            content: patients
+            patients: patients
         });
     }).catch((err) => {
         res.send({
@@ -119,14 +134,15 @@ exports.list = (req, res) => {
 };
 
 exports.save = (req, res) => {
-    let content = {};
+    let patientRes = {};
     PatientService.save(req.body, req.user._id).then((patient) => {
-        content = patient;
+        patientRes = patient;
         return UserService.addPatient(patient.id_user, patient._id, patient);
-    }).then((user, patient) => {
+    }).then((user) => {
         res.send({
             success: true,
-            content: content
+            patient: patientRes,
+            user: user
         });
     }).catch((err) => {
         res.send({
@@ -140,7 +156,7 @@ exports.read = (req, res) => {
     PatientService.getByIdAndUserId(req.user._id, req.params.patientId).then((patient) => {
         res.send({
             success: true,
-            content: patient
+            patient: patient
         });
     }).catch((err) => {
         res.send({
@@ -151,10 +167,15 @@ exports.read = (req, res) => {
 };
 
 exports.update = (req, res) => {
+    let patientRes = {};
     PatientService.updateByIdAndUserId(req.body, req.user._id, req.params.patientId).then((patient) => {
+        patientRes = patient;
+        return UserService.getById(patient.id_user);
+    }).then((user) => {
         res.send({
             success: true,
-            content: patient
+            patient: patientRes,
+            user: user
         });
     }).catch((err) => {
         res.send({
@@ -165,16 +186,20 @@ exports.update = (req, res) => {
 };
 
 exports.remove = (req, res) => {
-    let content = {};
+    let patientRes = {};
+    let userRes = {};
     PatientService.removeByIdAndUserId(req.user._id, req.params.patientId).then((patient) => {
-        content = patient;
+        patientRes = patient;
         return UserService.removePatientByPatientId(req.user._id, req.params.patientId);
     }).then((user) => {
+        userRes = user;
         return AppointmentService.removeByPatientId(req.params.patientId);
     }).then((appointments) => {
         res.send({
             success: true,
-            content: content
+            patient: patientRes,
+            user: userRes,
+            appointments: appointments
         });
     }).catch((err) => {
         res.send({
@@ -185,14 +210,20 @@ exports.remove = (req, res) => {
 };
 
 exports.updateToTrash = (req, res) => {
-    let content = {};
+    let patientRes = {};
+    let userRes = {};
     PatientService.updateToTrashByIdAndUserId(req.user._id, req.params.patientId).then((patient) => {
-        content = patient;
+        patientRes = patient;
+        return UserService.getById(patient.id_user);
+    }).then((user) => {
+        userRes = user;
         return AppointmentService.updateToTrashByPatientId(patient._id);
     }).then((appointments) => {
         res.send({
             success: true,
-            content: content
+            patient: patientRes,
+            user: userRes,
+            appointments: appointments
         });
     }).catch((err) => {
         res.send({

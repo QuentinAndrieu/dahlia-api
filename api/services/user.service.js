@@ -87,7 +87,9 @@ exports.updatePasswordById = (password, userId) => {
     return new Promise((resolve, reject) => {
         winston.info('UPDATE_USER_PASSWORD_BY_ID', userId);
 
-        User.findById(userId).populate({
+        User.findById(userId, {
+            new: true
+        }).populate({
             path: 'patients',
             populate: {
                 path: 'appointments'
@@ -114,7 +116,9 @@ exports.removeById = (userId) => {
     return new Promise((resolve, reject) => {
         winston.info('REMOVE_USER_BY_ID', userId);
 
-        User.findByIdAndRemove(userId).populate({
+        User.findByIdAndRemove(userId, {
+            new: true
+        }).populate({
             path: 'patients',
             populate: {
                 path: 'appointments'
@@ -169,6 +173,7 @@ exports.addPatient = (userId, patientId) => {
                     patients: patientId
                 }
             }, {
+                new: true,
                 safe: true,
                 upsert: true
             }).populate({
@@ -199,6 +204,7 @@ exports.removePatientByPatientId = (userId, patientId) => {
                     patients: patientId
                 }
             }, {
+                new: true,
                 safe: true,
                 upsert: true
             }).populate({
@@ -229,6 +235,7 @@ exports.addAppointment = (userId, appointmentId) => {
                     appointments: appointmentId
                 }
             }, {
+                new: true,
                 safe: true,
                 upsert: true
             }).populate({
@@ -259,6 +266,7 @@ exports.removeAppointment = (userId, appointmentId) => {
                     appointments: appointmentId
                 }
             }, {
+                new: true,
                 safe: true,
                 upsert: true
             }).populate({

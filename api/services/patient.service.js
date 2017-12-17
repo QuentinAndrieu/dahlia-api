@@ -101,8 +101,7 @@ exports.updateById = (patient, patientId) => {
 
         Patient.findOneAndUpdate({
             _id: patientId
-        },
-            patient, {
+        }, patient, {
                 new: true
             }).populate('appointments')
             .exec((err, patient) => {
@@ -143,7 +142,9 @@ exports.removeById = (patientId) => {
     return new Promise((resolve, reject) => {
         winston.info('REMOVE_BY_ID', patientId);
 
-        Patient.findOneAndRemove(patientId)
+        Patient.findOneAndRemove(patientId, {
+            new: true
+        })
             .populate('appointments')
             .exec((err, patient) => {
                 if (err) {
@@ -164,7 +165,9 @@ exports.removeByIdAndUserId = (userId, patientId) => {
         Patient.findOneAndRemove({
             _id: patientId,
             id_user: userId
-        }).populate('appointments')
+        }, {
+                new: true
+            }).populate('appointments')
             .exec((err, patient) => {
                 if (err) {
                     winston.error('REMOVE_BY_ID_AND_USER_ID_REJECTED', err);
@@ -183,7 +186,9 @@ exports.removeByUserId = (userId) => {
 
         Patient.findOneAndRemove({
             id_user: userId
-        }).populate('appointments')
+        }, {
+                new: true
+            }).populate('appointments')
             .exec((err, patients) => {
                 if (err) {
                     winston.error('REMOVE_PATIENTS_BY_USER_ID_REJECTED', err);
@@ -250,7 +255,12 @@ exports.updateToTrashByUserId = (userId) => {
 
         Patient.update({
             id_user: userId
-        }, { $set: { trash: true } }, { multi: true })
+        }, {
+                $set: { trash: true }
+            }, {
+                new: true,
+                multi: true
+            })
             .populate('appointments')
             .exec((err, patient) => {
                 if (err) {
@@ -274,6 +284,7 @@ exports.addAppointment = (patientId, appointmentId) => {
                     appointments: appointmentId
                 }
             }, {
+                new: true,
                 safe: true,
                 upsert: true
             }).populate('appointments')
@@ -299,6 +310,7 @@ exports.removeAppointment = (patientId, appointmentId) => {
                     appointments: appointmentId
                 }
             }, {
+                new: true,
                 safe: true,
                 upsert: true
             }).populate('appointments')

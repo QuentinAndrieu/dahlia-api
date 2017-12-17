@@ -135,7 +135,9 @@ exports.removeById = (appointmentId) => {
     return new Promise((resolve, reject) => {
         winston.info('REMOVE_APPOINTMENT_BY_ID', appointmentId);
 
-        Appointment.findOneAndRemove(appointmentId, (err, appointment) => {
+        Appointment.findOneAndRemove(appointmentId, {
+            new: true
+        }, (err, appointment) => {
             winston.info('APPOINTMENT', appointment);
             if (err) {
                 winston.error('REMOVE_APPOINTMENT_BY_ID_REJECTED', err);
@@ -155,7 +157,7 @@ exports.removeByIdAndUserId = (userId, appointmentId) => {
         Appointment.findOneAndRemove({
             _id: appointmentId,
             id_user: userId
-        }, (err, appointment) => {
+        }, { new: true }, (err, appointment) => {
             if (err) {
                 winston.error('REMOVE_APPOINTMENT_BY_ID_AND_USER_ID_REJECTED', err);
                 reject(err);
@@ -171,7 +173,7 @@ exports.removeByUserId = (userId) => {
     return new Promise((resolve, reject) => {
         winston.info('REMOVE_APPOINTMENTS_BY_USER_ID', userId);
 
-        Appointment.findByIdAndRemove(userId, (err, appointments) => {
+        Appointment.findByIdAndRemove(userId, { new: true }, (err, appointments) => {
             if (err) {
                 winston.error('REMOVE_APPOINTMENTS_BY_USER_ID_REJECTED', err);
                 reject(err);
@@ -234,7 +236,7 @@ exports.updateToTrashByUserId = (userId) => {
 
         Appointment.update({
             id_user: userId
-        }, { $set: { trash: true } }, { multi: true }, (err, appointments) => {
+        }, { $set: { trash: true } }, { multi: true, new: true }, (err, appointments) => {
             if (err) {
                 winston.error('UPDATE_TO_TRASH_APPOINTMENTS_BY_USER_ID_REJECTED', err);
                 reject(err);
@@ -252,7 +254,7 @@ exports.updateToTrashByPatientId = (patientId) => {
 
         Appointment.update({
             id_patient: patientId
-        }, { $set: { trash: true } }, { multi: true }, (err, appointments) => {
+        }, { $set: { trash: true } }, { multi: true, new: true }, (err, appointments) => {
             if (err) {
                 winston.error('UPDATE_TO_TRASH_APPOINTMENTS_BY_PATIENT_ID_REJECTED', err);
                 reject(err);
@@ -270,7 +272,7 @@ exports.removeByPatientId = (patientId) => {
 
         Appointment.remove({
             id_patient: patientId
-        }, (err, appointments) => {
+        }, { new: true }, (err, appointments) => {
             if (err) {
                 winston.error('REMOVE_APPOINTMENTS_BY_PATIENT_ID_REJECTED', err);
                 reject(err);
