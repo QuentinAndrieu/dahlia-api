@@ -100,10 +100,10 @@ exports.updateToTrashAdmin = (req, res) => {
     let appointmentsRes = {};
     PatientService.updateToTrashById(req.params.patientId).then((patient) => {
         patientRes = patient;
-        return AppointmentService.updateToTrashByPatientId(patientRes._id);
+        return AppointmentService.updateToTrashByPatientId(req.params.patientId);
     }).then((appointments) => {
         appointmentsRes = appointments;
-        return UserService.getById(req.params.patientId);
+        return UserService.getById(patientRes.id_user);
     }).then((user) => {
         res.send({
             success: true,
@@ -171,7 +171,7 @@ exports.update = (req, res) => {
     let patientRes = {};
     PatientService.updateByIdAndUserId(req.body, req.user._id, req.params.patientId).then((patient) => {
         patientRes = patient;
-        return UserService.getById(patient.id_user);
+        return UserService.getById(req.user._id);
     }).then((user) => {
         res.send({
             success: true,
@@ -218,7 +218,7 @@ exports.updateToTrash = (req, res) => {
         return AppointmentService.updateToTrashByPatientId(patientRes._id);
     }).then((appointments) => {
         appointmentsRes = appointments;
-        return UserService.getById(req.params.patientId);
+        return UserService.getById(req.user._id);
     }).then((user) => {
         res.send({
             success: true,
