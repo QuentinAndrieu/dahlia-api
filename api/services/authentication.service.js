@@ -56,9 +56,7 @@ exports.authenticate = (mail, password) => {
                     });
 
                     winston.info('AUTHENTICATE_FULLFILED');
-                    resolve({
-                        token: 'Bearer ' + token
-                    });
+                    resolve('Bearer ' + token);
                 }).catch((err) => {
                     winston.error('AUTHENTICATE_REJECTED', err);
                     reject(err);
