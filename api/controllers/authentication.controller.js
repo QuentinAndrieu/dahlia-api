@@ -6,7 +6,7 @@ exports.register = (req, res) => {
     AuthenticationService.register(req.body, 'Client').then((user) => {
         res.send({
             success: true,
-            content: user
+            user: user
         });
     }).catch((err) => {
         res.send({
@@ -20,7 +20,7 @@ exports.registerAdmin = (req, res) => {
     AuthenticationService.register(req.body, 'Admin').then((user) => {
         res.send({
             success: true,
-            content: user
+            user: user
         });
     }).catch((err) => {
         res.send({
@@ -34,7 +34,7 @@ exports.authenticate = (req, res) => {
     AuthenticationService.authenticate(req.body.mail, req.body.password).then((token) => {
         res.send({
             success: true,
-            content: token
+            token: token
         });
     }).catch((err) => {
         res.send({
