@@ -102,7 +102,7 @@ exports.updateToTrashAdmin = (req, res) => {
         return UserService.getById(patient.id_user);
     }).then((user) => {
         userRes = user;
-        return AppointmentService.updateToTrashByPatientId(patient._id);
+        return AppointmentService.updateToTrashByPatientId(patientRes._id);
     }).then((appointments) => {
         res.send({
             success: true,
@@ -217,7 +217,7 @@ exports.updateToTrash = (req, res) => {
         return UserService.getById(patient.id_user);
     }).then((user) => {
         userRes = user;
-        return AppointmentService.updateToTrashByPatientId(patient._id);
+        return AppointmentService.updateToTrashByPatientId(patientRes._id);
     }).then((appointments) => {
         res.send({
             success: true,

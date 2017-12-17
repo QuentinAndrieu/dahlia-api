@@ -21,19 +21,19 @@ exports.listAdmin = (req, res) => {
 
 exports.saveAdmin = (req, res) => {
     let appointmentRes = {};
-    let userRes = {};
+    let patientRes = {};
     AppointmentService.save(req.body, req.body.id_user).then((appointment) => {
         appointmentRes = appointment;
-        return UserService.addAppointment(appointment.id_user, appointment._id);
-    }).then((user) => {
-        userRes = user;
-        return PatientService.addAppointment(appointmentRes.id_patient, appointmentRes._id);
+        return PatientService.addAppointment(appointment.id_patient, appointment._id);
     }).then((patient) => {
+        patientRes = patient;
+        return UserService.addAppointment(appointmentRes.id_user, appointmentRes._id);
+    }).then((user) => {
         res.send({
             success: true,
             appointment: appointmentRes,
-            user: userRes,
-            patient: patient
+            user: user,
+            patient: patientRes
         });
     }).catch((err) => {
         res.send({

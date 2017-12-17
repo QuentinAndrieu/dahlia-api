@@ -262,7 +262,7 @@ exports.updateToTrashByUserId = (userId) => {
                 multi: true
             })
             .populate('appointments')
-            .exec((err, patient) => {
+            .exec((err, patients) => {
                 if (err) {
                     winston.error('UPDATE_TO_TRASH_PATIENTS_BY_USER_ID_REJECTED', err);
                     reject(err);
