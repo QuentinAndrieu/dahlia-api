@@ -5,16 +5,16 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon ./lib/server.js",
+    "build": "babel api/ -d lib/",
     "data-fixtures": "node script/data-fixtures-custom.js",
     "clean-db": "node script/clean-db.js",
     "default-admin": "node script/default-admin.js",
-    "preinstall": "babel api/ -d lib/",
+    "preinstall": "build",
     "postinstall": "node script/clean-db.js && node script/default-admin.js",
     "deploy": "git push origin master && git push heroku master",
     "flow": "flow",
     "flow:check": "flow check ./api/",
     "flow:build": "flow-remove-types ./api/ -d ./lib/ --all --pretty",
-    "build": "babel api/ -d lib/",
     "flow:deps": "flow-typed install"
   },
   "repository": {
