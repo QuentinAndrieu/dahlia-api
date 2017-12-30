@@ -9,7 +9,7 @@
     "data-fixtures": "node script/data-fixtures-custom.js",
     "clean-db": "node script/clean-db.js",
     "default-admin": "node script/default-admin.js",
-    "postinstall": "build && node script/clean-db.js && node script/default-admin.js",
+    "postinstall": "babel api/ -d lib/ && node script/clean-db.js && node script/default-admin.js",
     "deploy": "git push origin master && git push heroku master",
     "flow": "flow",
     "flow:check": "flow check ./api/",
