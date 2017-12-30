@@ -1,12 +1,13 @@
-'use strict';
+//@Flow
+import mongoose from 'mongoose';
+import winston from 'winston';
+import config from '../config/main';
+import jwt from 'jsonwebtoken';
+import { IUser } from '../interfaces/user.interface';
 
-let mongoose = require('mongoose'),
-    User = mongoose.model('User'),
-    jwt = require('jsonwebtoken'),
-    config = require('../../config/main'),
-    winston = require('winston');
+let User = mongoose.model('User');
 
-exports.register = (user, role) => {
+exports.register = (user: IUser, role: string): Promise<IUser> => {
     return new Promise((resolve, reject) => {
         winston.info('REGISTER');
 
@@ -31,7 +32,7 @@ exports.register = (user, role) => {
     });
 }
 
-exports.authenticate = (mail, password) => {
+exports.authenticate = (mail: string, password: string): Promise<string> => {
     return new Promise((resolve, reject) => {
         winston.info('AUTHENTICATE');
 
@@ -52,8 +53,8 @@ exports.authenticate = (mail, password) => {
                         password: user.password,
                         role: user.role
                     }, config.secret, {
-                        expiresIn: 10080 // in seconds
-                    });
+                            expiresIn: 10080 // in seconds
+                        });
 
                     winston.info('AUTHENTICATE_FULLFILED');
                     resolve('Bearer ' + token);

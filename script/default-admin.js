@@ -1,6 +1,6 @@
-let User = require('../api/models/user.model'),
+let User = require('../lib/models/user.model'),
     mongoose = require('mongoose'),
-    config = require('../config/main'),
+    config = require('../lib/config/main'),
     fs = require('fs'),
     winston = require('winston');
 

@@ -1,10 +1,11 @@
-'use strict';
+//@Flow
+import mongoose from 'mongoose';
+import winston from 'winston';
+import { IPatient } from '../interfaces/patient.interface';
 
-let mongoose = require('mongoose'),
-    Patient = mongoose.model('Patient'),
-    winston = require('winston');
+let Patient = mongoose.model('Patient');
 
-exports.save = (patient, userId) => {
+exports.save = (patient: IPatient, userId: string): Promise<IPatient> => {
     return new Promise((resolve, reject) => {
         winston.info('SAVE_PATIENT');
 
@@ -23,7 +24,7 @@ exports.save = (patient, userId) => {
     });
 }
 
-exports.getAll = () => {
+exports.getAll = (): Promise<IPatient[]> => {
     return new Promise((resolve, reject) => {
         winston
             .info('GET_ALL_PATIENTS');
@@ -40,7 +41,7 @@ exports.getAll = () => {
     });
 }
 
-exports.getAllByUserId = (userId) => {
+exports.getAllByUserId = (userId: string): Promise<IPatient[]> => {
     return new Promise((resolve, reject) => {
         winston.info('GET_ALL_PATIENTS_BY_USER_ID');
 
@@ -58,7 +59,7 @@ exports.getAllByUserId = (userId) => {
     });
 }
 
-exports.getById = (patientId) => {
+exports.getById = (patientId: string): Promise<IPatient> => {
     return new Promise((resolve, reject) => {
         winston.info('GET_PATIENT_BY_ID', patientId);
 
@@ -74,7 +75,7 @@ exports.getById = (patientId) => {
     });
 }
 
-exports.getByIdAndUserId = (userId, patientId) => {
+exports.getByIdAndUserId = (userId: string, patientId: string): Promise<IPatient> => {
     return new Promise((resolve, reject) => {
         winston.info('GET_PATIENT_BY_ID_AND_USER_ID', userId, patientId);
 
@@ -95,7 +96,7 @@ exports.getByIdAndUserId = (userId, patientId) => {
 
 
 
-exports.updateById = (patient, patientId) => {
+exports.updateById = (patient: IPatient, patientId: string): Promise<IPatient> => {
     return new Promise((resolve, reject) => {
         winston.info('UPDATE_BY_ID', patientId);
 
@@ -116,7 +117,7 @@ exports.updateById = (patient, patientId) => {
     });
 }
 
-exports.updateByIdAndUserId = (patient, userId, patientId) => {
+exports.updateByIdAndUserId = (patient: IPatient, userId: string, patientId: string): Promise<IPatient> => {
     return new Promise((resolve, reject) => {
         winston.info('UPDATE_BY_ID_AND_USER_ID', userId, patientId);
 
@@ -138,7 +139,7 @@ exports.updateByIdAndUserId = (patient, userId, patientId) => {
     });
 }
 
-exports.removeById = (patientId) => {
+exports.removeById = (patientId: string): Promise<IPatient> => {
     return new Promise((resolve, reject) => {
         winston.info('REMOVE_BY_ID', patientId);
 
@@ -158,7 +159,7 @@ exports.removeById = (patientId) => {
     });
 }
 
-exports.removeByIdAndUserId = (userId, patientId) => {
+exports.removeByIdAndUserId = (userId: string, patientId: string): Promise<IPatient> => {
     return new Promise((resolve, reject) => {
         winston.info('REMOVE_BY_ID_AND_USER_ID', patientId);
 
@@ -180,7 +181,7 @@ exports.removeByIdAndUserId = (userId, patientId) => {
     });
 }
 
-exports.removeByUserId = (userId) => {
+exports.removeByUserId = (userId: string): Promise<IPatient[]> => {
     return new Promise((resolve, reject) => {
         winston.info('REMOVE_PATIENTS_BY_USER_ID', userId);
 
@@ -201,7 +202,7 @@ exports.removeByUserId = (userId) => {
     });
 }
 
-exports.updateToTrashById = (patientId) => {
+exports.updateToTrashById = (patientId: string): Promise<IPatient> => {
     return new Promise((resolve, reject) => {
         winston.info('UPDATE_TO_TRASH_PATIENT_BY_ID', patientId);
 
@@ -224,7 +225,7 @@ exports.updateToTrashById = (patientId) => {
     });
 }
 
-exports.updateToTrashByIdAndUserId = (userId, patientId) => {
+exports.updateToTrashByIdAndUserId = (userId: string, patientId: string): Promise<IPatient> => {
     return new Promise((resolve, reject) => {
         winston.info('UPDATE_TO_TRASH_PATIENT_BY_ID_AND_USER_ID', patientId);
 
@@ -249,7 +250,7 @@ exports.updateToTrashByIdAndUserId = (userId, patientId) => {
     });
 }
 
-exports.updateToTrashByUserId = (userId) => {
+exports.updateToTrashByUserId = (userId: string): Promise<IPatient[]> => {
     return new Promise((resolve, reject) => {
         winston.info('UPDATE_TO_TRASH_PATIENTS_BY_USER_ID', userId);
 
@@ -274,7 +275,7 @@ exports.updateToTrashByUserId = (userId) => {
     });
 }
 
-exports.addAppointment = (patientId, appointmentId) => {
+exports.addAppointment = (patientId: string, appointmentId: string): Promise<IPatient> => {
     return new Promise((resolve, reject) => {
         winston.info('ADD_APPOINTMENT_FROM_PATIENT', patientId);
 
@@ -300,7 +301,7 @@ exports.addAppointment = (patientId, appointmentId) => {
     });
 }
 
-exports.removeAppointment = (patientId, appointmentId) => {
+exports.removeAppointment = (patientId: string, appointmentId: string): Promise<IPatient> => {
     return new Promise((resolve, reject) => {
         winston.info('REMOVE_APPOINTMENT_FROM_PATIENT', patientId);
 

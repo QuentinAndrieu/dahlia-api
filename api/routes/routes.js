@@ -1,17 +1,14 @@
-'use strict';
+//@Flow
+import PatientController from '../controllers/patient.controller';
+import AppointmentController from '../controllers/appointment.controller';
+import UserController from '../controllers/user.controller';
+import HomeController from '../controllers/home.controller';
+import AuthenticationController from '../controllers/authentication.controller';
+import passport from 'passport';
 
-let PatientController = require('../controllers/patient.controller'),
-  AppointmentController = require('../controllers/appointment.controller'),
-  UserController = require('../controllers/user.controller'),
-  HomeController = require('../controllers/home.controller'),
-  AuthenticationController = require('../controllers/authentication.controller'),
-  passport = require('passport');
-
-module.exports = (app) => {
-
+module.exports = (app: any) => {
   const requireAuth = passport.authenticate('jwt', { session: false });
-
-  require('../../config/passport')(passport);
+  require('../config/passport')(passport);
 
   const isAdmin = () => {
     return (req, res, next) => {

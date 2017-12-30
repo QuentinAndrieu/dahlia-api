@@ -1,8 +1,7 @@
-'use strict';
+//@Flow
+import AuthenticationService from '../services/authentication.service';
 
-let AuthenticationService = require('../services/authentication.service');
-
-exports.register = (req, res) => {
+exports.register = (req: any, res: any): void => {
     AuthenticationService.register(req.body, 'Client').then((user) => {
         res.send({
             success: true,
@@ -16,7 +15,7 @@ exports.register = (req, res) => {
     });
 }
 
-exports.registerAdmin = (req, res) => {
+exports.registerAdmin = (req: any, res: any): void => {
     AuthenticationService.register(req.body, 'Admin').then((user) => {
         res.send({
             success: true,
@@ -30,7 +29,7 @@ exports.registerAdmin = (req, res) => {
     });
 }
 
-exports.authenticate = (req, res) => {
+exports.authenticate = (req: any, res: any): void => {
     AuthenticationService.authenticate(req.body.mail, req.body.password).then((token) => {
         res.send({
             success: true,

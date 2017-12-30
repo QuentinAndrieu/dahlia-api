@@ -1,7 +1,7 @@
-'use strict';
+//@Flow
+import mongoose from 'mongoose';
 
-let mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+let Schema = mongoose.Schema;
 
 let PatientSchema = new Schema({
     id_user: {
@@ -30,7 +30,7 @@ let PatientSchema = new Schema({
         default: new Date()
     },
     trash: {
-        type: String,
+        type: Boolean,
         default: false
     }
 });

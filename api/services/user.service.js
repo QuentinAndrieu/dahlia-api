@@ -1,11 +1,10 @@
-'use strict';
+import mongoose from 'mongoose';
+import winston from 'winston';
+import { IUser } from '../interfaces/user.interface';
 
-let mongoose = require('mongoose'),
-    User = mongoose.model('User'),
-    winston = require('winston');
+let User = mongoose.model('User');
 
-
-exports.save = (user) => {
+exports.save = (user: IUser): Promise<IUser> => {
     return new Promise((resolve, reject) => {
         winston.info('SAVE_USER');
 
@@ -22,7 +21,7 @@ exports.save = (user) => {
     });
 }
 
-exports.getAll = () => {
+exports.getAll = (): Promise<IUser[]> => {
     return new Promise((resolve, reject) => {
         winston.info('GET_ALL_USERS');
 
@@ -38,7 +37,7 @@ exports.getAll = () => {
     });
 }
 
-exports.getById = (userId) => {
+exports.getById = (userId: string): Promise<IUser> => {
     return new Promise((resolve, reject) => {
         winston.info('GET_USER_BY_ID', userId);
 
@@ -59,7 +58,7 @@ exports.getById = (userId) => {
     });
 }
 
-exports.updateById = (user, userId) => {
+exports.updateById = (user: IUser, userId: string): Promise<IUser> => {
     return new Promise((resolve, reject) => {
         winston.info('UPDATE_USER_BY_ID', userId);
 
@@ -83,7 +82,7 @@ exports.updateById = (user, userId) => {
     });
 }
 
-exports.updatePasswordById = (password, userId) => {
+exports.updatePasswordById = (password: string, userId: string): Promise<IUser> => {
     return new Promise((resolve, reject) => {
         winston.info('UPDATE_USER_PASSWORD_BY_ID', userId);
 
@@ -112,7 +111,7 @@ exports.updatePasswordById = (password, userId) => {
     });
 }
 
-exports.removeById = (userId) => {
+exports.removeById = (userId: string): Promise<IUser> => {
     return new Promise((resolve, reject) => {
         winston.info('REMOVE_USER_BY_ID', userId);
 
@@ -136,7 +135,7 @@ exports.removeById = (userId) => {
     });
 }
 
-exports.updateToTrashById = (userId) => {
+exports.updateToTrashById = (userId: string): Promise<IUser> => {
     return new Promise((resolve, reject) => {
         winston.info('UPDATE_TO_TRASH_USER_BY_ID', userId);
 
@@ -163,7 +162,7 @@ exports.updateToTrashById = (userId) => {
     });
 }
 
-exports.addPatient = (userId, patientId) => {
+exports.addPatient = (userId: string, patientId: string): Promise<IUser> => {
     return new Promise((resolve, reject) => {
         winston.info('ADD_PATIENT_TO_USER');
 
@@ -194,7 +193,7 @@ exports.addPatient = (userId, patientId) => {
     });
 }
 
-exports.removePatientByPatientId = (userId, patientId) => {
+exports.removePatientByPatientId = (userId: string, patientId: string): Promise<IUser> => {
     return new Promise((resolve, reject) => {
         winston.info('REMOVE_PATIENT_TO_USER');
 
@@ -225,7 +224,7 @@ exports.removePatientByPatientId = (userId, patientId) => {
     });
 }
 
-exports.addAppointment = (userId, appointmentId) => {
+exports.addAppointment = (userId: string, appointmentId: string): Promise<IUser> => {
     return new Promise((resolve, reject) => {
         winston.info('ADD_APPOINTMENT_TO_USER');
 
@@ -256,7 +255,7 @@ exports.addAppointment = (userId, appointmentId) => {
     });
 }
 
-exports.removeAppointment = (userId, appointmentId) => {
+exports.removeAppointment = (userId: string, appointmentId: string): Promise<IUser> => {
     return new Promise((resolve, reject) => {
         winston.info('REMOVE_APPOINTMENT_TO_USER');
 

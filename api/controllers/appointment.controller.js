@@ -1,11 +1,10 @@
-'use strict';
-
-let PatientService = require('../services/patient.service'),
-    UserService = require('../services/user.service'),
-    AppointmentService = require('../services/appointment.service');
+//@Flow
+import PatientService from '../services/patient.service';
+import UserService from '../services/user.service';
+import AppointmentService from '../services/appointment.service';
 
 // admin controller
-exports.listAdmin = (req, res) => {
+exports.listAdmin = (req: any, res: any): void => {
     AppointmentService.getAll().then((appointments) => {
         res.send({
             success: true,
@@ -19,7 +18,7 @@ exports.listAdmin = (req, res) => {
     });
 };
 
-exports.saveAdmin = (req, res) => {
+exports.saveAdmin = (req: any, res: any): void => {
     let appointmentRes = {};
     let patientRes = {};
     AppointmentService.save(req.body, req.body.id_user).then((appointment) => {
@@ -45,7 +44,7 @@ exports.saveAdmin = (req, res) => {
 
 
 
-exports.saveAdmin = (req, res) => {
+exports.saveAdmin = (req: any, res: any) => {
     let appointmentRes = {};
     let patientRes = {};
     AppointmentService.save(req.body, req.body.id_user).then((appointment) => {
@@ -69,7 +68,7 @@ exports.saveAdmin = (req, res) => {
     });
 };
 
-exports.readAdmin = (req, res) => {
+exports.readAdmin = (req: any, res: any) => {
     AppointmentService.getById(req.params.appointmentId).then((appointment) => {
         res.send({
             success: true,
@@ -83,7 +82,7 @@ exports.readAdmin = (req, res) => {
     });
 };
 
-exports.updateAdmin = (req, res) => {
+exports.updateAdmin = (req: any, res: any) => {
     let appointmentRes = {};
     AppointmentService.updateById(req.body, req.params.appointmentId).then((appointment) => {
         appointmentRes = appointment;
@@ -102,7 +101,7 @@ exports.updateAdmin = (req, res) => {
     });
 };
 
-exports.removeAdmin = (req, res) => {
+exports.removeAdmin = (req: any, res: any) => {
     let appointmentRes = {};
     let patientRes = {};
     AppointmentService.removeById(req.params.appointmentId).then((appointment) => {
@@ -126,7 +125,7 @@ exports.removeAdmin = (req, res) => {
     });
 };
 
-exports.updateToTrashAdmin = (req, res) => {
+exports.updateToTrashAdmin = (req: any, res: any) => {
     let userRes = {};
     AppointmentService.updateToTrashById(req.params.appointmentId).then((appointment) => {
         return UserService.getById(appointment.id_user);
@@ -145,7 +144,7 @@ exports.updateToTrashAdmin = (req, res) => {
 };
 
 // client controller
-exports.list = (req, res) => {
+exports.list = (req: any, res: any) => {
     AppointmentService.getAllByUserId(req.user._id).then((appointments) => {
         res.send({
             success: true,
@@ -159,7 +158,7 @@ exports.list = (req, res) => {
     });
 };
 
-exports.save = (req, res) => {
+exports.save = (req: any, res: any) => {
     let appointmentRes = {};
     let patientRes = {};
     AppointmentService.save(req.body, req.user._id).then((appointment) => {
@@ -183,7 +182,7 @@ exports.save = (req, res) => {
     });
 };
 
-exports.read = (req, res) => {
+exports.read = (req: any, res: any) => {
     AppointmentService.getByIdAndUserId(req.user._id, req.params.appointmentId).then((appointment) => {
         res.send({
             success: true,
@@ -197,7 +196,7 @@ exports.read = (req, res) => {
     });
 };
 
-exports.update = (req, res) => {
+exports.update = (req: any, res: any) => {
     let appointmentRes = {};
     AppointmentService.updateByIdAndUserId(req.body, req.user._id, req.params.appointmentId).then((appointment) => {
         appointmentRes = appointment;
@@ -216,7 +215,7 @@ exports.update = (req, res) => {
     });
 };
 
-exports.remove = (req, res) => {
+exports.remove = (req: any, res: any) => {
     let appointmentRes = {};
     let patientRes = {};
     AppointmentService.removeByIdAndUserId(req.user._id, req.params.appointmentId).then((appointment) => {
@@ -241,7 +240,7 @@ exports.remove = (req, res) => {
     });
 };
 
-exports.updateToTrash = (req, res) => {
+exports.updateToTrash = (req: any, res: any) => {
     let appointmentRes = {};
     AppointmentService.updateToTrashByIdAndUserId(req.user._id, req.params.appointmentId).then((appointment) => {
         appointmentRes = appointment;

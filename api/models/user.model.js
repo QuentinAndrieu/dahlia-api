@@ -1,9 +1,9 @@
-'use strict';
+//@Flow
+import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
+import winston from 'winston';
 
-let mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    bcrypt = require('bcrypt'),
-    winston = require('winston');
+let Schema = mongoose.Schema;
 
 let UserSchema = new Schema({
     username: {
@@ -51,7 +51,7 @@ let UserSchema = new Schema({
         default: new Date()
     },
     trash: {
-        type: String,
+        type: Boolean,
         default: false
     }
 });
