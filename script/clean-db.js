@@ -1,7 +1,7 @@
-let User = require('../api/models/user.model'),
-    Patient = require('../api/models/patient.model'),
-    Appointment = require('../api/models/appointment.model'),
-    config = require('../api/config/main'),
+let User = require('../lib/models/user.model'),
+    Patient = require('../lib/models/patient.model'),
+    Appointment = require('../lib/models/appointment.model'),
+    config = require('../lib/config/main'),
     mongoose = require('mongoose'),
     winston = require('winston');
 
