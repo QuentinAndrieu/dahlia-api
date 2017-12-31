@@ -1,3 +1,4 @@
+//@Flow
 import mongoose from 'mongoose';
 import winston from 'winston';
 import { IUser } from '../interfaces/user.interface';

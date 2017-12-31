@@ -12,7 +12,7 @@
     "postinstall": "babel api/ -d lib/ && node script/clean-db.js && node script/default-admin.js",
     "deploy": "git push origin master && git push heroku master",
     "flow": "flow",
-    "flow:check": "flow check ./api/",
+    "flow:check": "flow check ./api",
     "flow:build": "flow-remove-types ./api/ -d ./lib/ --all --pretty",
     "flow:deps": "flow-typed install"
   },
@@ -28,7 +28,6 @@
   "homepage": "https://github.com/QuentinAndrieu/dahlia-api#readme",
   "devDependencies": {
     "flow-bin": "^0.62.0",
-    "flow-remove-types": "^1.2.3",
     "flow-typed": "^2.2.3"
   },
   "dependencies": {

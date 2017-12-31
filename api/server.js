@@ -1,3 +1,4 @@
+//@Flow
 import express from 'express';
 import mongoose from 'mongoose';
 import Patient from './models/patient.model';
@@ -8,7 +9,8 @@ import passport from 'passport';
 import cors from 'cors';
 import config from './config/main';
 import bodyParser from 'body-parser';
-
+import routes from './routes/routes';
+import winston from 'winston';
 
 let app = express(),
     port = process.env.PORT || 3000;
@@ -27,10 +29,8 @@ app.use(cors());
 // Log requests to console
 app.use(morgan('dev'));
 
-let routes = require('./routes/routes'); //importing route
 routes(app); //register the route
-
 
 app.listen(port);
 
-console.log('Dahlia RESTful API server started on: ' + port);
+winston.info('Dahlia RESTful API server started on: ' + port);
