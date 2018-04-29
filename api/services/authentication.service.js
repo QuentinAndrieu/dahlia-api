@@ -17,16 +17,13 @@ exports.register = (user: IUser, role: string): Promise<IUser> => {
             winston.error('REGISTER_REJECTED', 'Missing mail or password');
             reject('Please enter mail and password.');
         } else {
-            User.find({
+            User.findOne({
                 mail: user.mail
-            }, (err, user) => {
-                if(user){
-                    winston.error('REGISTER_REJECTED', 'User already exist');
-                    reject('User already exist');
-                } else {
+            }, (err, existing_user) => {
+                if (!existing_user) {
                     let new_user = new User(user);
                     new_user.role = role;
-        
+
                     // Attempt to save the user
                     new_user.save((err, user) => {
                         if (err) {
@@ -37,6 +34,9 @@ exports.register = (user: IUser, role: string): Promise<IUser> => {
                             resolve(user);
                         }
                     });
+                } else {
+                    winston.error('REGISTER_REJECTED', 'User already exist');
+                    reject('User already exist');
                 }
             });
         }
