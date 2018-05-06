@@ -24,6 +24,10 @@ let PatientSchema = new Schema({
         type: String,
         required: 'Required description'
     },
+    occupation: {
+        type: String,
+        required: 'Required occupation'
+    },
     appointments: [{ type: Schema.Types.ObjectId, ref: 'Appointment' }],
     createdAt: {
         type: Date,
