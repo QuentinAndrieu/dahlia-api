@@ -25,13 +25,15 @@ let UserSchema = new Schema({
         type: String,
         required: 'Required password'
     },
-    setting: {
-        durations: [{
-            type: Number
-        }],
-        rates: [{
-            type: Number
-        }]
+    defaultRate:{
+        type: Number,
+        required: 'Required default rate',
+        default: 60
+    },
+    defaultDuration:{
+        type: Number,
+        required: 'Required default duration',
+        default: 30
     },
     role: {
         type: String,

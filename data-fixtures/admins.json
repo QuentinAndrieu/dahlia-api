@@ -5,6 +5,8 @@
         "firstname": "firstname admin",
         "mail": "admin@admin.com",
         "password": "passwordadmin",
-        "role": "Admin"
+        "role": "Admin",
+        "defaultRate": 60,
+        "defaultDuration": 30
     }
 }

@@ -1,5 +1,4 @@
 //@Flow
-import { ISetting } from "./setting.interface";
 import { IPatient } from "./patient.interface";
 import { IAppointment } from "./appointment.interface";
 
@@ -10,7 +9,8 @@ export interface IUser {
     firstname: string;
     mail: string;
     password: string;
-    setting:ISetting;
+    defaultRate: number;
+    defaultDuration: number;
     role: string;
     patients: IPatient[];
     appointments: IAppointment[];
