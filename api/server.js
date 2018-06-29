@@ -33,10 +33,4 @@ routes(app); //register the route
 
 app.listen(port);
 
-// Ping server every 5 minutes to keep heroku app active
-setInterval(() => {
-    app.get('https://dahlia-api.herokuapp.com');
-}, 300000);
-
-
 winston.info('Dahlia RESTful API server started on: ' + port);
